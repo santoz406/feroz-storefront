@@ -793,8 +793,9 @@
       if (isUnlocked) {
         badge.textContent = 'Unlocked';
         badge.className = 'status-tag status-unlocked';
+        const token = localStorage.getItem('fz_token') || '';
         action.innerHTML = `
-          <a href="downloads/${fileName}" download class="btn-download btn-download-active">
+          <a href="${API_BASE}/v1/downloads/${tierSlug}?token=${encodeURIComponent(token)}" download="${fileName}" class="btn-download btn-download-active">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Download ${fileName}
           </a>
