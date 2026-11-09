@@ -239,14 +239,47 @@
       card.addEventListener('mouseleave', function () { if (!seeking) grow(false); });
 
       if (frame) {
-        loadVimeoSDK(function () {
-          var player = new window.Vimeo.Player(frame);
-          player.ready().then(function () {
-            player.setMuted(true).catch(function () {});
-            player.setLoop(false).catch(function () {});
-            player.getDuration().then(function (d) { duration = d || 0; }).catch(function () {});
-          }).catch(function () {});
-          function toggle() {
+        function activateFrame(cb) {
+          if (!frame.src && frame.dataset.src) {
+            frame.src = frame.dataset.src;
+          }
+          loadVimeoSDK(function () {
+            if (!card._vimeoPlayer) {
+              var player = new window.Vimeo.Player(frame);
+              card._vimeoPlayer = player;
+              player.ready().then(function () {
+                player.setMuted(true).catch(function () {});
+                player.setLoop(false).catch(function () {});
+                player.getDuration().then(function (d) { duration = d || 0; }).catch(function () {});
+                if (cb) cb(player);
+              }).catch(function () {});
+
+              player.on('play', function () { showBtn(false); });
+              player.on('pause', function () { showBtn(true); });
+              player.on('ended', function () { showBtn(true); paintByRatio(1); });
+              player.on('timeupdate', function (data) {
+                if (!seeking && duration > 0) paintByRatio(data.seconds / duration);
+              });
+            } else if (cb) {
+              cb(card._vimeoPlayer);
+            }
+          });
+        }
+
+        if ('IntersectionObserver' in window) {
+          var observer = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) {
+              activateFrame();
+              observer.disconnect();
+            }
+          }, { rootMargin: '200px' });
+          observer.observe(card);
+        } else {
+          activateFrame();
+        }
+
+        function toggle() {
+          activateFrame(function (player) {
             player.getPaused().then(function (paused) {
               if (paused) {
                 player.getEnded().then(function (ended) {
@@ -260,9 +293,10 @@
                 player.pause().catch(function () {});
               }
             }).catch(function () {});
-          }
-          card.addEventListener('click', toggle);
-          if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+          });
+        }
+        card.addEventListener('click', toggle);
+        if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
           player.on('play', function () { card.dataset.playing = '1'; showBtn(false); });
           player.on('pause', function () { delete card.dataset.playing; showBtn(true); });
           player.on('ended', function () { delete card.dataset.playing; showBtn(true); paintByRatio(1); });
@@ -334,9 +368,26 @@
   }
 
   /* ============================================================
-     CART (real Shopify AJAX cart + drawer)
+     CART (Instant Local Cart + Drawer + Stripe Checkout)
      ============================================================ */
+  var CATALOG = {
+    apex: { id: 'apex', title: 'Apex | Fortnite', price: 4999, image: 'assets/product-apex.png', game: 'Fortnite' },
+    viper: { id: 'viper', title: 'Viper | Call of Duty', price: 4999, image: 'assets/product-viper.png', game: 'Call of Duty' },
+    mamba: { id: 'mamba', title: 'Mamba | NBA 2K26', price: 4999, image: 'assets/product-mamba.png', game: 'NBA 2K26' },
+    bundle: { id: 'bundle', title: 'All-Access Script Suite', price: 9999, image: 'assets/product-apex.png', game: 'Fortnite · COD · 2K26' }
+  };
+
   var Cart = {
+    getItems: function () {
+      try {
+        var raw = localStorage.getItem('fz_cart');
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) { return []; }
+    },
+    saveItems: function (items) {
+      try { localStorage.setItem('fz_cart', JSON.stringify(items)); } catch (e) {}
+      this.refresh();
+    },
     open: function () {
       var d = document.getElementById('fzCart');
       if (d) { d.hidden = false; document.body.style.overflow = 'hidden'; }
@@ -346,39 +397,82 @@
       var d = document.getElementById('fzCart');
       if (d) { d.hidden = true; document.body.style.overflow = ''; }
     },
-    add: function (variantId, qty) {
-      if (!variantId) {
-        // Not linked to a Shopify product yet — open drawer so merchant sees state.
-        console.warn('[Feroz] This item has no Shopify product linked. Assign one in Theme editor → section settings.');
-        this.open();
-        return Promise.resolve(null);
+    add: function (tierId) {
+      var key = String(tierId || 'apex').toLowerCase();
+      var prod = CATALOG[key] || CATALOG.apex;
+      var items = this.getItems();
+      var existing = items.find(function (it) { return it.id === prod.id; });
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        items.push({
+          id: prod.id,
+          title: prod.title,
+          price: prod.price,
+          image: prod.image,
+          game: prod.game,
+          quantity: 1
+        });
       }
-      var self = this;
-      return fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ id: variantId, quantity: qty || 1 })
-      }).then(function (r) { return r.json(); }).then(function (res) {
-        self.open();
-        return res;
-      }).catch(function (e) { console.error('[Feroz] add to cart failed', e); });
+      this.saveItems(items);
+      this.open();
     },
-    changeQty: function (key, qty) {
-      var self = this;
-      return fetch('/cart/change.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ id: key, quantity: qty })
-      }).then(function (r) { return r.json(); }).then(function () { self.refresh(); });
+    changeQty: function (id, qty) {
+      var items = this.getItems();
+      if (qty <= 0) {
+        items = items.filter(function (it) { return it.id !== id; });
+      } else {
+        var item = items.find(function (it) { return it.id === id; });
+        if (item) item.quantity = qty;
+      }
+      this.saveItems(items);
     },
     refresh: function () {
-      return fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
-        .then(function (r) { return r.json(); })
-        .then(function (cart) { Cart.render(cart); return cart; })
-        .catch(function () {});
+      var items = this.getItems();
+      var totalCount = items.reduce(function (sum, it) { return sum + it.quantity; }, 0);
+      var totalPrice = items.reduce(function (sum, it) { return sum + (it.price * it.quantity); }, 0);
+      if (items.length >= 2 && totalPrice > 9999) totalPrice = 9999;
+      this.render({ items: items, item_count: totalCount, total_price: totalPrice });
+    },
+    checkout: function () {
+      var items = this.getItems();
+      if (!items.length) {
+        alert('Your cart is empty. Please select a script.');
+        return;
+      }
+      var tier = 'apex';
+      if (items.length >= 2 || items.some(function(it) { return it.id === 'bundle'; })) {
+        tier = 'bundle';
+      } else {
+        tier = items[0].id;
+      }
+
+      var checkoutBtn = document.querySelector('[data-cart-checkout]');
+      if (checkoutBtn) {
+        checkoutBtn.innerText = 'Redirecting to Stripe...';
+        checkoutBtn.disabled = true;
+      }
+
+      fetch('https://feroz-server.onrender.com/v1/checkout/create-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier: tier, return_url: window.location.origin })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok && data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Could not initiate checkout: ' + (data.error || 'Server error'));
+          if (checkoutBtn) { checkoutBtn.innerText = 'Proceed to Checkout'; checkoutBtn.disabled = false; }
+        }
+      })
+      .catch(function () {
+        alert('Checkout service temporarily unreachable.');
+        if (checkoutBtn) { checkoutBtn.innerText = 'Proceed to Checkout'; checkoutBtn.disabled = false; }
+      });
     },
     render: function (cart) {
-      // badge
       document.querySelectorAll('[data-cart-count]').forEach(function (el) {
         el.textContent = cart.item_count;
         el.closest('[data-cart-badge]') && (el.closest('[data-cart-badge]').hidden = cart.item_count === 0);
@@ -396,16 +490,15 @@
       }
       var html = '<div style="display:flex;flex-direction:column;gap:12px;">';
       cart.items.forEach(function (it) {
-        var img = it.image ? it.image.replace(/(\.[a-z]+)(\?.*)?$/i, '_120x$1$2') : '';
         html += '<div style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);">'
-          + (img ? '<img src="' + img + '" alt="" width="42" height="42" loading="lazy" style="width:42px;height:42px;object-fit:contain;flex:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));">' : '')
+          + '<img src="' + it.image + '" alt="" width="42" height="42" loading="lazy" style="width:42px;height:42px;object-fit:contain;flex:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));">'
           + '<div style="flex:1;min-width:0;">'
-          + '<div style="font-size:14px;font-weight:600;">' + it.product_title + '</div>'
-          + (it.variant_title && it.variant_title !== 'Default Title' ? '<div style="font-size:12px;color:var(--dim);margin-top:2px;">' + it.variant_title + '</div>' : '')
-          + '<div style="font-size:12px;color:var(--dim);margin-top:3px;">Qty ' + it.quantity + ' · ' + formatMoney(it.price) + '</div>'
+          + '<div style="font-size:14px;font-weight:600;">' + it.title + '</div>'
+          + '<div style="font-size:12px;color:var(--dim);margin-top:2px;">' + it.game + '</div>'
+          + '<div style="font-size:12px;color:var(--dim);margin-top:3px;">Qty ' + it.quantity + ' · €' + (it.price / 100).toFixed(2) + '</div>'
           + '</div>'
-          + '<div style="font-size:14px;font-weight:600;">' + formatMoney(it.line_price) + '</div>'
-          + '<button data-cart-remove="' + it.key + '" aria-label="Remove" style="display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border-radius:7px;cursor:pointer;color:var(--mut);border:1px solid var(--line);background:rgba(255,255,255,.03);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"></path></svg></button>'
+          + '<div style="font-size:14px;font-weight:600;">€' + ((it.price * it.quantity) / 100).toFixed(2) + '</div>'
+          + '<button data-cart-remove="' + it.id + '" aria-label="Remove" style="display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border-radius:7px;cursor:pointer;color:var(--mut);border:1px solid var(--line);background:rgba(255,255,255,.03);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"></path></svg></button>'
           + '</div>';
       });
       html += '</div>';
@@ -413,7 +506,7 @@
       if (footer) {
         footer.hidden = false;
         var sub = footer.querySelector('[data-cart-subtotal]');
-        if (sub) sub.textContent = formatMoney(cart.total_price);
+        if (sub) sub.textContent = '€' + (cart.total_price / 100).toFixed(2);
       }
       body.querySelectorAll('[data-cart-remove]').forEach(function (b) {
         b.addEventListener('click', function () { Cart.changeQty(b.getAttribute('data-cart-remove'), 0); });
@@ -429,12 +522,24 @@
       var closeBtn = e.target.closest('[data-cart-close]');
       if (closeBtn) { e.preventDefault(); Cart.close(); return; }
       var checkout = e.target.closest('[data-cart-checkout]');
-      if (checkout) { e.preventDefault(); window.location.href = '/checkout'; return; }
-      var add = e.target.closest('[data-add-variant]');
+      if (checkout) { e.preventDefault(); Cart.checkout(); return; }
+      var add = e.target.closest('[data-add-variant], .addCart, [data-add-premium]');
       if (add) {
         e.preventDefault();
         var vid = add.getAttribute('data-add-variant');
-        Cart.add(vid, 1);
+        if (!vid) {
+          var card = add.closest('#prod-apex, #prod-viper, #prod-mamba') || add.closest('.prodCard');
+          if (card) {
+            if (card.id.includes('viper')) vid = 'viper';
+            else if (card.id.includes('mamba')) vid = 'mamba';
+            else vid = 'apex';
+          } else if (add.hasAttribute('data-add-premium')) {
+            vid = 'bundle';
+          } else {
+            vid = 'apex';
+          }
+        }
+        Cart.add(vid);
       }
     });
     // initial badge
