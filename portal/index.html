@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Portal | Feroz Zens</title>
+  <link rel="stylesheet" href="assets/base.css">
+  <style>
+    @font-face {
+      font-family: 'StretchPro';
+      src: url('assets/StretchPro.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root {
+      --bg: #09090b;
+      --card-bg: rgba(18, 16, 20, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --red: #e11526;
+      --red-bright: #ff3347;
+      --red-glow: rgba(225, 21, 38, 0.45);
+      --tx: #f3f3f5;
+      --tx-dim: #9b9ba4;
+      --green: #10b981;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--tx);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 15%, rgba(225, 21, 38, 0.15), transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(225, 21, 38, 0.08), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 36px;
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .logo-img {
+      height: 38px;
+      width: auto;
+    }
+    .logo-title {
+      font-family: 'StretchPro', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx);
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .main-wrap {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+    .portal-box {
+      width: 100%;
+      max-width: 680px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+    .badge-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-red {
+      background: rgba(225, 21, 38, 0.15);
+      color: var(--red-bright);
+      border: 1px solid rgba(225, 21, 38, 0.3);
+    }
+    .portal-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 10px;
+    }
+    .portal-sub {
+      color: var(--tx-dim);
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 0 0 32px;
+    }
+    .key-display {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px dashed rgba(225, 21, 38, 0.4);
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .key-val {
+      font-family: monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.08em;
+    }
+    .btn-copy {
+      padding: 8px 14px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-copy:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .download-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .download-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .download-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(225, 21, 38, 0.4);
+      transform: translateY(-2px);
+    }
+    .dl-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .dl-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(225, 21, 38, 0.12);
+      border: 1px solid rgba(225, 21, 38, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red-bright);
+    }
+    .dl-name {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+    .dl-meta {
+      font-size: 12px;
+      color: var(--tx-dim);
+    }
+    .btn-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #ff4757, var(--red) 50%, #990011);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 10px 24px -10px var(--red-glow);
+      transition: opacity 0.15s;
+    }
+    .btn-dl:hover {
+      opacity: 0.92;
+    }
+    .discord-card {
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.12), rgba(88, 101, 242, 0.04));
+      border: 1px solid rgba(88, 101, 242, 0.3);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .discord-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .discord-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .discord-desc {
+      font-size: 13.5px;
+      color: #cfcfe2;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .discord-code-box {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #7289da;
+      margin-bottom: 16px;
+    }
+    .btn-discord {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 8px;
+      background: #5865F2;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn-discord:hover {
+      background: #4752c4;
+    }
+    .input-box {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 14px;
+      outline: none;
+      font-family: monospace;
+    }
+    .input-box:focus {
+      border-color: var(--red);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #ff4757, var(--red) 50%, #990011);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      box-shadow: 0 10px 24px -10px var(--red-glow);
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <header class="header">
+    <a href="/" class="logo-link">
+      <img src="assets/logo.png" alt="Feroz" class="logo-img">
+      <span class="logo-title">Feroz Zens</span>
+    </a>
+    <a href="https://discord.gg/feroz" target="_blank" class="nav-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+      Discord Server
+    </a>
+  </header>
+
+  <main class="main-wrap">
+    <div class="portal-box" id="portalContainer">
+      <!-- Loading State -->
+      <div id="stateLoading" style="text-align: center; padding: 40px 0;">
+        <div style="font-size: 16px; color: var(--tx-dim);">Loading your license details...</div>
+      </div>
+
+      <!-- Active Content (Shown via JS) -->
+      <div id="stateActive" style="display: none;">
+        <div class="badge badge-success" id="statusBadge">Order Confirmed</div>
+        <h1 class="portal-title" id="tierTitle">Access Unlocked</h1>
+        <p class="portal-sub" id="portalSubtitle">Your purchase has been verified. Download your script files below and redeem your roles in Discord.</p>
+
+        <!-- Discord Role Claim Card -->
+        <div class="discord-card">
+          <div class="discord-head">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            <div class="discord-title">Claim Discord Roles & Private Channels</div>
+          </div>
+          <div class="discord-desc">
+            Type <strong>/redeem</strong> in any ticket or commands channel on our Discord server, or connect your account:
+          </div>
+          <a id="btnDiscordLogin" href="https://feroz-server.onrender.com/v1/auth/discord/start?mode=web" class="btn-discord">
+            Link Discord Account
+          </a>
+        </div>
+
+        <!-- Downloads Grid -->
+        <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 14px;">Your Downloads</h3>
+        <div class="download-grid" id="downloadsList">
+          <!-- Dynamic Download Cards -->
+        </div>
+      </div>
+
+      <!-- Manual Lookup State -->
+      <div id="stateManual" style="display: none;">
+        <div class="badge badge-red">Customer Login</div>
+        <h1 class="portal-title">Access Your Scripts</h1>
+        <p class="portal-sub">Enter your Feroz license key or log in with Discord to download your script files.</p>
+        
+        <form id="keyForm">
+          <input type="text" id="licenseKeyInput" class="input-box" placeholder="FEROZ-XXXX-XXXX-XXXX-XXXX" required>
+          <button type="submit" class="btn-submit">Verify License Key</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 24px; color: var(--tx-dim); font-size: 14px;">
+          or <a href="https://feroz-server.onrender.com/v1/auth/discord/start?mode=web" style="color: #7289da; text-decoration: none; font-weight: 600;">Log in with Discord</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = 'https://feroz-server.onrender.com';
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+    const status = params.get('status');
+    const token = localStorage.getItem('fz_token');
+
+    const stateLoading = document.getElementById('stateLoading');
+    const stateActive = document.getElementById('stateActive');
+    const stateManual = document.getElementById('stateManual');
+    const downloadsList = document.getElementById('downloadsList');
+
+    function renderDownloads(tier, key) {
+      const isBundle = tier === 'bundle';
+      const items = [];
+
+      if (isBundle || tier === 'apex') {
+        items.push({ name: 'Apex v1.0 (Fortnite)', file: 'Apex_v1.0.gpc', desc: 'Precision aim & anti-recoil master' });
+      }
+      if (isBundle || tier === 'viper') {
+        items.push({ name: 'Viper v1.0 (Call of Duty)', file: 'Viper_v1.0.gpc', desc: 'Sticky rotational aim & slide cancel' });
+      }
+      if (isBundle || tier === 'mamba') {
+        items.push({ name: 'Mamba v1.0 (NBA 2K26)', file: 'Mamba_v1.0.gpc', desc: 'Auto green release & dribble engine' });
+      }
+      // Always add Feroz Optimizer installer
+      items.push({ name: 'Feroz Optimizer V3', file: 'assets/feroz-optimizer-installer.exe', desc: 'Standalone Windows PC utility' });
+
+      downloadsList.innerHTML = items.map(it => `
+        <div class="download-card">
+          <div class="dl-info">
+            <div class="dl-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <div>
+              <div class="dl-name">${it.name}</div>
+              <div class="dl-meta">${it.desc}</div>
+            </div>
+          </div>
+          <a href="${it.file.startsWith('assets') ? it.file : 'downloads/' + it.file}" download class="btn-dl">
+            Download
+          </a>
+        </div>
+      `).join('');
+    }
+
+    if (status === 'success' && sessionId) {
+      fetch(`${API_BASE}/v1/checkout/session/${sessionId}`)
+        .then(r => r.json())
+        .then(data => {
+          stateLoading.style.display = 'none';
+          stateActive.style.display = 'block';
+          const tier = (data.metadata?.tier || 'apex').toLowerCase();
+          document.getElementById('tierTitle').textContent = `Unlocked: ${tier.toUpperCase()} TIER`;
+          renderDownloads(tier);
+        })
+        .catch(() => {
+          stateLoading.style.display = 'none';
+          stateActive.style.display = 'block';
+          renderDownloads('bundle');
+        });
+    } else if (token) {
+      // Check session via token
+      fetch(`${API_BASE}/v1/me`, { headers: { Authorization: `Bearer ${token}` } })
+        .then(r => r.json())
+        .then(data => {
+          stateLoading.style.display = 'none';
+          stateActive.style.display = 'block';
+          const tier = data.entitlements?.studio ? 'bundle' : 'apex';
+          renderDownloads(tier);
+        })
+        .catch(() => {
+          stateLoading.style.display = 'none';
+          stateManual.style.display = 'block';
+        });
+    } else {
+      stateLoading.style.display = 'none';
+      stateManual.style.display = 'block';
+    }
+
+    // Manual key validation
+    document.getElementById('keyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const key = document.getElementById('licenseKeyInput').value.trim();
+      fetch(`${API_BASE}/v1/keys/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok && data.license) {
+          stateManual.style.display = 'none';
+          stateActive.style.display = 'block';
+          renderDownloads(data.license.tier, key);
+        } else {
+          alert('Invalid or expired license key.');
+        }
+      })
+      .catch(() => alert('Server connection error.'));
+    });
+  </script>
+</body>
+</html>

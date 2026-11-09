@@ -1,0 +1,524 @@
+/* ============================================================================
+   Edge  FREE  v1.0   |  Fortnite  |  Cronus Zen GPC
+   FREE give-away build.  (c) ferozzens.com  -  @numby
+   ----------------------------------------------------------------------------
+   Basic aim assist + auto track + light anti-recoil + rapid fire + hair trigger.
+   Runs the same FEROZ AIM ENGINE v2 as the paid line, at free-tier power.
+   No profiles / no VM overclock -> that is the PREMIUM (paid) line.
+   MENU: hold L2 + tap OPTIONS.  L1/R1 = section.  LEFT/RIGHT move items.
+   UP/DOWN change value.  CIRCLE = save.
+   ============================================================================
+   @ZENFORGE
+   {
+     "name":"Edge FREE","game":"fortnite","version":"1.0","tier":"free",
+     "menu_open":"HOLD L2 + OPTIONS",
+     "mods":[
+       {"id":0,"label":"AIM ASSIST","var":"t_aim","pvar":"SPVAR_1","type":"toggle","default":1},
+       {"id":1,"label":"AA STRENGTH","var":"v_aastr","pvar":"SPVAR_2","type":"value","min":0,"max":10,"default":4},
+       {"id":2,"label":"ANTI RECOIL","var":"v_arec","pvar":"SPVAR_3","type":"value","min":0,"max":25,"default":5},
+       {"id":3,"label":"RAPID FIRE","var":"t_rapid","pvar":"SPVAR_4","type":"toggle","default":0},
+       {"id":4,"label":"FIRE RATE","var":"v_rof","pvar":"SPVAR_5","type":"value","min":1,"max":15,"default":10},
+       {"id":5,"label":"HAIR TRIGGER","var":"t_hair","pvar":"SPVAR_6","type":"toggle","default":0},
+       {"id":6,"label":"RESPONSE CURVE","var":"e_curve","pvar":"SPVAR_7","type":"enum","min":0,"max":1,"default":0,"labels":["LINEAR","EXPO"]},
+       {"id":7,"label":"AA SMOOTH","var":"v_smooth","pvar":"SPVAR_8","type":"value","min":0,"max":100,"default":60},
+       {"id":8,"label":"AUTO TRACK","var":"t_track","pvar":"SPVAR_9","type":"toggle","default":1},
+       {"id":9,"label":"GAIN","var":"v_gain","pvar":"SPVAR_10","type":"value","min":0,"max":200,"default":100}
+     ],
+     "internal":{"engine":"feroz aim engine v2 (centi-unit accumulator / IIR smoothing / soft falloff)"}
+   }
+   @ENDZENFORGE
+   ============================================================================ */
+
+define OUT_PC   = 0;
+define OUT_PS5  = 1;
+define OUT_XBOX = 2;
+define OUTPUT       = OUT_PC;     
+define USER_LOOK = 40;
+define USER_ADS  = 15;
+define CFG_STAMP   = 0;
+define CFG_VERSION = 3;
+
+/* -- Feroz Aim Engine v2 tuning (free tier) ------------------------------
+   AA_HOLD / AA_RELEASE bracket the soft fade-out: full assist while the
+   stick is parked, tapering to nothing as you flick, so it never snaps
+   on or off mid-fight. AA_ATTACK / AA_DECAY are the envelope ramp in
+   gain-% per ms. AA_YSQUASH keeps the orbit elliptical (flatter than it
+   is tall), which is how targets actually move.                          */
+define AA_HOLD     = 10;
+define AA_RELEASE  = 85;
+define AA_FLOOR    = 30;
+define AA_ATTACK   = 25;
+define AA_DECAY    = 4;
+define AA_YSQUASH  = 60;
+define AA_MICRO    = 60;   /* orbit radius as a % of AA STRENGTH -- a tight,
+                             fast micro shake trips the game's assist by stick
+                             speed, so a smaller circle spun faster pulls
+                             harder while the crosshair wanders far less.     */
+
+define BTN_FIRE     = PS4_R2;
+define BTN_ADS      = PS4_L2;
+define MENU_BTN     = PS4_OPTIONS;
+define NAV_UP       = PS4_UP;
+define NAV_DOWN     = PS4_DOWN;
+define NAV_LEFT     = PS4_LEFT;
+define NAV_RIGHT    = PS4_RIGHT;
+define BTN_SAVE     = PS4_CIRCLE;
+define RX = PS4_RX;
+define RY = PS4_RY;
+define LX = PS4_LX;
+define LY = PS4_LY;
+
+const int8 SIN_Q[] = { 0, 2, 3, 5, 7, 9, 10, 12, 14, 16, 17, 19, 21, 22, 24, 26, 28, 29, 31, 33, 34, 36, 37, 39, 41, 42, 44, 45, 47, 48, 50, 52, 53, 54, 56, 57, 59, 60, 62, 63, 64, 66, 67, 68, 69, 71, 72, 73, 74, 75, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 87, 88, 89, 90, 91, 91, 92, 93, 93, 94, 95, 95, 96, 96, 97, 97, 97, 98, 98, 98, 99, 99, 99, 99, 100, 100, 100, 100, 100, 100 };
+
+/* -- AUTO TRACK (free tier) -----------------------------------------------
+   Same tracker as the paid line, run at standard power. It keeps a slewed
+   memory of the sweep: latches on in ~40 ms (TRACK_ATK) so flicks stay
+   responsive, then bleeds out over ~220 ms (TRACK_DEC) so the crosshair
+   keeps driving after the stick settles. That follow-through is what holds
+   a strafing target - scaling the live stick value alone is aim
+   acceleration, not tracking, and does nothing with the stick parked.
+   TRACK_PCT is the free-tier gain; the premium line runs it harder and adds
+   a rumble hit-confirm boost on top.                                      */
+define TRACK_PCT   = 45;
+define TRACK_ATK   = 250;
+define TRACK_DEC   = 45;
+define TRACK_YPCT  = 25;
+
+define ITEM_COUNT = 10;
+
+const string TITLE    = "Edge";
+const string BANNER      = "Edge 1.0";
+const string ITEMS[]  = { "AIM ASSIST","AA STRENGTH","ANTI RECOIL","RAPID FIRE","FIRE RATE",
+                          "HAIR TRIGGER","RESPONSE CURVE","AA SMOOTH","AUTO TRACK","GAIN" };
+const string ONOFF[]  = { "OFF","ON" };
+const string RCURVE[] = { "LINEAR","EXPO" };
+const string STR_SAVED = "SETTINGS";
+const string STR_SAVED2= "SAVED!";
+const string SECN[]   = { "AIM","EXTRAS","PREMIUM" };
+const string LOADING  = "LOADING";
+const string PRM_TOP  = "GET PREMIUM";
+const string PRM_URL  = "ferozzens.com";
+const string PRM_L1   = "GET PREMIUM SCRIPTS";
+
+int t_aim, v_aastr, v_arec, t_rapid, v_rof, t_hair, e_curve, v_smooth, t_track, v_gain;
+int trk_x, trk_y, trk_rate, trk_i, trk_g;
+int fx_ax, fx_ay, fx_rx, fx_ry, lp_x, lp_y, aa_env, aa_tgt;
+int q_x, q_y, o_x, o_y, aa_deg, aa_cx, aa_cy, rf_per;
+int aa_lo;
+int menu_open, sel, nav_cd, dirty, splash_timer, banner_drawn, promo_timer, idle_cycle_t;
+define IDLE_TITLE_MS = 10000;   /* normal banner shown ~10s before cycling */
+define IDLE_PROMO_MS = 4000;    /* then a "GET PREMIUM" callout for ~4s, repeat */
+int aa_angle, aa_on, aa_radius, aa_input, hold_time, rest_time, rec_now;
+int led_tmr;
+int i, feat, bar_fw, j, slen_tmp, ndig;
+int _idx, _div, _d, _neg;
+int section, fx_tmr, booting, boot_t, star_i, shine_t, shine_p, shine_gap;
+int s_len, s_adv, s_x0, si;
+int hub_mode, hub_sel, hub_next, hub_anim, ul_w, ul_tgt, cx, tk, tw;
+int star_x[16], star_y[16], star_s[16], star_sz[16];
+/* ############################################################################
+   #                          FEROZ ENGINE
+   ############################################################################ */
+
+
+function build_num(val) {
+    _idx = 1; _neg = 0;
+    if (val < 0) { val = abs(val); _neg = 1; }
+    if (_neg) { putc_oled(_idx, 45); _idx = _idx + 1; }
+    _div = 1;
+    while (val / (_div * 10) > 0) { _div = _div * 10; }
+    while (_div >= 1) { _d = (val / _div) % 10; putc_oled(_idx, _d + 48); _idx = _idx + 1; _div = _div / 10; }
+    return _idx - 1;
+}
+function print_int_c(py, font, charw, val) { ndig = build_num(val); puts_oled((128 - ndig * charw) / 2, py, font, ndig, OLED_WHITE); }
+function print_c(strp, py, font, cw)  { cx = (128 - get_slen(strp) * cw) / 2; print(cx, py, font, OLED_WHITE, strp); }
+function print_cb(strp, py, font, cw) { cx = (128 - get_slen(strp) * cw) / 2; print(cx, py, font, OLED_WHITE, strp); }
+function draw_tri_l(tx, cy) { for (tk = 0; tk <= 4; tk = tk + 1) { line_oled(tx + tk, cy - tk, tx + tk, cy + tk, 1, 1); } }
+function draw_tri_r(tx, cy) { for (tk = 0; tk <= 4; tk = tk + 1) { line_oled(tx - tk, cy - tk, tx - tk, cy + tk, 1, 1); } }
+function clampi(v, lo, hi) { if (v < lo) return lo; if (v > hi) return hi; return v; }
+function get_sin(a) { a = a % 360; if (a < 0) a = a + 360; if (a <= 90) return SIN_Q[a]; if (a <= 180) return SIN_Q[180 - a]; if (a <= 270) return inv(SIN_Q[a - 180]); return inv(SIN_Q[360 - a]); }
+function get_cos(a) { return get_sin(a + 90); }
+/* ############################################################################
+   #   FEROZ AIM ENGINE v2
+   #
+   #   Modules never call set_val on the aim stick directly. They post an
+   #   offset in CENTI-UNITS (100 = one stick unit) with fx_add(); fx_flush()
+   #   filters the sum and commits it once per tick.
+   #
+   #     * one write per tick  -> modules can't overwrite each other
+   #     * additive            -> your own aim always survives
+   #     * remainder carried   -> a 0.4-unit pull glides instead of
+   #                              stair-stepping between 0 and 1
+   #     * one-pole low-pass   -> kills the high-frequency content that
+   #                              aliases against the game's 60 Hz sampling,
+   #                              which is what read as "jitter"
+   ############################################################################ */
+function fx_add(add_x, add_y) { fx_ax = fx_ax + add_x; fx_ay = fx_ay + add_y; }
+
+function fx_flush(sm) {
+    lp_x = (lp_x * sm + fx_ax * (100 - sm)) / 100;
+    lp_y = (lp_y * sm + fx_ay * (100 - sm)) / 100;
+    fx_ax = 0; fx_ay = 0;
+    q_x = lp_x + fx_rx;  q_y = lp_y + fx_ry;
+    o_x = q_x / 100;     o_y = q_y / 100;
+    fx_rx = q_x - o_x * 100;
+    fx_ry = q_y - o_y * 100;
+    if (o_x != 0) set_val(RX, clampi(get_val(RX) + o_x, -100, 100));
+    if (o_y != 0) set_val(RY, clampi(get_val(RY) + o_y, -100, 100));
+}
+
+function fx_reset() { fx_ax = 0; fx_ay = 0; fx_rx = 0; fx_ry = 0; lp_x = 0; lp_y = 0; aa_env = 0; }
+
+/* 100 while the stick is parked, fading to 0 across the flick window */
+function aa_gain(mag) {
+    /* hold below AA_RELEASE by at least 4 so the taper always has room -
+       a baked AA_HOLD >= AA_RELEASE would collapse this back to a hard gate */
+    aa_lo = AA_HOLD;
+    if (aa_lo > AA_RELEASE - 4) aa_lo = AA_RELEASE - 4;
+    if (aa_lo < 0) aa_lo = 0;
+    if (mag >= AA_RELEASE) return AA_FLOOR;
+    if (mag <= aa_lo)      return 100;
+    return AA_FLOOR + ((AA_RELEASE - mag) * (100 - AA_FLOOR)) / (AA_RELEASE - aa_lo);
+}
+
+function aa_ramp(tgt) {
+    if (aa_env < tgt) { aa_env = aa_env + AA_ATTACK * get_rtime(); if (aa_env > tgt) aa_env = tgt; }
+    else if (aa_env > tgt) { aa_env = aa_env - AA_DECAY * get_rtime(); if (aa_env < tgt) aa_env = tgt; }
+}
+/* AUTO TRACK slew: latch fast onto a new sweep, let go slowly.
+   cur/tgt are centi-units of stick (100 = one stick unit).          */
+function trk_slew(cur, tgt) {
+    if (abs(tgt) > abs(cur)) trk_rate = TRACK_ATK; else trk_rate = TRACK_DEC;
+    if (cur < tgt) { cur = cur + trk_rate * get_rtime(); if (cur > tgt) cur = tgt; }
+    else if (cur > tgt) { cur = cur - trk_rate * get_rtime(); if (cur < tgt) cur = tgt; }
+    return cur;
+}
+
+function get_slen(strp) { slen_tmp = 0; while (duint8(strp)) { strp = strp + 1; slen_tmp = slen_tmp + 1; } return slen_tmp; }
+function press_hold(b) { return event_press(b) || (get_ival(b) && get_ptime(b) > 280 && !(get_ptime(b) % 90)); }
+function apply_led() { if (t_aim) set_rgb(0, 90, 255); else set_rgb(255, 0, 0); }   
+
+function draw_stretch(strp, py, extra) {
+    s_len = get_slen(strp);
+    s_adv = OLED_FONT_MEDIUM_WIDTH + extra;
+    s_x0 = (128 - (s_len * OLED_FONT_MEDIUM_WIDTH + (s_len - 1) * extra)) / 2;
+    for (si = 0; si < s_len; si = si + 1) {
+        putc_oled(1, duint8(strp + si)); puts_oled(s_x0 + si * s_adv,     py, OLED_FONT_MEDIUM, 1, OLED_WHITE);
+        putc_oled(1, duint8(strp + si)); puts_oled(s_x0 + si * s_adv + 1, py, OLED_FONT_MEDIUM, 1, OLED_WHITE);
+    }
+}
+function draw_banner() {
+    cls_oled(OLED_BLACK);
+    draw_stars();
+    shine_p = shine_t % 4000;
+    if (shine_p < 2000) shine_gap = (shine_p * 5) / 2000; else shine_gap = ((4000 - shine_p) * 5) / 2000;
+    draw_stretch(BANNER[0], 18, shine_gap);
+    print((128 - get_slen(PRM_URL[0]) * OLED_FONT_SMALL_WIDTH) / 2, 40, OLED_FONT_SMALL, OLED_WHITE, PRM_URL[0]);
+}
+function draw_splash() {
+    cls_oled(OLED_BLACK);
+    draw_stars();
+    print_cb(STR_SAVED[0], 15, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+    print_cb(STR_SAVED2[0], 33, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+}
+function draw_promo() {
+    cls_oled(OLED_BLACK);
+    draw_stars();
+    rect_oled(6, 8, 116, 48, 1, 0);
+    print((128 - get_slen(PRM_L1[0]) * OLED_FONT_SMALL_WIDTH) / 2, 18, OLED_FONT_SMALL, OLED_WHITE, PRM_L1[0]);
+    print((128 - get_slen(PRM_URL[0]) * OLED_FONT_MEDIUM_WIDTH) / 2, 34, OLED_FONT_MEDIUM, OLED_WHITE, PRM_URL[0]);
+}
+function draw_value(f) {
+    if (f == 0)       print_c(ONOFF[t_aim], 31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+    else if (f == 1)  print_int_c(31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH, v_aastr);
+    else if (f == 2)  print_int_c(31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH, v_arec);
+    else if (f == 3)  print_c(ONOFF[t_rapid], 31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+    else if (f == 4)  print_int_c(31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH, v_rof);
+    else if (f == 5)  print_c(ONOFF[t_hair], 31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+    else if (f == 6)  print_c(RCURVE[e_curve], 31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+    else if (f == 8)  print_c(ONOFF[t_track], 31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+    else if (f == 9)  print_int_c(31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH, v_gain);
+    else print_int_c(31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH, v_smooth);
+}
+function draw_stars() {
+    for (star_i = 0; star_i < 16; star_i = star_i + 1) {
+        star_x[star_i] = star_x[star_i] - star_s[star_i];
+        if (star_x[star_i] < 0) { star_x[star_i] = 127; star_y[star_i] = random(0, 63); }
+        if (star_sz[star_i] > 1) {
+            rect_oled(star_x[star_i], star_y[star_i], 2, 2, 1, 1);
+        } else {
+            line_oled(star_x[star_i], star_y[star_i], star_x[star_i], star_y[star_i], 1, 1);
+        }
+    }
+}
+function draw_hub() {
+    cls_oled(OLED_BLACK);
+    draw_stars();
+    if (hub_anim == 1) { hub_sel = hub_next; hub_anim = 2; ul_w = 0; }
+    if (hub_sel > 0) print_c(SECN[hub_sel - 1], 6, OLED_FONT_SMALL, OLED_FONT_SMALL_WIDTH);
+    if (hub_sel < 2) print_c(SECN[hub_sel + 1], 54, OLED_FONT_SMALL, OLED_FONT_SMALL_WIDTH);
+    print_cb(SECN[hub_sel], 24, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+    ul_tgt = get_slen(SECN[hub_sel]) * OLED_FONT_MEDIUM_WIDTH;
+    if (ul_w != ul_tgt) ul_w = ul_tgt;
+    if (ul_w > 0) {
+        line_oled((128 - ul_w) / 2, 42, (128 + ul_w) / 2, 42, 1, 1);
+        line_oled((128 - ul_w) / 2, 43, (128 + ul_w) / 2, 43, 1, 1);
+    }
+    if (hub_anim == 2) hub_anim = 0;
+}
+function draw_menu() {
+    cls_oled(OLED_BLACK);
+    draw_stars();
+    feat = sec_item(section, sel);
+    if (feat == -2) {
+        print_cb(PRM_TOP[0], 9, OLED_FONT_SMALL, OLED_FONT_SMALL_WIDTH);
+        print_c(PRM_URL[0], 31, OLED_FONT_MEDIUM, OLED_FONT_MEDIUM_WIDTH);
+        return;
+    }
+    tw = get_slen(ITEMS[feat]) * OLED_FONT_SMALL_WIDTH;
+    print_cb(ITEMS[feat], 6, OLED_FONT_SMALL, OLED_FONT_SMALL_WIDTH);
+    line_oled((128 - tw) / 2, 18, (128 + tw) / 2, 18, 1, 1);
+    draw_tri_l(4, 38);
+    draw_tri_r(123, 38);
+    draw_value(feat);
+}
+function draw_loading() {
+    cls_oled(OLED_BLACK);
+    draw_stars();
+    print((128 - get_slen(TITLE[0]) * OLED_FONT_MEDIUM_WIDTH) / 2, 10, OLED_FONT_MEDIUM, OLED_WHITE, TITLE[0]);
+    print((128 - get_slen(LOADING[0]) * OLED_FONT_SMALL_WIDTH) / 2, 32, OLED_FONT_SMALL, OLED_WHITE, LOADING[0]);
+    rect_oled(14, 44, 100, 8, 1, 0);
+    bar_fw = (boot_t * 98) / 1000; if (bar_fw > 98) bar_fw = 98;
+    if (bar_fw > 0) {
+        for (j = 1; j <= 6; j = j + 1) { line_oled(15, 44 + j, 15 + bar_fw, 44 + j, 1, 1); }
+    }
+}
+function save_all() {
+    set_pvar(SPVAR_1, t_aim);   set_pvar(SPVAR_2, v_aastr); set_pvar(SPVAR_3, v_arec);
+    set_pvar(SPVAR_4, t_rapid); set_pvar(SPVAR_5, v_rof);
+    set_pvar(SPVAR_6, t_hair);
+    set_pvar(SPVAR_7, e_curve);
+    set_pvar(SPVAR_8, v_smooth);
+    set_pvar(SPVAR_9, t_track);
+    set_pvar(SPVAR_10, v_gain);
+}
+function change_value(f, dir) {
+    if (f == 0) t_aim = !t_aim;
+    else if (f == 1) v_aastr = clampi(v_aastr + dir, 0, 10);
+    else if (f == 2) v_arec = clampi(v_arec + dir, 0, 25);
+    else if (f == 3) t_rapid = !t_rapid;
+    else if (f == 4) v_rof = clampi(v_rof + dir, 1, 15);
+    else if (f == 5) t_hair = !t_hair;
+    else if (f == 6) { e_curve = e_curve + dir; if (e_curve < 0) e_curve = 1; if (e_curve > 1) e_curve = 0; }
+    else if (f == 8) t_track = !t_track;
+    else if (f == 9) v_gain = clampi(v_gain + dir * 5, 0, 200);
+    else v_smooth = clampi(v_smooth + dir * 5, 0, 100);
+}
+
+function sec_count(s) { if (s == 0) return 7; if (s == 1) return 3; return 1; }
+function sec_item(s, ix) {
+    if (s == 0) { if (ix == 0) return 0; if (ix == 1) return 1; if (ix == 2) return 9; if (ix == 3) return 8; if (ix == 4) return 7; if (ix == 5) return 2; return 6; }
+    if (s == 1) { if (ix == 0) return 3; if (ix == 1) return 4; return 5; }
+    return -2;
+}
+function menu_change(dir) {
+    feat = sec_item(section, sel);
+    if (feat == -2) return;                                     
+    change_value(feat, dir);
+}
+function block_menu_buttons() {
+    set_val(NAV_UP,0); set_val(NAV_DOWN,0); set_val(NAV_LEFT,0); set_val(NAV_RIGHT,0);
+    set_val(PS4_CROSS,0); set_val(PS4_CIRCLE,0); set_val(PS4_SQUARE,0); set_val(PS4_TRIANGLE,0);
+    set_val(PS4_L1,0); set_val(PS4_R1,0); set_val(PS4_OPTIONS,0); set_val(PS4_SHARE,0);
+    set_val(BTN_ADS,0);
+}
+/* ############################################################################
+   #                          FEROZ CORE
+   ############################################################################ */
+
+
+init {
+    if (get_pvar(SPVAR_62, 0, 999, 0) != CFG_VERSION || get_pvar(SPVAR_61, 0, 999, 0) != CFG_STAMP) {
+        set_pvar(SPVAR_62, CFG_VERSION);
+        set_pvar(SPVAR_61, CFG_STAMP);
+        set_pvar(SPVAR_63, 0);
+    }
+    if (get_pvar(SPVAR_63, 0, 1, 0) == 0) {
+        set_pvar(SPVAR_63, 1);
+        t_aim = 1; v_aastr = 4; v_arec = 5; t_rapid = 0; v_rof = 10; t_hair = 0; e_curve = 0; v_smooth = 60; t_track = 1; v_gain = 100;
+        save_all();
+    }
+    t_aim   = get_pvar(SPVAR_1, 0, 1, 1);
+    v_aastr = get_pvar(SPVAR_2, 0, 10, 4);
+    v_arec  = get_pvar(SPVAR_3, 0, 25, 5);
+    t_rapid = get_pvar(SPVAR_4, 0, 1, 0);
+    t_hair  = get_pvar(SPVAR_6, 0, 1, 0);
+    v_rof   = get_pvar(SPVAR_5, 1, 15, 10);
+    e_curve = get_pvar(SPVAR_7, 0, 1, 0);
+    v_smooth = get_pvar(SPVAR_8, 0, 100, 60);
+    t_track = get_pvar(SPVAR_9, 0, 1, 1);
+    v_gain = get_pvar(SPVAR_10, 0, 200, 100);
+    trk_x = 0; trk_y = 0; trk_rate = 0;
+    fx_reset();
+    aa_angle = 0; aa_tgt = 0;
+    menu_open = 0; sel = 0; nav_cd = 0; dirty = 1; splash_timer = 0; banner_drawn = 0; idle_cycle_t = 0; promo_timer = 0;
+    section = 0; booting = 1; boot_t = 0; fx_tmr = 0;
+    for (i = 0; i < 16; i = i + 1) { star_x[i] = random(0, 127); star_y[i] = random(0, 63); star_s[i] = 1; star_sz[i] = 1 + (i % 4 == 0); }
+    hub_mode = 0; hub_sel = 0; hub_next = 0; hub_anim = 0; ul_w = 0; ul_tgt = 0;
+    apply_led();
+    cls_oled(OLED_BLACK);
+}
+
+main {
+    vm_tctrl(-9);
+    led_tmr = led_tmr + get_rtime();
+    if (led_tmr >= 120) { led_tmr = 0; apply_led(); }
+    fx_tmr = fx_tmr + get_rtime();
+
+    if (booting) {
+        boot_t = boot_t + get_rtime();
+        if (fx_tmr >= 45) { fx_tmr = 0; draw_loading(); }
+        if (boot_t >= 1000) { booting = 0; banner_drawn = 0; idle_cycle_t = 0; cls_oled(OLED_BLACK); }
+    } else {
+
+    if (get_val(BTN_ADS) && event_press(MENU_BTN)) {
+        if (!menu_open) { menu_open = 1; hub_mode = 1; hub_sel = section; hub_next = hub_sel; hub_anim = 0; fx_reset(); }
+        else { menu_open = 0; save_all(); }
+        set_val(MENU_BTN, 0); dirty = 1; banner_drawn = 0; idle_cycle_t = 0; cls_oled(OLED_BLACK);
+    }
+
+    if (menu_open) {
+        block_menu_buttons();
+        if (nav_cd > 0) nav_cd = nav_cd - 1;
+        if (hub_mode) {
+            if (event_press(NAV_UP) && hub_anim == 0)   { hub_next = hub_sel - 1; if (hub_next < 0) hub_next = 2; hub_anim = 1; dirty = 1; combo_run(NavTick); }
+            if (event_press(NAV_DOWN) && hub_anim == 0) { hub_next = hub_sel + 1; if (hub_next > 2) hub_next = 0; hub_anim = 1; dirty = 1; combo_run(NavTick); }
+            if ((event_press(PS4_CROSS) || event_press(NAV_RIGHT)) && hub_anim == 0) {
+                if (hub_sel == 2) { menu_open = 0; promo_timer = 3000; banner_drawn = 0; idle_cycle_t = 0; combo_run(NavTick); cls_oled(OLED_BLACK); }
+                else { section = hub_sel; sel = 0; hub_mode = 0; ul_w = 0; ul_tgt = 60; dirty = 1; combo_run(NavTick); }
+            }
+            if (event_press(BTN_SAVE) || event_press(NAV_LEFT)) { menu_open = 0; save_all(); splash_timer = 1000; banner_drawn = 0; idle_cycle_t = 0; combo_run(SaveBuzz); cls_oled(OLED_BLACK); }
+            if (dirty || fx_tmr >= 45) { fx_tmr = 0; draw_hub(); dirty = 0; }
+        } else {
+            if (event_press(PS4_R1)) { section = section + 1; if (section > 2) section = 0; sel = 0; ul_w = 0; ul_tgt = 60; dirty = 1; combo_run(NavTick); }
+            if (event_press(PS4_L1)) { section = section - 1; if (section < 0) section = 2; sel = 0; ul_w = 0; ul_tgt = 60; dirty = 1; combo_run(NavTick); }
+            if (nav_cd == 0 && event_press(NAV_LEFT))  { sel = sel - 1; if (sel < 0) sel = sec_count(section) - 1; nav_cd = 4; ul_w = 0; ul_tgt = 60; dirty = 1; combo_run(NavTick); }
+            if (nav_cd == 0 && event_press(NAV_RIGHT)) { sel = sel + 1; if (sel >= sec_count(section)) sel = 0; nav_cd = 4; ul_w = 0; ul_tgt = 60; dirty = 1; combo_run(NavTick); }
+            if (press_hold(NAV_UP)) {
+                if (sec_item(section, sel) == -2) { menu_open = 0; promo_timer = 3000; banner_drawn = 0; idle_cycle_t = 0; combo_run(NavTick); cls_oled(OLED_BLACK); }
+                else { if (get_ival(BTN_ADS)) menu_change(5); else menu_change(1); dirty = 1; combo_run(ValTap); }
+            }
+            if (press_hold(NAV_DOWN)) {
+                if (sec_item(section, sel) == -2) { menu_open = 0; promo_timer = 3000; banner_drawn = 0; idle_cycle_t = 0; combo_run(NavTick); cls_oled(OLED_BLACK); }
+                else { if (get_ival(BTN_ADS)) menu_change(-5); else menu_change(-1); dirty = 1; combo_run(ValTap); }
+            }
+            if (event_press(BTN_SAVE)) { save_all(); hub_mode = 1; hub_sel = section; hub_next = hub_sel; hub_anim = 0; dirty = 1; combo_run(NavTick); }
+            if (ul_w < ul_tgt) ul_w = ul_tgt;
+            if (dirty || fx_tmr >= 45) { fx_tmr = 0; draw_menu(); dirty = 0; }
+        }
+    } else {
+        if (promo_timer > 0) { promo_timer = promo_timer - get_rtime(); if (fx_tmr >= 45) { fx_tmr = 0; draw_promo(); } banner_drawn = 0; idle_cycle_t = 0; }
+        else if (splash_timer > 0) { splash_timer = splash_timer - get_rtime(); if (fx_tmr >= 45) { fx_tmr = 0; draw_splash(); } banner_drawn = 0; idle_cycle_t = 0; }
+        else {
+            /* idle screen auto-cycles: normal title banner, then a periodic
+               "GET PREMIUM" callout, then back -- reuses draw_banner()/
+               draw_promo() as-is, just adds the timer that alternates them. */
+            idle_cycle_t = idle_cycle_t + get_rtime();
+            if (idle_cycle_t < IDLE_TITLE_MS) {
+                if (!banner_drawn) { banner_drawn = 1; shine_t = 0; }
+                shine_t = shine_t + get_rtime();
+                if (fx_tmr >= 45) { fx_tmr = 0; draw_banner(); }
+            } else if (idle_cycle_t < IDLE_TITLE_MS + IDLE_PROMO_MS) {
+                banner_drawn = 0;
+                if (fx_tmr >= 45) { fx_tmr = 0; draw_promo(); }
+            } else {
+                idle_cycle_t = 0;
+            }           
+        }
+
+        
+        if (t_hair) {
+            if (get_val(BTN_ADS)  > 6) set_val(BTN_ADS, 100);
+            if (get_val(BTN_FIRE) > 6) set_val(BTN_FIRE, 100);
+        }
+
+
+        /* ---- FEROZ AIM ENGINE v2 : gather -> filter -> single commit ---- */
+        /* AA now runs always, not just while ADS is held (customer request,
+           2026-08-23) -- was `if (get_val(BTN_ADS)) aa_on = 1;`.          */
+        aa_on = 1;
+        aa_input = isqrt(pow(get_ival(RX), 2) + pow(get_ival(RY), 2));
+        aa_tgt = 0;
+        if (t_aim && aa_on && v_aastr > 0) aa_tgt = aa_gain(aa_input);
+        aa_ramp(aa_tgt);
+
+        if (aa_env > 0) {
+            aa_radius = v_aastr;
+            if (get_val(BTN_FIRE)) aa_radius = aa_radius + (v_aastr / 3);
+            /* GAIN: master multiplier. 100 = stock tuned feel, 200 = ceiling. */
+            aa_radius = (aa_radius * v_gain) / 100;
+            /* centi-degrees: a fast ~9 deg/ms orbit (about 25 Hz). A tight,
+               quick micro shake trips the game's rotational assist by stick
+               velocity; AA_MICRO keeps the radius small so it buzzes in place
+               instead of dragging the crosshair around a wide slow circle.  */
+            aa_angle = (aa_angle + 900 * get_rtime()) % 36000;
+            aa_deg = aa_angle / 100;
+            aa_cx = (aa_radius * get_sin(aa_deg) * aa_env / 100) * AA_MICRO / 100;
+            aa_cy = (aa_radius * get_cos(aa_deg) * aa_env * AA_YSQUASH / 10000) * AA_MICRO / 100;
+            if (e_curve) {
+                aa_cx = (aa_cx * (100 - abs(get_val(RX)))) / 100;
+                aa_cy = (aa_cy * (100 - abs(get_val(RY)))) / 100;
+            }
+            fx_add(aa_cx, aa_cy);
+        } else aa_angle = 0;
+
+        /* AUTO TRACK - carries a slewed memory of the sweep so the pull
+           outlives the player's own stick movement and stays with a
+           strafing target. See the TRACK_* block up top for the why.     */
+        if (t_track && get_val(BTN_ADS)) {
+            trk_i = get_ival(RX);
+            if (abs(trk_i) <= 3) trk_i = 0;
+            trk_x = trk_slew(trk_x, trk_i * 100);
+
+            trk_i = get_ival(RY);
+            if (abs(trk_i) <= 3) trk_i = 0;
+            trk_y = trk_slew(trk_y, trk_i * 100);
+
+            trk_g = (TRACK_PCT * v_gain) / 100;      /* GAIN rides the tracker too */
+            fx_add((trk_x * trk_g) / 100,
+                   (trk_y * trk_g * TRACK_YPCT) / 10000);
+        } else { trk_x = 0; trk_y = 0; }
+
+        /* ANTI RECOIL - eases off as you already pull down, instead of the
+           old hard cutoff that popped the crosshair when you crossed it.  */
+        if (v_arec > 0 && get_val(BTN_FIRE) && get_val(BTN_ADS)) {
+            rec_now = v_arec * 100;
+            if (get_ival(RY) > 0) rec_now = (rec_now * clampi(100 - get_ival(RY) * 2, 0, 100)) / 100;
+            fx_add(0, rec_now);
+        }
+
+        /* commit. AA SMOOTH is the filter pole: 0 = crisp, 100 = glass. */
+        fx_flush((v_smooth * 97) / 100);
+
+        /* RAPID FIRE - FIRE RATE is now literally shots per second. */
+        if (t_rapid) {
+            rf_per = 1000 / v_rof;
+            hold_time = clampi(rf_per / 2, 12, 60);
+            rest_time = clampi(rf_per - hold_time, 18, 940);
+            if (get_val(BTN_FIRE)) combo_run(RapidFire);
+            else combo_stop(RapidFire);
+        }
+    }
+    }
+}
+/* ############################################################################
+   #                          FEROZ COMBOS
+   ############################################################################ */
+
+
+combo RapidFire  { set_val(BTN_FIRE, 100); wait(hold_time); set_val(BTN_FIRE, 0); wait(rest_time); }
+combo NavTick    { set_rumble(RUMBLE_A, 40); wait(30); reset_rumble(); }
+combo ValTap     { set_rumble(RUMBLE_A, 30); wait(20); reset_rumble(); }
+combo SaveBuzz   { set_rumble(RUMBLE_A, 80); wait(80); reset_rumble(); wait(60); set_rumble(RUMBLE_A, 80); wait(80); reset_rumble(); }
+
+/* ferozzens.com  .  @numby  .  FEROZ SCRIPTS  .  (c) all rights reserved */
