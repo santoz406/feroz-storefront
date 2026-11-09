@@ -240,8 +240,8 @@
 
       if (frame) {
         function activateFrame(cb) {
-          if (!frame.src && frame.dataset.src) {
-            frame.src = frame.dataset.src;
+          if (!frame.src || frame.src === 'about:blank') {
+            if (frame.dataset.src) frame.src = frame.dataset.src;
           }
           loadVimeoSDK(function () {
             if (!card._vimeoPlayer) {
@@ -254,12 +254,33 @@
                 if (cb) cb(player);
               }).catch(function () {});
 
-              player.on('play', function () { showBtn(false); });
-              player.on('pause', function () { showBtn(true); });
-              player.on('ended', function () { showBtn(true); paintByRatio(1); });
+              player.on('play', function () { card.dataset.playing = '1'; showBtn(false); });
+              player.on('pause', function () { delete card.dataset.playing; showBtn(true); });
+              player.on('ended', function () { delete card.dataset.playing; showBtn(true); paintByRatio(1); });
               player.on('timeupdate', function (data) {
+                duration = data.duration || duration;
                 if (!seeking && duration > 0) paintByRatio(data.seconds / duration);
               });
+
+              if (seek && track) {
+                function seekTo(clientX) {
+                  if (!duration) return;
+                  var r = track.getBoundingClientRect();
+                  var ratio = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+                  player.setCurrentTime(ratio * duration).catch(function () {});
+                  paintByRatio(ratio);
+                }
+                seek.addEventListener('pointerdown', function (e) {
+                  seeking = true; grow(true);
+                  try { seek.setPointerCapture(e.pointerId); } catch (err) {}
+                  seekTo(e.clientX); e.stopPropagation(); e.preventDefault();
+                });
+                seek.addEventListener('pointermove', function (e) { if (seeking) { seekTo(e.clientX); e.preventDefault(); } });
+                function endSeek() { if (seeking) { seeking = false; grow(card.matches(':hover')); } }
+                seek.addEventListener('pointerup', endSeek);
+                seek.addEventListener('pointercancel', endSeek);
+                seek.addEventListener('click', function (e) { e.stopPropagation(); });
+              }
             } else if (cb) {
               cb(card._vimeoPlayer);
             }
@@ -297,33 +318,6 @@
         }
         card.addEventListener('click', toggle);
         if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
-          player.on('play', function () { card.dataset.playing = '1'; showBtn(false); });
-          player.on('pause', function () { delete card.dataset.playing; showBtn(true); });
-          player.on('ended', function () { delete card.dataset.playing; showBtn(true); paintByRatio(1); });
-          player.on('timeupdate', function (data) {
-            duration = data.duration || duration;
-            paintByRatio(data.percent || (duration ? data.seconds / duration : 0));
-          });
-          if (seek && track) {
-            function seekTo(clientX) {
-              if (!duration) return;
-              var r = track.getBoundingClientRect();
-              var ratio = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
-              player.setCurrentTime(ratio * duration).catch(function () {});
-              paintByRatio(ratio);
-            }
-            seek.addEventListener('pointerdown', function (e) {
-              seeking = true; grow(true);
-              try { seek.setPointerCapture(e.pointerId); } catch (err) {}
-              seekTo(e.clientX); e.stopPropagation(); e.preventDefault();
-            });
-            seek.addEventListener('pointermove', function (e) { if (seeking) { seekTo(e.clientX); e.preventDefault(); } });
-            function endSeek() { if (seeking) { seeking = false; grow(card.matches(':hover')); } }
-            seek.addEventListener('pointerup', endSeek);
-            seek.addEventListener('pointercancel', endSeek);
-            seek.addEventListener('click', function (e) { e.stopPropagation(); });
-          }
-        });
         return;
       }
 

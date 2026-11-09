@@ -28,6 +28,13 @@
 
   <script>
     window.FZ = { moneyFormat: "€{{amount}}", routes: { cart: "/cart" } };
+    window.addEventListener('DOMContentLoaded', function () {
+      setTimeout(function () {
+        document.querySelectorAll('[data-reveal]').forEach(function (el) {
+          el.classList.add('in');
+        });
+      }, 400);
+    });
   </script>
   <script src="assets/feroz.js" defer></script>
 </head>
