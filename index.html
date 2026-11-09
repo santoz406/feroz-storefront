@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Feroz Zens | Next-Gen Cronus Zen Optimizer & Scripts</title>
+  <meta name="description" content="Instant boost for your Cronus Zen experience. High-performance Fortnite, Call of Duty, and NBA 2K scripts powered by Feroz Optimizer.">
+  <link rel="icon" type="image/png" href="assets/newappiconlogo_00000.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/base.css">
+
+  <style>
+    /* Direct Stripe & Cart Styles */
+    .cart-drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(8px);
+      z-index: 100; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s;
+    }
+    .cart-drawer-overlay.active { opacity: 1; visibility: visible; }
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 420px;
+      background: #0d0d12; border-left: 1px solid rgba(255,255,255,.08); z-index: 101;
+      padding: 30px 24px; display: flex; flex-direction: column; justify-content: space-between;
+      transform: translateX(100%); transition: transform .35s cubic-bezier(.16,1,.3,1);
+      box-shadow: -20px 0 50px rgba(0,0,0,.8);
+    }
+    .cart-drawer.active { transform: translateX(0); }
+    .cart-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px; border-radius: 12px; background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06); margin-bottom: 12px;
+    }
+    .portal-modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,.85); backdrop-filter: blur(12px);
+      z-index: 110; display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .portal-modal.active { display: flex; }
+    .portal-box {
+      width: 100%; max-width: 500px; background: #111116; border: 1px solid rgba(225,21,38,.4);
+      border-radius: 20px; padding: 32px; box-shadow: 0 30px 70px rgba(0,0,0,.9), 0 0 40px rgba(225,21,38,.15);
+      position: relative;
+    }
+  </style>
+</head>
+<body class="template-index">
+
+  <!-- Fixed backdrop glowing dots & red scrollbar -->
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:#000;"></div>
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);background-size:46px 46px;"></div>
+  <div id="scrollbar" style="position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;z-index:60;background:linear-gradient(90deg,var(--red-deep),var(--red-bright));box-shadow:0 0 10px var(--glow);pointer-events:none;transition:transform .08s linear;"></div>
+
+  <!-- NAVIGATION -->
+  <nav id="navWrap" class="float" style="position:sticky;top:0;z-index:40;width:100%;border-bottom:1px solid transparent;background:transparent;transition:all .5s cubic-bezier(.16,1,.3,1);">
+    <div id="navBar" style="max-width:1160px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;">
+      <a href="#top" style="display:inline-flex;align-items:center;text-decoration:none;flex:none;">
+        <img src="assets/logo.png" alt="Feroz Zens" width="44" height="44" style="width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 1px 6px rgba(225,21,38,.35));">
+      </a>
+
+      <div class="navlinks" style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;color:#c6c6cd;">
+        <a href="#top" class="fz-navlink" style="text-decoration:none;color:#fff;">Home</a>
+        <a href="#products" class="fz-navlink" style="text-decoration:none;">Scripts</a>
+        <a href="#optimizer" class="fz-navlink" style="text-decoration:none;">Optimizer</a>
+        <a href="#faq" class="fz-navlink" style="text-decoration:none;">FAQ</a>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:14px;flex:none;">
+        <button id="discordLoginBtn" onclick="handleDiscordAuth()" class="fz-login" style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#eef0f7;text-decoration:none;padding:9px 18px;border-radius:999px;border:none;background:rgba(255,255,255,.06);backdrop-filter:blur(16px);cursor:pointer;transition:background .14s ease;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"></path></svg>
+          <span id="loginText">Login</span>
+        </button>
+
+        <button onclick="toggleCart()" class="fz-icon-btn" aria-label="Open cart" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;cursor:pointer;color:#cfcfd6;border:none;background:none;">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.1"></circle><circle cx="18" cy="20" r="1.1"></circle><path d="M2.5 3h2l2.2 12.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L21.5 7H6"></path></svg>
+          <span id="cartCountBadge" style="position:absolute;top:-4px;right:-4px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;display:none;align-items:center;justify-content:center;">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <div id="top" class="fz-wrap">
+    <section class="heroV2" style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:58px 0 0;">
+      <!-- Glowing background elements -->
+      <div style="position:absolute;left:50%;top:-40px;transform:translateX(-50%);width:760px;height:380px;z-index:0;pointer-events:none;background:radial-gradient(46% 70% at 50% 0%,color-mix(in srgb,var(--red) 26%,transparent),transparent 72%);opacity:.7;"></div>
+
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;">
+        <div data-reveal="down" style="display:inline-flex;align-items:center;gap:11px;padding:5px 16px 5px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);backdrop-filter:blur(8px);">
+          <span style="display:inline-flex;">
+            <img src="assets/a1.jpg" alt="" width="24" height="24" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid #000;">
+            <img src="assets/a8.jpg" alt="" width="24" height="24" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid #000;margin-left:-9px;">
+            <img src="assets/a14.jpg" alt="" width="24" height="24" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid #000;margin-left:-9px;">
+          </span>
+          <span style="font-size:13px;font-weight:500;color:#d3d3da;">Trusted by 10,000+ Zen players</span>
+        </div>
+
+        <h1 data-reveal="down" class="h1" style="margin:26px 0 0;max-width:900px;font-size:60px;line-height:1.06;font-weight:400;letter-spacing:-.035em;">
+          Instantly boost your <span style="color:var(--red-bright);font-weight:600;">Zen</span> experience.
+        </h1>
+
+        <p data-reveal="down" style="margin:18px 0 0;max-width:440px;font-size:14.5px;line-height:1.6;color:var(--mut);">
+          Feroz Optimizer dials in the most optimized values for your Zen scripts in every game.
+        </p>
+
+        <a data-reveal="down" href="#optimizer" class="fz-lift" style="display:inline-flex;align-items:center;justify-content:center;margin-top:26px;padding:12px 28px;border-radius:999px;font-size:14.5px;font-weight:600;letter-spacing:-.01em;text-decoration:none;color:#15151a;border:1px solid rgba(255,255,255,.65);background:linear-gradient(180deg,#fdfdff,#cbccd3);box-shadow:0 12px 30px -10px rgba(0,0,0,.7);">
+          Try Feroz Optimizer for FREE
+        </a>
+      </div>
+
+      <!-- 3D Glowing Red Zen Device Showcase -->
+      <div data-reveal="fade" class="heroVidWrap" style="position:relative;z-index:1;width:100%;max-width:900px;margin:20px auto 0;pointer-events:none;">
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70%;height:70%;background:radial-gradient(closest-side,var(--glow),transparent 74%);filter:blur(20px);"></div>
+        <img src="assets/a18.gif" alt="Cronus Zen Holographic Optimizer" style="position:relative;z-index:2;width:100%;max-width:580px;height:auto;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(0,0,0,.8));">
+      </div>
+    </section>
+  </div>
+
+  <!-- SCRIPT PRODUCTS SECTION -->
+  <div class="fz-wrap">
+    <section id="products" style="padding:80px 0 40px;text-align:center;scroll-margin-top:84px;">
+      <h2 data-reveal style="margin:0 auto;max-width:760px;font-size:clamp(30px,5.4vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.035em;">
+        The unfair advantage your lobby doesn't know about.
+      </h2>
+      <p data-reveal style="margin:16px auto 0;max-width:520px;font-size:15px;line-height:1.6;color:var(--mut);">
+        Plug in. Load up. Win more. Cronus Zen scripts engineered for Fortnite, COD & NBA 2K.
+      </p>
+
+      <div data-reveal="fade" class="prodGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:54px;">
+        <!-- Apex | Fortnite -->
+        <div id="prod-apex" class="prodCard" style="border-radius:20px;border:1px solid rgba(255,255,255,.07);background:#0d0d12;padding:32px 20px;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:18px;right:18px;padding:6px 14px;border-radius:999px;background:linear-gradient(135deg,#ff4757,var(--red));color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;">SAVE 50%</div>
+          <div style="width:100%;height:260px;display:flex;align-items:center;justify-content:center;position:relative;">
+            <div style="position:absolute;width:200px;height:200px;background:radial-gradient(circle,#2f6bff 0%,transparent 70%);opacity:.3;filter:blur(30px);"></div>
+            <img src="assets/product-apex.png" alt="Apex Fortnite Script" style="position:relative;z-index:2;max-height:240px;max-width:90%;object-fit:contain;filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));">
+          </div>
+          <h3 style="margin:18px 0 4px;font-size:22px;font-weight:800;color:#fff;">Apex | Fortnite</h3>
+          <div style="font-size:13px;color:var(--dim);">Fortnite • Chapter 5 / OG Season</div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin:14px 0 18px;">
+            <span style="font-size:28px;font-weight:800;color:var(--red-bright);">€49.99</span>
+            <span style="font-size:15px;color:var(--dim);text-decoration:line-through;">€99.99</span>
+          </div>
+          <button onclick="startCheckout('apex')" style="width:100%;padding:15px;border-radius:12px;font-size:15px;font-weight:700;color:#fff;border:none;background:linear-gradient(180deg,#ff4757,var(--red) 50%,var(--red-deep));box-shadow:0 12px 28px -8px var(--glow);cursor:pointer;transition:transform .12s ease;">
+            Instant Checkout
+          </button>
+        </div>
+
+        <!-- Viper | Call of Duty -->
+        <div id="prod-viper" class="prodCard" style="border-radius:20px;border:1px solid rgba(255,255,255,.07);background:#0d0d12;padding:32px 20px;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:18px;right:18px;padding:6px 14px;border-radius:999px;background:linear-gradient(135deg,#ff4757,var(--red));color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;">SAVE 50%</div>
+          <div style="width:100%;height:260px;display:flex;align-items:center;justify-content:center;position:relative;">
+            <div style="position:absolute;width:200px;height:200px;background:radial-gradient(circle,#8b3df5 0%,transparent 70%);opacity:.3;filter:blur(30px);"></div>
+            <img src="assets/product-viper.png" alt="Viper Call of Duty Script" style="position:relative;z-index:2;max-height:240px;max-width:90%;object-fit:contain;filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));">
+          </div>
+          <h3 style="margin:18px 0 4px;font-size:22px;font-weight:800;color:#fff;">Viper | Call of Duty</h3>
+          <div style="font-size:13px;color:var(--dim);">Black Ops 6 & Warzone</div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin:14px 0 18px;">
+            <span style="font-size:28px;font-weight:800;color:var(--red-bright);">€49.99</span>
+            <span style="font-size:15px;color:var(--dim);text-decoration:line-through;">€99.99</span>
+          </div>
+          <button onclick="startCheckout('viper')" style="width:100%;padding:15px;border-radius:12px;font-size:15px;font-weight:700;color:#fff;border:none;background:linear-gradient(180deg,#ff4757,var(--red) 50%,var(--red-deep));box-shadow:0 12px 28px -8px var(--glow);cursor:pointer;transition:transform .12s ease;">
+            Instant Checkout
+          </button>
+        </div>
+
+        <!-- Mamba | NBA 2K26 -->
+        <div id="prod-mamba" class="prodCard" style="border-radius:20px;border:1px solid rgba(255,255,255,.07);background:#0d0d12;padding:32px 20px;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:18px;right:18px;padding:6px 14px;border-radius:999px;background:linear-gradient(135deg,#ff4757,var(--red));color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;">SAVE 50%</div>
+          <div style="width:100%;height:260px;display:flex;align-items:center;justify-content:center;position:relative;">
+            <div style="position:absolute;width:200px;height:200px;background:radial-gradient(circle,#dc1426 0%,transparent 70%);opacity:.3;filter:blur(30px);"></div>
+            <img src="assets/product-mamba.png" alt="Mamba NBA 2K Script" style="position:relative;z-index:2;max-height:240px;max-width:90%;object-fit:contain;filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));">
+          </div>
+          <h3 style="margin:18px 0 4px;font-size:22px;font-weight:800;color:#fff;">Mamba | NBA 2K26</h3>
+          <div style="font-size:13px;color:var(--dim);">Next-Gen Auto-Green Release</div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin:14px 0 18px;">
+            <span style="font-size:28px;font-weight:800;color:var(--red-bright);">€49.99</span>
+            <span style="font-size:15px;color:var(--dim);text-decoration:line-through;">€99.99</span>
+          </div>
+          <button onclick="startCheckout('mamba')" style="width:100%;padding:15px;border-radius:12px;font-size:15px;font-weight:700;color:#fff;border:none;background:linear-gradient(180deg,#ff4757,var(--red) 50%,var(--red-deep));box-shadow:0 12px 28px -8px var(--glow);cursor:pointer;transition:transform .12s ease;">
+            Instant Checkout
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FEROZ OPTIMIZER SECTION -->
+  <div class="fz-wrap">
+    <section id="optimizer" style="padding:80px 0 40px;scroll-margin-top:84px;">
+      <div data-reveal="fade" class="optHeroGrid" style="position:relative;overflow:hidden;border-radius:20px;border:1px solid var(--line);background:linear-gradient(135deg,#130a0d,#0a0a0d 62%);padding:50px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;">
+        <div>
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;color:#fff;background:color-mix(in srgb,var(--red) 15%,transparent);border:1px solid color-mix(in srgb,var(--red) 40%,transparent);">
+            <img src="assets/newappiconlogo_00000.png" width="20" height="20" style="border-radius:4px;">
+            Feroz Optimizer <span style="color:var(--red-bright);">v3.9.4</span>
+          </span>
+          <h2 style="margin:22px 0 0;font-size:42px;line-height:1.05;font-weight:800;letter-spacing:-.03em;">
+            Optimize values in seconds. Not hours.
+          </h2>
+          <p style="margin:18px 0 0;font-size:15px;line-height:1.6;color:var(--mut);">
+            Tuned recoil curves, tracking assistance, and auto-green timings configured with direct hardware flashing to your Cronus Zen.
+          </p>
+          <a href="https://github.com/santoz406/feroz-optimizer-releases/releases/latest/download/Feroz-Optimizer-V3-Setup.exe" class="fz-lift" style="display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:14px 28px;border-radius:12px;font-size:14.5px;font-weight:700;text-decoration:none;color:#fff;background:linear-gradient(180deg,#ff4757,var(--red) 50%,var(--red-deep));box-shadow:0 14px 30px -10px var(--glow);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>
+            Download Free Optimizer
+          </a>
+        </div>
+        <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 60px rgba(0,0,0,.8);">
+          <img src="assets/app-fortnite-setup.png" alt="Feroz Optimizer UI" style="display:block;width:100%;height:auto;">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HOW IT WORKS SECTION -->
+  <div class="fz-wrap">
+    <section id="how-it-works" style="padding:80px 0 40px;text-align:center;">
+      <h2 data-reveal style="font-size:36px;font-weight:800;letter-spacing:-.03em;">Plug in. Play. Win.</h2>
+      <p data-reveal style="margin:12px auto 0;color:var(--mut);max-width:440px;">From checkout to your first match in three simple steps.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px;">
+        <div style="border-radius:16px;border:1px solid rgba(255,255,255,.07);background:#0e0e13;padding:32px;text-align:left;">
+          <div style="font-size:12px;font-weight:800;color:var(--red-bright);">STEP 01</div>
+          <h3 style="font-size:20px;font-weight:700;margin:10px 0;">Pick your script</h3>
+          <p style="font-size:14px;color:var(--mut);line-height:1.5;">Choose Apex, Viper, or Mamba and complete instant checkout via Stripe.</p>
+        </div>
+        <div style="border-radius:16px;border:1px solid rgba(255,255,255,.07);background:#0e0e13;padding:32px;text-align:left;">
+          <div style="font-size:12px;font-weight:800;color:var(--red-bright);">STEP 02</div>
+          <h3 style="font-size:20px;font-weight:700;margin:10px 0;">Verify & Flash</h3>
+          <p style="font-size:14px;color:var(--mut);line-height:1.5;">Login with Discord on the website or app to access your key and flash scripts directly to your Zen.</p>
+        </div>
+        <div style="border-radius:16px;border:1px solid rgba(255,255,255,.07);background:#0e0e13;padding:32px;text-align:left;">
+          <div style="font-size:12px;font-weight:800;color:var(--red-bright);">STEP 03</div>
+          <h3 style="font-size:20px;font-weight:700;margin:10px 0;">Dominate Lobbies</h3>
+          <p style="font-size:14px;color:var(--mut);line-height:1.5;">Jump straight into ranked with optimized recoil curves and perfect aim tracking.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- COMMUNITY OUTRO -->
+  <section id="discord" style="position:relative;z-index:1;overflow:hidden;padding:100px 24px 0;text-align:center;">
+    <h2 style="font-size:42px;font-weight:800;letter-spacing:-.03em;">Join the community</h2>
+    <p style="margin:14px auto 0;color:var(--mut);max-width:480px;">Get 24/7 ticket support, profile updates, and tuning advice from top Zen players.</p>
+    <a href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" class="fz-lift" style="display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;color:#fff;background:linear-gradient(180deg,#ff4757,var(--red) 50%,var(--red-deep));box-shadow:0 16px 40px -12px var(--glow);">
+      Join Official Discord
+    </a>
+    <div style="margin-top:60px;font-family:'Stretch Pro',sans-serif;font-size:clamp(60px,16vw,200px);color:rgba(255,255,255,.04);line-height:.8;">
+      FEROZ
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid var(--line);background:#050507;padding:50px 24px;text-align:center;color:var(--mut);font-size:13.5px;">
+    <p>© 2026 Feroz Zens. All rights reserved. Powered by Stripe & Render.</p>
+  </footer>
+
+  <!-- CUSTOMER PORTAL MODAL -->
+  <div id="portalModal" class="portal-modal">
+    <div class="portal-box">
+      <button onclick="closePortal()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">&times;</button>
+      <div id="portalContent">
+        <h3 style="margin:0 0 16px;font-size:24px;color:#fff;">Customer Portal</h3>
+        <p style="color:var(--mut);font-size:14px;">Loading your account entitlements...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING DISCORD BADGE -->
+  <a class="fz-discord-float" href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" aria-label="Join Feroz Zens on Discord" style="position:fixed;bottom:24px;right:24px;z-index:50;display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:#5865f2;color:#fff;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 10px 24px rgba(88,101,242,.4);">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.6A17 17 0 0 0 15.4 4.3l-.2.4a13 13 0 0 0-6.4 0l-.2-.4A17 17 0 0 0 4.4 5.6 17.6 17.6 0 0 0 1.5 17.3a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.2 0l.4.3c-.6.4-1.2.7-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 17.5 17.5 0 0 0-2.9-11.7zM8.6 14.6c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1zm6.8 0c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1z"></path></svg>
+    Join Discord
+  </a>
+
+  <script>
+    const API_BASE = 'https://feroz-server.onrender.com';
+
+    // Discord Login Redirect
+    function handleDiscordAuth() {
+      const token = localStorage.getItem('fz_token');
+      if (token) {
+        openPortal();
+      } else {
+        window.location.href = `${API_BASE}/v1/auth/discord/start?mode=web&origin=${encodeURIComponent(window.location.origin)}`;
+      }
+    }
+
+    // Stripe Instant Checkout
+    async function startCheckout(tier) {
+      const btn = event.currentTarget;
+      const originalText = btn.innerText;
+      btn.innerText = 'Creating Checkout...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/v1/checkout/create-session`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tier: tier,
+            return_url: window.location.origin
+          })
+        });
+        const data = await res.json();
+        if (data.ok && data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Could not start checkout. Please try again or ask in Discord.');
+          btn.innerText = originalText;
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert('Payment service unavailable. Check connection.');
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    // Handle token from URL fragment after Discord OAuth return
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash && hash.includes('token=')) {
+        const token = decodeURIComponent(hash.split('token=')[1].split('&')[0]);
+        localStorage.setItem('fz_token', token);
+        window.history.replaceState(null, '', window.location.pathname);
+        checkSession();
+        openPortal();
+      } else {
+        checkSession();
+      }
+    });
+
+    async function checkSession() {
+      const token = localStorage.getItem('fz_token');
+      const loginText = document.getElementById('loginText');
+      if (!token) {
+        loginText.innerText = 'Login';
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/v1/me`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          loginText.innerText = data.user.username;
+        } else {
+          localStorage.removeItem('fz_token');
+          loginText.innerText = 'Login';
+        }
+      } catch (err) {
+        loginText.innerText = 'Login';
+      }
+    }
+
+    async function openPortal() {
+      const token = localStorage.getItem('fz_token');
+      const modal = document.getElementById('portalModal');
+      const content = document.getElementById('portalContent');
+      modal.classList.add('active');
+
+      if (!token) {
+        content.innerHTML = `
+          <h3 style="color:#fff;margin:0 0 10px;">Please Log In</h3>
+          <p style="color:var(--mut);font-size:14px;margin-bottom:20px;">Connect your Discord account to view your scripts and license.</p>
+          <button onclick="handleDiscordAuth()" style="padding:12px 24px;border-radius:10px;background:#5865f2;color:#fff;font-weight:700;border:none;cursor:pointer;">Login with Discord</button>
+        `;
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/v1/me`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        const ent = data.entitlements || {};
+        const scripts = ent.scripts || {};
+
+        let unlockedList = [];
+        if (ent.staff) unlockedList.push('Staff Full Access');
+        if (scripts.apex) unlockedList.push('Apex (Fortnite)');
+        if (scripts.viper) unlockedList.push('Viper (COD)');
+        if (scripts.mamba) unlockedList.push('Mamba (NBA 2K)');
+
+        content.innerHTML = `
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">
+              ${data.user.username ? data.user.username[0].toUpperCase() : 'U'}
+            </div>
+            <div>
+              <h3 style="margin:0;color:#fff;font-size:20px;">${data.user.username}</h3>
+              <span style="font-size:12px;color:var(--red-bright);font-weight:700;">${unlockedList.length ? 'VERIFIED CUSTOMER' : 'FREE MEMBER'}</span>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:16px;">
+            <div style="font-size:12px;color:var(--dim);margin-bottom:6px;">UNLOCKED TIERS</div>
+            <div style="font-size:14px;color:#fff;font-weight:600;">
+              ${unlockedList.length ? unlockedList.join(', ') : 'No premium scripts active yet.'}
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <a href="https://github.com/santoz406/feroz-optimizer-releases/releases/latest/download/Feroz-Optimizer-V3-Setup.exe" style="flex:1;text-align:center;padding:12px;background:var(--red);color:#fff;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">Download App</a>
+            <button onclick="logout()" style="padding:12px 18px;border-radius:10px;background:rgba(255,255,255,.08);color:#fff;border:none;cursor:pointer;">Logout</button>
+          </div>
+        `;
+      } catch (err) {
+        content.innerHTML = `<p style="color:#ff4757;">Failed to load user portal. Please try again.</p>`;
+      }
+    }
+
+    function closePortal() {
+      document.getElementById('portalModal').classList.remove('active');
+    }
+
+    function logout() {
+      localStorage.removeItem('fz_token');
+      closePortal();
+      checkSession();
+    }
+  </script>
+</body>
+</html>
