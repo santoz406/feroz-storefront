@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "feroz-storefront",
+  "compatibility_date": "2024-11-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "."
+  },
+  "routes": [
+    {
+      "pattern": "ferozzens.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.ferozzens.com",
+      "custom_domain": true
+    }
+  ]
+}
