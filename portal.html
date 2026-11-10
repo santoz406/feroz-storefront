@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
   <title>Customer Command Center | Feroz Zens</title>
   <meta name="description" content="Manage your Cronus Zen script authorizations, download Apex, Viper, and Mamba GPC scripts, and access Zen Studio App updates.">
   <link rel="canonical" href="https://ferozzens.com/portal">
@@ -24,14 +25,15 @@
     }
 
     :root {
-      --bg: #070709;
-      --card-bg: #0e0e13;
+      --bg: #000;
+      --card-bg: rgba(13, 13, 17, 0.72);
       --card-border: rgba(255, 255, 255, 0.08);
       --red: #e11526;
-      --red-bright: #ff4757;
-      --red-glow: rgba(225, 21, 38, 0.45);
+      --red-bright: #ff2a3c;
+      --red-deep: #b50f1e;
+      --red-glow: rgba(225, 21, 38, 0.35);
       --mut: #9c9ca6;
-      --dim: #6b6b75;
+      --dim: #71717a;
       --tx: #f4f4f7;
     }
 
@@ -44,91 +46,122 @@
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Ambient Store Background */
-    .grid-bg {
+    /* Ambient Soft Backdrop Blur Overlay for Popups & Modals */
+    .ambient-backdrop {
       position: fixed;
       inset: 0;
+      z-index: 38;
+      background: rgba(0, 0, 0, 0.62);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
       pointer-events: none;
-      z-index: 0;
-      background-image: 
-        radial-gradient(ellipse 80% 50% at 50% -15%, rgba(225, 21, 38, 0.16), transparent 70%),
-        radial-gradient(circle at 100% 30%, rgba(225, 21, 38, 0.08), transparent 45%),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+      transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.24s ease;
+    }
+    body.blur-backdrop-active .ambient-backdrop {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    /* Header Navigation */
-    .store-nav {
+    /* Navigation matching index.html 100% */
+    #navWrap {
       position: sticky;
       top: 0;
-      z-index: 99;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: rgba(7, 7, 9, 0.85);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      z-index: 40;
+      width: 100%;
+      border-bottom: 1px solid transparent;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transition: background .4s cubic-bezier(.16,1,.3,1), border-color .4s cubic-bezier(.16,1,.3,1), backdrop-filter .4s ease;
     }
-    .store-nav-inner {
+    #navBar {
       max-width: 1160px;
       margin: 0 auto;
-      padding: 0 24px;
-      height: 72px;
+      padding: 16px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 18px;
+      border: 1px solid transparent;
+      border-radius: 0;
+      transition: all .4s cubic-bezier(.16,1,.3,1);
     }
-    .nav-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: #fff;
-    }
-    .nav-brand img {
-      width: 46px;
-      height: 46px;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(225, 21, 38, 0.45));
-    }
-    .brand-title {
-      font-family: 'StretchPro', 'Inter', sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      color: #fff;
-    }
-
-    .nav-links {
+    .navlinks {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 30px;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: #c6c6cd;
     }
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .navlinks { display: none; }
     }
-    .nav-link {
-      font-size: 13.5px;
-      font-weight: 500;
-      color: #b5b5be;
+    .fz-navlink {
+      color: #c6c6cd;
       text-decoration: none;
-      transition: color 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 14.5px;
+      font-weight: 500;
+      transition: color 0.14s ease;
     }
-    .nav-link:hover { color: #fff; }
-    .tag-new {
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ff4757, #e11526);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      box-shadow: 0 0 12px rgba(225, 21, 38, 0.55);
+    .fz-navlink:hover { color: #fff; }
+
+    /* Scripts Dropdown Menu — Minimalist No Hesi Style */
+    #navWrap .fz-scripts-menu {
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 10px);
+      width: 240px;
+      padding: 6px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 10, 14, 0.92) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 50;
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -6px) scale(0.97);
+      transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.18s;
+    }
+    #navWrap .fz-scripts:hover .fz-scripts-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0) scale(1);
+    }
+    #navWrap .fz-scripts:hover .fz-scripts-chev {
+      transform: rotate(180deg);
+    }
+    .scriptRow {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: transparent;
+      border: 1px solid transparent;
+      transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease !important;
+    }
+    .scriptRow:hover {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border-color: rgba(255, 255, 255, 0.06) !important;
+      color: #fff !important;
+    }
+    .scriptRow:hover .srName {
+      color: #fff !important;
     }
 
     /* Profile Chip & Dropdown */
@@ -148,12 +181,12 @@
       font-weight: 600;
       cursor: pointer;
       user-select: none;
-      transition: all 0.18s ease;
+      transition: all 0.16s ease;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
     .profile-chip:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.16);
     }
     .chip-avatar {
       width: 28px;
@@ -169,49 +202,92 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    /* Profile Popup */
     .profile-popup {
       display: none;
       position: absolute;
       top: calc(100% + 10px);
       right: 0;
-      width: 200px;
-      background: linear-gradient(180deg, #16151c, #0d0d12);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 240px;
+      background: rgba(10, 10, 14, 0.92) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
       border-radius: 14px;
       padding: 6px;
       flex-direction: column;
       gap: 2px;
-      box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
       z-index: 100;
     }
     .profile-chip-wrap.open .profile-popup {
-      display: flex;
+      display: flex !important;
+      animation: menuPop 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
-    .popup-item {
+    @keyframes menuPop {
+      from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .menu-item-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 9px 12px;
+      padding: 8px 10px;
       border-radius: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #cfcfd6;
       text-decoration: none;
-      background: none;
-      border: none;
+      color: #a1a1aa;
+      background: transparent;
+      border: 1px solid transparent;
       cursor: pointer;
       width: 100%;
       text-align: left;
-      transition: all 0.15s ease;
+      font-family: inherit;
+      transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease;
     }
-    .popup-item:hover {
+    .menu-item-row:hover {
       background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.06);
       color: #fff;
     }
-    .popup-item.danger { color: #ff5263; }
-    .popup-item.danger:hover {
-      background: rgba(225, 21, 38, 0.12);
-      color: #ff6b7a;
+    .menu-item-row.danger { color: #ef4444; }
+    .menu-item-row.danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+    .menu-icon-wrap {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #71717a;
+      flex: none;
+      transition: color 0.14s ease;
+    }
+    .menu-item-row:hover .menu-icon-wrap { color: #fff; }
+    .menu-item-row.danger .menu-icon-wrap { color: #ef4444; }
+    .menu-item-row.danger:hover .menu-icon-wrap { color: #f87171; }
+    .menu-text-wrap {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .menu-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: inherit;
+      line-height: 1.25;
+    }
+    .menu-item-sub {
+      font-size: 11px;
+      color: #71717a;
+      margin-top: 1px;
     }
 
     /* Main Container */
@@ -220,222 +296,309 @@
       z-index: 1;
       max-width: 1160px;
       margin: 0 auto;
-      padding: 40px 24px 80px;
+      padding: 24px 24px 80px;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 28px;
     }
 
     /* Logged Out Gate Card */
     .login-gate {
-      max-width: 480px;
-      margin: 80px auto;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 48px 36px;
+      max-width: 440px;
+      margin: 60px auto;
+      background: rgba(12, 12, 16, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 18px;
+      padding: 40px 32px;
       text-align: center;
-      box-shadow: 0 32px 80px -30px rgba(0, 0, 0, 0.9), 0 0 50px -20px var(--red-glow);
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.95);
     }
     .gate-logo {
-      width: 58px;
-      height: 58px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 20px var(--red-glow));
+      width: 52px;
+      height: 52px;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 2px 12px var(--red-glow));
     }
     .gate-title {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       color: #fff;
       letter-spacing: -0.02em;
     }
     .gate-desc {
-      font-size: 14px;
-      line-height: 1.55;
+      font-size: 13.5px;
+      line-height: 1.5;
       color: var(--mut);
-      margin: 0 0 28px;
+      margin: 0 0 24px;
     }
     .btn-discord-login {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 9px;
       width: 100%;
-      padding: 14px 20px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
+      height: 42px;
+      padding: 0 20px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
       color: #fff;
-      background: linear-gradient(180deg, #ff4757, var(--red) 46%, #b50e1b);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(180deg, #ff2a3c, #cf1120);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       text-decoration: none;
       cursor: pointer;
-      box-shadow: 0 14px 30px -10px var(--red-glow);
-      transition: transform 0.15s ease, filter 0.15s ease;
+      box-shadow: 0 4px 16px -2px rgba(225, 21, 38, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.15s ease;
     }
     .btn-discord-login:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
+      background: linear-gradient(180deg, #ff3d4e, #dd1323);
+      box-shadow: 0 6px 20px 0 rgba(225, 21, 38, 0.55);
+      transform: translateY(-1px);
     }
 
     /* User Profile Bar */
     .user-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 24px 28px;
+      background: rgba(12, 12, 16, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 16px;
+      padding: 18px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
-      box-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
     .user-info-side {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
     }
     .user-avatar-lg {
-      width: 64px;
-      height: 64px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       object-fit: cover;
       background: #000;
-      border: 2px solid var(--red-bright);
-      box-shadow: 0 0 20px -4px var(--red-glow);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       flex: none;
     }
     .user-names {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
     }
     .user-username {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 18px;
+      font-weight: 700;
       color: #fff;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
     .user-id-row {
-      font-size: 12px;
-      color: var(--dim);
-      font-family: ui-monospace, monospace;
+      font-size: 11.5px;
+      color: #71717a;
+      font-family: ui-monospace, SFMono-Regular, monospace;
     }
     .badges-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
-      margin-top: 6px;
+      margin-top: 4px;
     }
     .badge-pill {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
       border-radius: 999px;
       text-transform: uppercase;
     }
     .badge-admin {
-      background: rgba(225, 21, 38, 0.2);
+      background: rgba(225, 21, 38, 0.15);
       color: #ff4757;
-      border: 1px solid rgba(225, 21, 38, 0.5);
-      box-shadow: 0 0 14px rgba(225, 21, 38, 0.4);
+      border: 1px solid rgba(225, 21, 38, 0.35);
     }
     .badge-apex {
-      background: rgba(47, 107, 255, 0.16);
-      color: #5c8eff;
-      border: 1px solid rgba(47, 107, 255, 0.35);
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.25);
     }
     .badge-viper {
-      background: rgba(139, 61, 245, 0.16);
-      color: #aa77ff;
-      border: 1px solid rgba(139, 61, 245, 0.35);
+      background: rgba(168, 85, 247, 0.12);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.25);
     }
     .badge-mamba {
-      background: rgba(220, 20, 38, 0.16);
-      color: #ff5465;
-      border: 1px solid rgba(220, 20, 38, 0.35);
+      background: rgba(225, 21, 38, 0.12);
+      color: #f87171;
+      border: 1px solid rgba(225, 21, 38, 0.25);
     }
     .badge-free {
-      background: rgba(255, 255, 255, 0.06);
-      color: #9c9ca6;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: #9ca3af;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .user-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     .btn-secondary {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #e2e2e7;
+      gap: 7px;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #d4d4d8;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.14s ease;
     }
     .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.08);
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.14);
     }
     .btn-logout {
-      color: #ff6b7a;
-      border-color: rgba(255, 59, 78, 0.25);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.2);
     }
     .btn-logout:hover {
-      background: rgba(225, 21, 38, 0.12);
-      color: #ff8592;
+      background: rgba(239, 68, 68, 0.1);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    /* App Banner */
+    .app-banner {
+      background: rgba(12, 12, 16, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 22px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      box-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.9);
+    }
+    .app-banner-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .app-banner-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      flex: none;
+    }
+    .app-banner-text h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .app-banner-text p {
+      font-size: 13px;
+      color: var(--mut);
+      margin: 4px 0 0;
+      max-width: 500px;
+      line-height: 1.45;
+    }
+    .tag-new {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff4757, #e11526);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 10px rgba(225, 21, 38, 0.5);
+    }
+    .btn-download-app {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(180deg, #ff2a3c, #cf1120);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px -2px rgba(225, 21, 38, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-download-app:hover {
+      background: linear-gradient(180deg, #ff3d4e, #dd1323);
+      box-shadow: 0 6px 20px 0 rgba(225, 21, 38, 0.55);
+      transform: translateY(-1px);
     }
 
     /* Section Titles */
     .section-head {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .section-title {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 19px;
+      font-weight: 700;
       color: #fff;
       margin: 0;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
     .section-sub {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--mut);
-      margin: 4px 0 0;
+      margin: 3px 0 0;
     }
 
     /* Scripts Grid */
     .scripts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 18px;
     }
     @media (max-width: 900px) {
       .scripts-grid { grid-template-columns: 1fr; }
     }
     .script-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 24px;
+      background: rgba(12, 12, 16, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 15px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.6);
-      transition: transform 0.15s ease, border-color 0.15s ease;
+      box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
     }
     .script-card:hover {
       transform: translateY(-2px);
@@ -453,41 +616,53 @@
       gap: 12px;
     }
     .script-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 9px;
       object-fit: cover;
       background: #000;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .script-name {
-      font-size: 17px;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 700;
       color: #fff;
       margin: 0;
     }
     .script-game {
-      font-size: 12px;
-      color: var(--dim);
+      font-size: 11.5px;
+      color: #71717a;
       margin: 2px 0 0;
     }
+
+    /* Minimalist No Hesi Status Badges */
     .status-badge {
-      font-size: 10.5px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       padding: 3px 9px;
       border-radius: 999px;
-      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
     .status-badge.unlocked {
-      background: rgba(46, 213, 115, 0.15);
-      color: #2ed573;
-      border: 1px solid rgba(46, 213, 115, 0.35);
+      background: rgba(34, 197, 94, 0.08);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    .status-badge.unlocked::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
     }
     .status-badge.locked {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--dim);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: #71717a;
+      border: 1px solid rgba(255, 255, 255, 0.07);
     }
 
     .script-features {
@@ -497,8 +672,8 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      font-size: 13px;
-      color: #b5b5be;
+      font-size: 12.5px;
+      color: #a1a1aa;
     }
     .script-features li {
       display: flex;
@@ -506,12 +681,13 @@
       gap: 8px;
     }
     .script-features svg {
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       color: var(--red-bright);
       flex: none;
     }
 
+    /* Minimalist Action Buttons */
     .btn-script {
       margin-top: auto;
       display: inline-flex;
@@ -519,210 +695,326 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
-      padding: 13px 16px;
-      border-radius: 11px;
-      font-size: 14px;
-      font-weight: 700;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
       text-decoration: none;
       cursor: pointer;
       transition: all 0.15s ease;
       border: 1px solid transparent;
+      box-sizing: border-box;
     }
     .btn-script.download {
-      background: linear-gradient(180deg, #2ed573, #1e9d52);
+      background: linear-gradient(180deg, #ff2a3c, #cf1120);
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 24px -8px rgba(46, 213, 115, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 4px 16px -2px rgba(225, 21, 38, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
     .btn-script.download:hover {
-      filter: brightness(1.08);
+      background: linear-gradient(180deg, #ff3d4e, #dd1323);
+      box-shadow: 0 6px 20px 0 rgba(225, 21, 38, 0.55);
+      transform: translateY(-1px);
     }
     .btn-script.buy {
-      background: linear-gradient(180deg, #ff4757, var(--red) 46%, #b50e1b);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 24px -8px var(--red-glow);
+      background: rgba(255, 255, 255, 0.06);
+      color: #e4e4e7;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .btn-script.buy:hover {
-      filter: brightness(1.08);
+      background: rgba(255, 255, 255, 0.09);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.16);
     }
 
-    /* Zen Studio App Banner */
-    .app-banner {
-      background: radial-gradient(80% 120% at 0% 50%, rgba(225, 21, 38, 0.2), transparent 60%),
-                  linear-gradient(135deg, #120a0d, #0d0d12);
-      border: 1px solid rgba(225, 21, 38, 0.35);
-      border-radius: 20px;
-      padding: 32px 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8), 0 0 40px -20px var(--red-glow);
-    }
-    .app-banner-info {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .app-banner-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      object-fit: cover;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      flex: none;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    }
-    .app-banner-text h3 {
-      font-size: 20px;
-      font-weight: 800;
-      color: #fff;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .app-banner-text p {
-      font-size: 13.5px;
-      color: var(--mut);
-      margin: 6px 0 0;
-      max-width: 520px;
-      line-height: 1.5;
-    }
-    .btn-download-app {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 26px;
-      border-radius: 12px;
-      font-size: 14.5px;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(180deg, #ff4757, var(--red) 46%, #b50e1b);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 14px 30px -10px var(--red-glow);
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }
-    .btn-download-app:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-    }
-
-    /* License Key Redeem Card */
+    /* Redeem & Community Cards */
     .redeem-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 24px 28px;
+      background: rgba(12, 12, 16, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 18px;
       flex-wrap: wrap;
-    }
-    .redeem-left {
-      max-width: 440px;
+      box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
     .redeem-left h4 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: #fff;
       margin: 0;
     }
     .redeem-left p {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--mut);
-      margin: 4px 0 0;
+      margin: 3px 0 0;
     }
     .redeem-form {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex: 1;
       min-width: 280px;
-      max-width: 480px;
+      max-width: 440px;
     }
     .redeem-input {
       flex: 1;
-      padding: 12px 16px;
-      border-radius: 10px;
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.09);
       color: #fff;
-      font-size: 13.5px;
+      font-size: 13px;
       outline: none;
-      transition: border-color 0.15s ease;
+      transition: border-color 0.14s ease;
     }
     .redeem-input:focus {
       border-color: var(--red-bright);
     }
     .btn-redeem {
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 13.5px;
-      font-weight: 700;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
       color: #fff;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.14s ease;
       white-space: nowrap;
     }
     .btn-redeem:hover {
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    /* Modal System */
+    .fz-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fz-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .fz-modal-card {
+      width: 90%;
+      max-width: 520px;
+      background: rgba(12, 12, 16, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 24px 26px;
+      box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transform: scale(0.96) translateY(8px);
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fz-modal-overlay.active .fz-modal-card {
+      transform: scale(1) translateY(0);
+    }
+    .fz-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding-bottom: 12px;
+    }
+    .fz-modal-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fz-modal-close {
+      background: transparent;
+      border: none;
+      color: #71717a;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: color 0.14s ease;
+    }
+    .fz-modal-close:hover { color: #fff; }
+    .btn-modal-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(180deg, #ff2a3c, #cf1120);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    .btn-modal-dl:hover {
+      background: linear-gradient(180deg, #ff3d4e, #dd1323);
+    }
+    .btn-modal-buy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #d4d4d8;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    .btn-modal-buy:hover {
+      background: rgba(255, 255, 255, 0.1);
       color: #fff;
     }
   </style>
 </head>
 <body>
-  <div class="grid-bg"></div>
+  <!-- Fixed Ambient Atmospheric Layers -->
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:#000;"></div>
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);background-size:46px 46px;"></div>
+  <div style="position:fixed;left:50%;top:-50px;width:1000px;height:550px;transform:translateX(-50%);background:radial-gradient(ellipse at 50% 0%, rgba(225,21,38,.24), transparent 70%);filter:blur(60px);pointer-events:none;z-index:0;"></div>
 
-  <!-- Shared Store Header -->
-  <nav class="store-nav">
-    <div class="store-nav-inner">
-      <a href="index.html" class="nav-brand">
-        <img src="assets/logo.png" alt="Feroz Zens">
-        <span class="brand-title">FEROZ ZENS</span>
+  <!-- Soft Backdrop Blur Overlay -->
+  <div id="ambientBackdrop" class="ambient-backdrop" onclick="closeAllPopups()"></div>
+
+  <!-- Navbar matching index.html 100% -->
+  <nav id="navWrap">
+    <div id="navBar">
+      <a href="index.html" style="display:inline-flex;align-items:center;text-decoration:none;flex:none;">
+        <img src="assets/logo.png" alt="Feroz Zens" width="54" height="54" style="width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(225,21,38,.45));">
       </a>
 
-      <div class="nav-links">
-        <a href="index.html#products" class="nav-link">Scripts</a>
-        <a href="index.html#optimizer" class="nav-link">
-          Zen Studio App <span class="tag-new">NEW</span>
-        </a>
-        <a href="index.html#features" class="nav-link">Features</a>
-        <a href="index.html#faq" class="nav-link">FAQ</a>
-      </div>
+      <div class="navlinks">
+        <a href="index.html" class="fz-navlink">Home</a>
 
-      <!-- Right Profile Chip & Dropdown -->
-      <div class="profile-chip-wrap" id="chipWrap">
-        <div class="profile-chip" id="profileChipBtn" onclick="togglePopup(event)" style="display:none;">
-          <img class="chip-avatar" id="navAvatar" src="assets/zen-icon.png" alt="">
-          <span class="chip-name" id="navUsername">numby</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        <div class="fz-scripts" style="position:relative;display:inline-flex;align-items:center;">
+          <a href="index.html#products" class="fz-navlink" style="display:inline-flex;align-items:center;gap:5px;">Scripts
+            <svg class="fz-scripts-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .22s cubic-bezier(.16,1,.3,1);"><path d="M6 9l6 6 6-6"></path></svg>
+          </a>
+          <div style="position:absolute;left:50%;top:100%;transform:translateX(-50%);width:250px;height:14px;"></div>
+          <div class="fz-scripts-menu">
+            <a href="index.html#prod-apex" class="scriptRow">
+              <span class="srName" style="font-size:13.5px;font-weight:600;color:#e4e4e7;letter-spacing:-.01em;">Apex</span>
+              <span style="font-size:11px;color:#71717a;">Fortnite</span>
+            </a>
+            <a href="index.html#prod-viper" class="scriptRow">
+              <span class="srName" style="font-size:13.5px;font-weight:600;color:#e4e4e7;letter-spacing:-.01em;">Viper</span>
+              <span style="font-size:11px;color:#71717a;">Call of Duty</span>
+            </a>
+            <a href="index.html#prod-mamba" class="scriptRow">
+              <span class="srName" style="font-size:13.5px;font-weight:600;color:#e4e4e7;letter-spacing:-.01em;">Mamba</span>
+              <span style="font-size:11px;color:#71717a;">NBA 2K26</span>
+            </a>
+          </div>
         </div>
 
-        <a href="https://feroz-server.onrender.com/v1/auth/discord/start?mode=web&origin=https://ferozzens.com/portal.html" id="navLoginBtn" class="btn-secondary" style="text-decoration:none;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-          Login
-        </a>
+        <a href="index.html#optimizer" class="fz-navlink" style="display:inline-flex;align-items:center;gap:6px;">Zen Studio App <span class="tag-new">NEW</span></a>
+        <a href="index.html#faq" class="fz-navlink">FAQ</a>
+      </div>
 
-        <div class="profile-popup" id="profilePopup">
-          <button class="popup-item" onclick="syncRoles(this)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
-            Sync Roles
-          </button>
-          <div style="height:1px;background:rgba(255,255,255,.06);margin:4px 6px;"></div>
-          <button class="popup-item danger" onclick="logout()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-            Log Out
-          </button>
+      <div style="display:flex;align-items:center;gap:14px;flex:none;">
+        <div class="profile-chip-wrap" id="portalChipWrap">
+          <div class="profile-chip" id="profileChipBtn" onclick="togglePopup(event)" style="display:none;">
+            <img class="chip-avatar" id="navAvatar" src="assets/favicon.png" alt="">
+            <span class="chip-name" id="navUsername">User</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+
+          <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferoz-server.onrender.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" id="navLoginBtn" class="btn-secondary" onmouseenter="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" style="text-decoration:none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            Login
+          </a>
+
+          <div class="profile-popup" id="profilePopup">
+            <div style="padding: 10px 10px 10px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 3px; display: flex; align-items: center; gap: 10px;">
+              <img id="menuAvatar" src="assets/favicon.png" alt="" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2);">
+              <div style="display: flex; flex-direction: column; min-width: 0;">
+                <span id="menuUsername" style="font-size: 13px; font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Member</span>
+                <span id="menuRoleBadge" style="font-size: 10px; font-weight: 700; color: #ff4757; text-transform: uppercase;">Customer</span>
+              </div>
+            </div>
+
+            <a href="portal.html" class="menu-item-row">
+              <div class="menu-icon-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </div>
+              <div class="menu-text-wrap">
+                <span class="menu-item-title">Dashboard</span>
+                <span class="menu-item-sub">Script downloads & tools</span>
+              </div>
+            </a>
+
+            <button type="button" onclick="openTransactionsModal()" class="menu-item-row">
+              <div class="menu-icon-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+              </div>
+              <div class="menu-text-wrap">
+                <span class="menu-item-title">Transactions</span>
+                <span class="menu-item-sub">Purchased scripts & orders</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="openBillingModal()" class="menu-item-row">
+              <div class="menu-icon-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              </div>
+              <div class="menu-text-wrap">
+                <span class="menu-item-title">Billing & Plans</span>
+                <span class="menu-item-sub">Perpetual license status</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="syncRoles(this)" class="menu-item-row">
+              <div class="menu-icon-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+              </div>
+              <div class="menu-text-wrap">
+                <span class="menu-item-title">Sync Roles</span>
+                <span class="menu-item-sub">Refresh Discord permissions</span>
+              </div>
+            </button>
+
+            <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 4px;"></div>
+
+            <button type="button" onclick="logout()" class="menu-item-row danger">
+              <div class="menu-icon-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+              </div>
+              <div class="menu-text-wrap">
+                <span class="menu-item-title">Log Out</span>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -735,21 +1027,21 @@
       <img src="assets/logo.png" alt="Feroz Zens" class="gate-logo">
       <h2 class="gate-title">Customer Command Center</h2>
       <p class="gate-desc">Connect with your Discord account to access your script authorizations, live downloads, and Zen Studio App.</p>
-      <a href="https://feroz-server.onrender.com/v1/auth/discord/start?mode=web&origin=https://ferozzens.com/portal.html" class="btn-discord-login">
+      <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferoz-server.onrender.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" class="btn-discord-login" onmouseenter="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
         Connect with Discord
       </a>
     </div>
 
     <!-- Authenticated Dashboard -->
-    <div id="authDashboard" style="display:none;display:flex;flex-direction:column;gap:32px;">
+    <div id="authDashboard" style="display:none;display:flex;flex-direction:column;gap:28px;">
       <!-- User Profile Header Bar -->
       <div class="user-card">
         <div class="user-info-side">
-          <img class="user-avatar-lg" id="dashAvatar" src="assets/zen-icon.png" alt="">
+          <img class="user-avatar-lg" id="dashAvatar" src="assets/favicon.png" alt="">
           <div class="user-names">
-            <div class="user-username" id="dashUsername">numby</div>
-            <div class="user-id-row" id="dashId">ID: 1393248248663376055</div>
+            <div class="user-username" id="dashUsername">Member</div>
+            <div class="user-id-row" id="dashId">Discord ID: Loading...</div>
             <div class="badges-row" id="dashBadges">
               <!-- Injected dynamically -->
             </div>
@@ -758,11 +1050,11 @@
 
         <div class="user-actions">
           <button class="btn-secondary" onclick="syncRoles(this)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
             Sync Roles
           </button>
           <button class="btn-secondary btn-logout" onclick="logout()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
             Log Out
           </button>
         </div>
@@ -778,7 +1070,7 @@
           </div>
         </div>
         <a href="assets/feroz-optimizer-installer.exe" download="Zen-Studio-Setup.exe" class="btn-download-app">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
           Download Zen Studio (.exe)
         </a>
       </div>
@@ -801,7 +1093,7 @@
                   <div class="script-game">Fortnite · PC / PS5 / Xbox</div>
                 </div>
               </div>
-              <span class="status-badge locked" id="badge-apex">LOCKED</span>
+              <span class="status-badge locked" id="badge-apex">Locked</span>
             </div>
 
             <ul class="script-features">
@@ -825,7 +1117,7 @@
                   <div class="script-game">Call of Duty · Warzone & MW3</div>
                 </div>
               </div>
-              <span class="status-badge locked" id="badge-viper">LOCKED</span>
+              <span class="status-badge locked" id="badge-viper">Locked</span>
             </div>
 
             <ul class="script-features">
@@ -849,7 +1141,7 @@
                   <div class="script-game">NBA 2K26 · All Positions & Modes</div>
                 </div>
               </div>
-              <span class="status-badge locked" id="badge-mamba">LOCKED</span>
+              <span class="status-badge locked" id="badge-mamba">Locked</span>
             </div>
 
             <ul class="script-features">
@@ -872,7 +1164,7 @@
           <p>Open-source baseline scripts for Fortnite, COD and NBA 2K. Free for all Discord server members.</p>
         </div>
         <a href="downloads/Feroz-Free-Scripts-Pack.zip" download="Feroz-Free-Scripts-Pack.zip" class="btn-secondary" style="text-decoration:none;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
           Download Free Pack (.zip)
         </a>
       </div>
@@ -888,16 +1180,63 @@
           <button class="btn-redeem" id="btnRedeemKey" onclick="redeemKey(this)">Redeem Key</button>
         </div>
       </div>
-      <div id="redeemFeedback" style="display:none;font-size:13px;font-weight:600;padding:4px 8px;margin-top:-20px;"></div>
+      <div id="redeemFeedback" style="display:none;font-size:12.5px;font-weight:600;padding:4px 8px;margin-top:-16px;"></div>
     </div>
   </main>
+
+  <!-- Transactions Modal -->
+  <div class="fz-modal-overlay" id="transactionsModal" onclick="closeModalOnBg(event, 'transactionsModal')">
+    <div class="fz-modal-card">
+      <div class="fz-modal-header">
+        <h3 class="fz-modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+          Your Account & Purchases
+        </h3>
+        <button class="fz-modal-close" onclick="closeModal('transactionsModal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="transModalBody" style="display:flex;flex-direction:column;gap:12px;"></div>
+    </div>
+  </div>
+
+  <!-- Billing Modal -->
+  <div class="fz-modal-overlay" id="billingModal" onclick="closeModalOnBg(event, 'billingModal')">
+    <div class="fz-modal-card">
+      <div class="fz-modal-header">
+        <h3 class="fz-modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          Billing & Plans
+        </h3>
+        <button class="fz-modal-close" onclick="closeModal('billingModal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="padding:14px 16px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);">
+          <div style="font-size:14px;font-weight:700;color:#fff;">Perpetual Licenses Active</div>
+          <p style="font-size:12.5px;color:var(--mut);line-height:1.5;margin:6px 0 0;">All Feroz Zens script tiers are permanent one-time orders. Once purchased or unlocked via Discord roles, access never expires and includes all future patch updates.</p>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+          <span style="font-size:13px;color:#a1a1aa;">Active Subscriptions</span>
+          <span style="font-size:12px;font-weight:600;color:#4ade80;">None · Lifetime Model</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const API_BASE = 'https://feroz-server.onrender.com';
     let CURRENT_USER = null;
     let SESSION_TOKEN = '';
 
-    // Parse token from hash fragment (#token=...) or search params (?token=...)
+    function escapeHtml(s) {
+      if (!s) return '';
+      return String(s).replace(/[&<>"']/g, function(c) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+      });
+    }
+
     function resolveToken() {
       if (window.location.hash) {
         const hash = window.location.hash.replace(/^#/, '');
@@ -927,13 +1266,111 @@
 
     function togglePopup(e) {
       if (e) e.stopPropagation();
-      const wrap = document.getElementById('chipWrap');
-      if (wrap) wrap.classList.toggle('open');
+      const wrap = document.getElementById('portalChipWrap');
+      if (!wrap) return;
+      const isOpen = wrap.classList.toggle('open');
+      if (isOpen) {
+        document.body.classList.add('blur-backdrop-active');
+      } else {
+        const hasModal = document.querySelector('.fz-modal-overlay.active');
+        if (!hasModal) document.body.classList.remove('blur-backdrop-active');
+      }
     }
 
-    document.addEventListener('click', () => {
-      const wrap = document.getElementById('chipWrap');
+    function closeAllPopups() {
+      const wrap = document.getElementById('portalChipWrap');
       if (wrap) wrap.classList.remove('open');
+      closeModal('transactionsModal');
+      closeModal('billingModal');
+      document.body.classList.remove('blur-backdrop-active');
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('active');
+      const hasModal = document.querySelector('.fz-modal-overlay.active');
+      const wrap = document.getElementById('portalChipWrap');
+      if (!hasModal && (!wrap || !wrap.classList.contains('open'))) {
+        document.body.classList.remove('blur-backdrop-active');
+      }
+    }
+
+    function closeModalOnBg(e, id) {
+      if (e && e.target && e.target.id === id) {
+        closeModal(id);
+      }
+    }
+
+    function openTransactionsModal() {
+      closeAllPopups();
+      const modal = document.getElementById('transactionsModal');
+      const body = document.getElementById('transModalBody');
+      if (!modal || !body) return;
+
+      const user = CURRENT_USER && CURRENT_USER.user ? CURRENT_USER.user : null;
+      const ent = CURRENT_USER && CURRENT_USER.entitlements ? CURRENT_USER.entitlements : null;
+      const isStaff = ent && (ent.staff || ent.admin);
+      const hasApex = isStaff || (ent && ent.scripts && ent.scripts.apex);
+      const hasViper = isStaff || (ent && ent.scripts && ent.scripts.viper);
+      const hasMamba = isStaff || (ent && ent.scripts && ent.scripts.mamba);
+
+      let html = `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);">
+          <img src="${user && user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64` : 'assets/favicon.png'}" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,0.2);">
+          <div style="min-width:0;flex:1;">
+            <div style="font-size:13.5px;font-weight:700;color:#fff;">${user ? escapeHtml(user.username) : 'Customer'}</div>
+            <div style="font-size:11px;color:#71717a;font-family:monospace;">ID: ${user ? user.id : 'N/A'} · Discord Linked</div>
+          </div>
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(225,21,38,0.12);border:1px solid rgba(225,21,38,0.3);color:#ff4757;">
+            ${isStaff ? 'STAFF' : (hasApex || hasViper || hasMamba ? 'ACTIVE CUSTOMER' : 'FREE ACCESS')}
+          </span>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;color:#71717a;text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;">Purchases & Script Licenses</div>
+      `;
+
+      const products = [
+        { id: 'apex', name: 'Apex v1.0', game: 'Fortnite', price: '€49.99', unlocked: hasApex, file: 'Apex_v1.0.gpc' },
+        { id: 'viper', name: 'Viper v1.0', game: 'Call of Duty', price: '€49.99', unlocked: hasViper, file: 'Viper_v1.0.gpc' },
+        { id: 'mamba', name: 'Mamba v1.0', game: 'NBA 2K26', price: '€49.99', unlocked: hasMamba, file: 'Mamba_v1.0.gpc' }
+      ];
+
+      products.forEach(p => {
+        html += `
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+            <div>
+              <div style="font-size:13.5px;font-weight:600;color:#fff;">${p.name}</div>
+              <div style="font-size:11px;color:#71717a;">${p.game} · ${p.unlocked ? 'Lifetime Perpetual' : p.price}</div>
+            </div>
+            ${p.unlocked 
+              ? `<a href="${API_BASE}/v1/downloads/${p.id}?token=${encodeURIComponent(SESSION_TOKEN)}" class="btn-modal-dl">Download</a>`
+              : `<button onclick="closeModal('transactionsModal');handleScriptAction('${p.id}', document.getElementById('btn-${p.id}'))" class="btn-modal-buy">Get Access</button>`
+            }
+          </div>
+        `;
+      });
+
+      body.innerHTML = html;
+      modal.classList.add('active');
+      document.body.classList.add('blur-backdrop-active');
+    }
+
+    function openBillingModal() {
+      closeAllPopups();
+      const modal = document.getElementById('billingModal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.classList.add('blur-backdrop-active');
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('portalChipWrap');
+      if (wrap && !wrap.contains(e.target)) {
+        wrap.classList.remove('open');
+        const hasModal = document.querySelector('.fz-modal-overlay.active');
+        if (!hasModal) document.body.classList.remove('blur-backdrop-active');
+      }
     });
 
     function logout() {
@@ -1003,11 +1440,17 @@
         ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`
         : 'assets/logo.png';
 
-      // Update Nav Chip
+      // Update Nav Chip & Dropdown
       const navAvatar = document.getElementById('navAvatar');
       const navUsername = document.getElementById('navUsername');
+      const menuAvatar = document.getElementById('menuAvatar');
+      const menuUsername = document.getElementById('menuUsername');
+      const menuRoleBadge = document.getElementById('menuRoleBadge');
       if (navAvatar) navAvatar.src = avatarUrl;
       if (navUsername) navUsername.textContent = user.username || 'Member';
+      if (menuAvatar) menuAvatar.src = avatarUrl;
+      if (menuUsername) menuUsername.textContent = user.username || 'Member';
+      if (menuRoleBadge) menuRoleBadge.textContent = isStaff ? 'STAFF ACCESS' : 'MEMBER';
 
       // Update Profile Card
       const dashAvatar = document.getElementById('dashAvatar');
@@ -1069,15 +1512,15 @@
       if (!badge || !btn) return;
 
       if (unlocked) {
-        badge.textContent = 'UNLOCKED';
+        badge.textContent = 'Unlocked';
         badge.className = 'status-badge unlocked';
-        btn.textContent = `Download ${filename}`;
+        btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg> Download ${filename}`;
         btn.className = 'btn-script download';
         btn.dataset.action = 'download';
       } else {
-        badge.textContent = 'LOCKED';
+        badge.textContent = 'Locked';
         badge.className = 'status-badge locked';
-        btn.textContent = 'Get Access · €49.99';
+        btn.innerHTML = 'Get Access · €49.99';
         btn.className = 'btn-script buy';
         btn.dataset.action = 'buy';
       }
@@ -1163,7 +1606,7 @@
         if (data.ok) {
           if (feedback) {
             feedback.style.display = 'block';
-            feedback.style.color = '#2ed573';
+            feedback.style.color = '#4ade80';
             feedback.textContent = `License activated successfully for ${data.tier.toUpperCase()}! Refreshing authorizations...`;
           }
           if (input) input.value = '';
@@ -1186,7 +1629,23 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', loadUser);
+    window.addEventListener('DOMContentLoaded', () => {
+      // Silent instant backend warm-up to eliminate Render cold-starts
+      fetch('https://feroz-server.onrender.com/healthz', { mode: 'no-cors' }).catch(() => {});
+      loadUser();
+
+      // Tactile Cursor Spotlight on Cards
+      document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.user-card, .app-banner, .script-card, .redeem-card');
+        for (let i = 0; i < cards.length; i++) {
+          const rect = cards[i].getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          cards[i].style.setProperty('--mouse-x', `${x}px`);
+          cards[i].style.setProperty('--mouse-y', `${y}px`);
+        }
+      });
+    });
   </script>
 </body>
 </html>

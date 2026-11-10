@@ -230,7 +230,7 @@ async function run() {
       if (loginBtn) {
         loginBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          window.location.href = API_BASE + '/v1/auth/discord/start?mode=web&origin=' + encodeURIComponent(window.location.origin);
+          window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferoz-server.onrender.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=' + encodeURIComponent(btoa(JSON.stringify({ mode: 'web', origin: window.location.origin + '/portal.html' })).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''));
         });
       }
     });
