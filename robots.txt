@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /portal
+Allow: /assets/
+Allow: /downloads/
+
+Sitemap: https://ferozzens.com/sitemap.xml
