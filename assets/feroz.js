@@ -510,34 +510,7 @@
   window.FZCart = Cart;
 
   function initCart() {
-    document.addEventListener('click', function (e) {
-      var openBtn = e.target.closest('[data-cart-open]');
-      if (openBtn) { e.preventDefault(); Cart.open(); return; }
-      var closeBtn = e.target.closest('[data-cart-close]');
-      if (closeBtn) { e.preventDefault(); Cart.close(); return; }
-      var checkout = e.target.closest('[data-cart-checkout]');
-      if (checkout) { e.preventDefault(); Cart.checkout(); return; }
-      var add = e.target.closest('[data-add-variant], .addCart, [data-add-premium]');
-      if (add) {
-        e.preventDefault();
-        var vid = add.getAttribute('data-add-variant');
-        if (!vid) {
-          var card = add.closest('#prod-apex, #prod-viper, #prod-mamba') || add.closest('.prodCard');
-          if (card) {
-            if (card.id.includes('viper')) vid = 'viper';
-            else if (card.id.includes('mamba')) vid = 'mamba';
-            else vid = 'apex';
-          } else if (add.hasAttribute('data-add-premium')) {
-            vid = 'bundle';
-          } else {
-            vid = 'apex';
-          }
-        }
-        Cart.add(vid);
-      }
-    });
-    // initial badge
-    Cart.refresh();
+    // Cart removed - storefront uses direct Stripe checkout
   }
 
   /* ============================================================
