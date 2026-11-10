@@ -1,16 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Account Dashboard | Feroz Zens</title>
-  <link rel="icon" type="image/png" href="assets/zen-icon.png">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Command Center | Feroz Zens</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/base.css">
-
   <style>
     @font-face {
       font-family: 'StretchPro';
@@ -19,61 +17,59 @@
       font-style: normal;
       font-display: swap;
     }
+
     :root {
-      --bg: #060709;
-      --card-bg: rgba(15, 14, 18, 0.85);
-      --card-sub: rgba(22, 20, 28, 0.7);
+      --bg: #070709;
+      --card-bg: #0e0e13;
       --card-border: rgba(255, 255, 255, 0.08);
       --red: #e11526;
-      --red-bright: #ff2a3c;
-      --red-deep: #b50f1e;
-      --red-glow: rgba(225, 21, 38, 0.35);
-      --tx: #f3f3f5;
-      --dim: #8e8e98;
-      --mut: #686873;
-      --green: #10b981;
-      --green-glow: rgba(16, 185, 129, 0.25);
+      --red-bright: #ff4757;
+      --red-glow: rgba(225, 21, 38, 0.45);
+      --mut: #9c9ca6;
+      --dim: #6b6b75;
+      --tx: #f4f4f7;
     }
+
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 0;
       background: var(--bg);
       color: var(--tx);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
     }
+
+    /* Ambient Store Background */
     .grid-bg {
       position: fixed;
       inset: 0;
-      background-image: 
-        radial-gradient(circle at 50% 8%, rgba(225, 21, 38, 0.13), transparent 55%),
-        radial-gradient(circle at 85% 85%, rgba(225, 21, 38, 0.05), transparent 50%),
-        radial-gradient(circle at 1px 1px, rgba(255,255,255,0.02) 1px, transparent 0);
-      background-size: 100% 100%, 100% 100%, 40px 40px;
       pointer-events: none;
       z-index: 0;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -15%, rgba(225, 21, 38, 0.16), transparent 70%),
+        radial-gradient(circle at 100% 30%, rgba(225, 21, 38, 0.08), transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     }
 
-    /* Consistent Store Header */
+    /* Header Navigation */
     .store-nav {
       position: sticky;
       top: 0;
-      z-index: 50;
-      width: 100%;
-      background: rgba(6, 7, 9, 0.82);
+      z-index: 99;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
+      background: rgba(7, 7, 9, 0.85);
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
     .store-nav-inner {
-      max-width: 1180px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 14px 24px;
+      padding: 0 24px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -84,32 +80,34 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      flex: none;
-    }
-    .nav-brand img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-      filter: drop-shadow(0 1px 6px rgba(225,21,38,.35));
-    }
-    .brand-title {
-      font-family: 'StretchPro', sans-serif;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       color: #fff;
     }
+    .nav-brand img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+    .brand-title {
+      font-family: 'StretchPro', 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #fff;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #c6c6cd;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
     }
     .nav-link {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #b5b5be;
       text-decoration: none;
-      color: #c6c6cd;
       transition: color 0.15s ease;
       display: inline-flex;
       align-items: center;
@@ -119,19 +117,17 @@
     .tag-new {
       padding: 2px 7px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #a855f7, #ec4899);
+      background: linear-gradient(135deg, #ff4757, #e11526);
       color: #fff;
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
-      box-shadow: 0 0 12px rgba(168, 85, 247, 0.45);
+      box-shadow: 0 0 12px rgba(225, 21, 38, 0.55);
     }
 
-    /* Profile Dropdown Component */
+    /* Profile Chip & Dropdown */
     .profile-chip-wrap {
       position: relative;
-      flex: none;
     }
     .profile-chip {
       display: inline-flex;
@@ -151,7 +147,7 @@
     }
     .profile-chip:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.18);
     }
     .chip-avatar {
       width: 28px;
@@ -167,26 +163,16 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .chip-arrow {
-      width: 14px;
-      height: 14px;
-      color: #a0a0ab;
-      transition: transform 0.2s ease;
-    }
-    .profile-chip-wrap.open .chip-arrow {
-      transform: rotate(180deg);
-    }
-
     .profile-popup {
+      display: none;
       position: absolute;
       top: calc(100% + 10px);
       right: 0;
-      width: 220px;
+      width: 200px;
       background: linear-gradient(180deg, #16151c, #0d0d12);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 8px;
-      display: none;
+      border-radius: 14px;
+      padding: 6px;
       flex-direction: column;
       gap: 2px;
       box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -194,588 +180,497 @@
     }
     .profile-chip-wrap.open .profile-popup {
       display: flex;
-      animation: rise 0.18s ease both;
     }
     .popup-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 13.5px;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13px;
       font-weight: 500;
       color: #cfcfd6;
       text-decoration: none;
-      cursor: pointer;
-      background: transparent;
+      background: none;
       border: none;
+      cursor: pointer;
       width: 100%;
       text-align: left;
       transition: all 0.15s ease;
-      box-sizing: border-box;
-    }
-    .popup-item svg {
-      width: 16px;
-      height: 16px;
-      color: #8e8e98;
-      flex: none;
-      transition: color 0.15s ease;
     }
     .popup-item:hover {
       background: rgba(255, 255, 255, 0.06);
       color: #fff;
     }
-    .popup-item:hover svg { color: #fff; }
-    .popup-divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.06);
-      margin: 4px 6px;
-    }
-    .popup-item.danger {
-      color: #ff5263;
-    }
+    .popup-item.danger { color: #ff5263; }
     .popup-item.danger:hover {
       background: rgba(225, 21, 38, 0.12);
       color: #ff6b7a;
     }
-    .popup-item.danger svg { color: #ff5263; }
 
-    /* Sub-Navigation Pills (No Hesi Style) */
-    .subnav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 24px 20px 10px;
-      max-width: 1180px;
-      margin: 0 auto;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .subnav-pills {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(18, 17, 23, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 999px;
-      padding: 5px;
-      box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-    .subnav-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 20px;
-      border-radius: 999px;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #92929e;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.16s ease;
-    }
-    .subnav-btn svg { width: 15px; height: 15px; }
-    .subnav-btn:hover { color: #fff; }
-    .subnav-btn.active {
-      background: rgba(255, 255, 255, 0.09);
-      color: #fff;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 4px 14px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Main Grid Layout */
-    .dash-container {
+    /* Main Container */
+    .portal-container {
       position: relative;
-      z-index: 10;
-      max-width: 1180px;
-      width: 100%;
+      z-index: 1;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 20px 24px 80px;
-      box-sizing: border-box;
-      display: grid;
-      grid-template-columns: 310px 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-    @media (max-width: 900px) {
-      .dash-container { grid-template-columns: 1fr; }
+      padding: 40px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
     }
 
-    /* Left Sidebar User Card */
-    .user-profile-card {
+    /* Logged Out Gate Card */
+    .login-gate {
+      max-width: 480px;
+      margin: 80px auto;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      padding: 48px 36px;
+      text-align: center;
+      box-shadow: 0 32px 80px -30px rgba(0, 0, 0, 0.9), 0 0 50px -20px var(--red-glow);
     }
-    .upc-banner {
-      height: 110px;
-      background: linear-gradient(135deg, rgba(225, 21, 38, 0.35) 0%, #160a0f 60%, #0d0f14 100%);
-      position: relative;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-end;
-      padding: 14px;
-      box-sizing: border-box;
+    .gate-logo {
+      width: 58px;
+      height: 58px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 20px var(--red-glow));
     }
-    .upc-banner-mark {
-      position: absolute;
-      left: 20px;
-      bottom: -15px;
-      opacity: 0.15;
-      width: 120px;
-      pointer-events: none;
+    .gate-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0 0 10px;
+      color: #fff;
+      letter-spacing: -0.02em;
     }
-    .upc-body {
-      padding: 0 22px 24px;
-      position: relative;
+    .gate-desc {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--mut);
+      margin: 0 0 28px;
     }
-    .upc-avatar-wrap {
-      position: relative;
-      margin-top: -38px;
-      margin-bottom: 14px;
-      display: inline-block;
+    .btn-discord-login {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(180deg, #ff4757, var(--red) 46%, #b50e1b);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 14px 30px -10px var(--red-glow);
+      transition: transform 0.15s ease, filter 0.15s ease;
     }
-    .upc-avatar {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      background: #000;
-      border: 3px solid #0f0e12;
-      box-shadow: 0 0 20px -2px var(--red-glow);
+    .btn-discord-login:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
     }
-    .upc-name-row {
+
+    /* User Profile Bar */
+    .user-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 24px 28px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      box-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.7);
     }
-    .upc-username {
+    .user-info-side {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .user-avatar-lg {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #000;
+      border: 2px solid var(--red-bright);
+      box-shadow: 0 0 20px -4px var(--red-glow);
+      flex: none;
+    }
+    .user-names {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .user-username {
       font-size: 20px;
       font-weight: 800;
       color: #fff;
       letter-spacing: -0.02em;
-      margin: 0;
     }
-    .upc-verified {
-      width: 18px;
-      height: 18px;
-      color: #38bdf8;
-    }
-    .upc-id {
-      font-size: 12.5px;
+    .user-id-row {
+      font-size: 12px;
       color: var(--dim);
-      margin: 0 0 16px;
-      font-family: monospace;
+      font-family: ui-monospace, monospace;
     }
-
-    /* Badges Row */
     .badges-row {
       display: flex;
+      align-items: center;
+      gap: 8px;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 20px;
+      margin-top: 6px;
     }
     .badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
       padding: 4px 10px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
     .badge-admin {
-      background: linear-gradient(135deg, rgba(225, 21, 38, 0.3), rgba(255, 71, 87, 0.15));
-      color: #ff3b4e;
+      background: rgba(225, 21, 38, 0.2);
+      color: #ff4757;
       border: 1px solid rgba(225, 21, 38, 0.5);
-      box-shadow: 0 0 14px -3px var(--red-glow);
+      box-shadow: 0 0 14px rgba(225, 21, 38, 0.4);
     }
     .badge-apex {
-      background: rgba(47, 107, 255, 0.15);
+      background: rgba(47, 107, 255, 0.16);
       color: #5c8eff;
       border: 1px solid rgba(47, 107, 255, 0.35);
     }
     .badge-viper {
-      background: rgba(139, 61, 245, 0.15);
+      background: rgba(139, 61, 245, 0.16);
       color: #aa77ff;
       border: 1px solid rgba(139, 61, 245, 0.35);
     }
     .badge-mamba {
-      background: rgba(220, 20, 38, 0.15);
+      background: rgba(220, 20, 38, 0.16);
       color: #ff5465;
       border: 1px solid rgba(220, 20, 38, 0.35);
     }
     .badge-free {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       color: #9c9ca6;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .upc-section-divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.06);
-      margin: 18px 0;
-    }
-    .upc-meta-row {
+    .user-actions {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: 12.5px;
-      margin-bottom: 10px;
+      gap: 10px;
     }
-    .upc-meta-label { color: var(--dim); }
-    .upc-meta-val { color: #fff; font-weight: 600; }
-
-    .upc-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 18px;
-    }
-    .btn-side {
+    .btn-secondary {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      width: 100%;
-      padding: 11px 16px;
+      padding: 10px 18px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 600;
+      color: #e2e2e7;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.035);
-      color: #d6d6de;
       transition: all 0.15s ease;
     }
-    .btn-side:hover {
-      background: rgba(255, 255, 255, 0.07);
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .btn-logout {
+      color: #ff6b7a;
+      border-color: rgba(255, 59, 78, 0.25);
+    }
+    .btn-logout:hover {
+      background: rgba(225, 21, 38, 0.12);
+      color: #ff8592;
     }
 
-    /* Right Main Content */
-    .dash-main {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    /* Section Titles */
+    .section-head {
+      margin-bottom: 16px;
     }
-
-    /* 4 Top KPI Cards (No Hesi Grid) */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 1100px) {
-      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .kpi-grid { grid-template-columns: 1fr; }
-    }
-    .kpi-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.6);
-      transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-    .kpi-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.14);
-    }
-    .kpi-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .kpi-title {
-      font-size: 12.5px;
-      font-weight: 500;
-      color: var(--dim);
-    }
-    .kpi-pill {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--green);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
-    .kpi-val {
+    .section-title {
       font-size: 20px;
       font-weight: 800;
-      letter-spacing: -0.02em;
       color: #fff;
-    }
-
-    /* Zen Studio App Banner */
-    .app-banner {
-      background: linear-gradient(135deg, rgba(225, 21, 38, 0.18) 0%, rgba(18, 16, 22, 0.95) 60%);
-      border: 1px solid rgba(225, 21, 38, 0.35);
-      border-radius: 20px;
-      padding: 30px 34px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      box-shadow: 0 20px 50px -20px var(--red-glow);
-    }
-    @media (max-width: 768px) {
-      .app-banner { flex-direction: column; align-items: flex-start; padding: 22px; }
-    }
-    .ab-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--red);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .ab-title {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin: 0 0 6px;
-      color: #fff;
-    }
-    .ab-desc {
-      font-size: 13.5px;
-      line-height: 1.55;
-      color: #a4a4b0;
-      max-width: 520px;
       margin: 0;
+      letter-spacing: -0.02em;
     }
-    .btn-download-app {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 13px 24px;
-      border-radius: 12px;
-      font-size: 14.5px;
-      font-weight: 700;
-      text-decoration: none;
-      color: #fff;
-      background: linear-gradient(135deg, #ff4757, var(--red));
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 28px -8px var(--red-glow);
-      white-space: nowrap;
-      flex: none;
-      transition: all 0.16s ease;
-    }
-    .btn-download-app:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 32px -6px var(--red-glow);
+    .section-sub {
+      font-size: 13.5px;
+      color: var(--mut);
+      margin: 4px 0 0;
     }
 
-    /* Script Authorizations Grid */
-    .scripts-header {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #fff;
-      margin: 10px 0 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .script-grid {
+    /* Scripts Grid */
+    .scripts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 20px;
     }
     @media (max-width: 900px) {
-      .script-grid { grid-template-columns: 1fr; }
+      .scripts-grid { grid-template-columns: 1fr; }
     }
     .script-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 18px;
-      padding: 22px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: 16px;
-      box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.7);
-      transition: transform 0.16s ease, border-color 0.16s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.6);
+      transition: transform 0.15s ease, border-color 0.15s ease;
     }
     .script-card:hover {
       transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.14);
     }
-    .sc-top {
+    .script-header {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
-    .sc-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      object-fit: contain;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .sc-pill-ok {
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.14);
-      color: var(--green);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      letter-spacing: 0.04em;
-    }
-    .sc-pill-lock {
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      color: #92929e;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      letter-spacing: 0.04em;
-    }
-    .sc-title {
-      font-size: 16.5px;
-      font-weight: 700;
-      color: #fff;
-      margin: 10px 0 2px;
-    }
-    .sc-game {
-      font-size: 12px;
-      color: var(--dim);
-      margin-bottom: 12px;
-    }
-    .sc-features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .sc-features li {
-      font-size: 12px;
-      color: #a4a4b0;
+    .script-title-box {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 12px;
     }
-    .sc-features li svg {
-      width: 13px;
-      height: 13px;
-      color: var(--green);
+    .script-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .script-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+    }
+    .script-game {
+      font-size: 12px;
+      color: var(--dim);
+      margin: 2px 0 0;
+    }
+    .status-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .status-badge.unlocked {
+      background: rgba(46, 213, 115, 0.15);
+      color: #2ed573;
+      border: 1px solid rgba(46, 213, 115, 0.35);
+    }
+    .status-badge.locked {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--dim);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .script-features {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: #b5b5be;
+    }
+    .script-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .script-features svg {
+      width: 14px;
+      height: 14px;
+      color: var(--red-bright);
       flex: none;
     }
-    .btn-download-script {
+
+    .btn-script {
+      margin-top: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      gap: 8px;
       width: 100%;
-      padding: 11px 14px;
-      border-radius: 10px;
-      font-size: 13px;
+      padding: 13px 16px;
+      border-radius: 11px;
+      font-size: 14px;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
-      box-sizing: border-box;
       transition: all 0.15s ease;
+      border: 1px solid transparent;
     }
-    .btn-download-script.unlocked {
-      background: rgba(16, 185, 129, 0.12);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .btn-download-script.unlocked:hover {
-      background: rgba(16, 185, 129, 0.2);
+    .btn-script.download {
+      background: linear-gradient(180deg, #2ed573, #1e9d52);
       color: #fff;
-      border-color: rgba(16, 185, 129, 0.5);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 24px -8px rgba(46, 213, 115, 0.4);
     }
-    .btn-download-script.locked {
-      background: linear-gradient(180deg, #ff4757, var(--red));
+    .btn-script.download:hover {
+      filter: brightness(1.08);
+    }
+    .btn-script.buy {
+      background: linear-gradient(180deg, #ff4757, var(--red) 46%, #b50e1b);
       color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 22px -6px var(--red-glow);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 24px -8px var(--red-glow);
     }
-    .btn-download-script.locked:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px -4px var(--red-glow);
+    .btn-script.buy:hover {
+      filter: brightness(1.08);
     }
 
-    /* Content Views */
-    .tab-content { display: none; }
-    .tab-content.active { display: flex; flex-direction: column; gap: 24px; animation: rise 0.2s ease both; }
-
-    /* Tables & Detail Cards */
-    .detail-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+    /* Zen Studio App Banner */
+    .app-banner {
+      background: radial-gradient(80% 120% at 0% 50%, rgba(225, 21, 38, 0.2), transparent 60%),
+                  linear-gradient(135deg, #120a0d, #0d0d12);
+      border: 1px solid rgba(225, 21, 38, 0.35);
       border-radius: 20px;
-      padding: 26px;
-      box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8), 0 0 40px -20px var(--red-glow);
     }
-    .dc-title {
-      font-size: 17px;
+    .app-banner-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .app-banner-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      flex: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .app-banner-text h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .app-banner-text p {
+      font-size: 13.5px;
+      color: var(--mut);
+      margin: 6px 0 0;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    .btn-download-app {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      border-radius: 12px;
+      font-size: 14.5px;
       font-weight: 700;
       color: #fff;
-      margin: 0 0 16px;
+      background: linear-gradient(180deg, #ff4757, var(--red) 46%, #b50e1b);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 14px 30px -10px var(--red-glow);
+      transition: all 0.15s ease;
+      white-space: nowrap;
     }
-    .table-wrap {
-      width: 100%;
-      overflow-x: auto;
+    .btn-download-app:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13.5px;
-      text-align: left;
-    }
-    th {
-      padding: 12px 16px;
-      color: var(--dim);
-      font-weight: 600;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    td {
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: #d6d6de;
-    }
-    tr:last-child td { border-bottom: none; }
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: none; }
+    /* License Key Redeem Card */
+    .redeem-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .redeem-left {
+      max-width: 440px;
+    }
+    .redeem-left h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    .redeem-left p {
+      font-size: 13px;
+      color: var(--mut);
+      margin: 4px 0 0;
+    }
+    .redeem-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 280px;
+      max-width: 480px;
+    }
+    .redeem-input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .redeem-input:focus {
+      border-color: var(--red-bright);
+    }
+    .btn-redeem {
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-redeem:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
     }
   </style>
 </head>
@@ -801,32 +696,25 @@
 
       <!-- Right Profile Chip & Dropdown -->
       <div class="profile-chip-wrap" id="chipWrap">
-        <div class="profile-chip" id="profileChipBtn" onclick="togglePopup(event)">
+        <div class="profile-chip" id="profileChipBtn" onclick="togglePopup(event)" style="display:none;">
           <img class="chip-avatar" id="navAvatar" src="assets/zen-icon.png" alt="">
           <span class="chip-name" id="navUsername">numby</span>
-          <svg class="chip-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
         </div>
 
+        <a href="https://feroz-server.onrender.com/v1/auth/discord/start?mode=web&origin=https://ferozzens.com/portal.html" id="navLoginBtn" class="btn-secondary" style="text-decoration:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+          Login
+        </a>
+
         <div class="profile-popup" id="profilePopup">
-          <button class="popup-item" onclick="switchTab('home')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            Dashboard
+          <button class="popup-item" onclick="syncRoles(this)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+            Sync Roles
           </button>
-          <button class="popup-item" onclick="switchTab('billing')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-            Billing
-          </button>
-          <button class="popup-item" onclick="switchTab('transactions')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-            Transactions
-          </button>
-          <button class="popup-item" onclick="switchTab('profile')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Edit Profile
-          </button>
-          <div class="popup-divider"></div>
+          <div style="height:1px;background:rgba(255,255,255,.06);margin:4px 6px;"></div>
           <button class="popup-item danger" onclick="logout()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
             Log Out
           </button>
         </div>
@@ -834,344 +722,224 @@
     </div>
   </nav>
 
-  <!-- Sub-Navigation Pills (No Hesi Style) -->
-  <div class="subnav-bar">
-    <div class="subnav-pills">
-      <button class="subnav-btn active" id="tabBtn-home" onclick="switchTab('home')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-        Home
-      </button>
-      <button class="subnav-btn" id="tabBtn-billing" onclick="switchTab('billing')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-        Billing
-      </button>
-      <button class="subnav-btn" id="tabBtn-transactions" onclick="switchTab('transactions')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-        Transactions
-      </button>
-      <button class="subnav-btn" id="tabBtn-profile" onclick="switchTab('profile')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Edit Profile
-      </button>
+  <!-- Portal Main Content -->
+  <main class="portal-container">
+    <!-- Logged Out Gate -->
+    <div id="loginGate" class="login-gate" style="display:none;">
+      <img src="assets/logo.png" alt="Feroz Zens" class="gate-logo">
+      <h2 class="gate-title">Customer Command Center</h2>
+      <p class="gate-desc">Connect with your Discord account to access your script authorizations, live downloads, and Zen Studio App.</p>
+      <a href="https://feroz-server.onrender.com/v1/auth/discord/start?mode=web&origin=https://ferozzens.com/portal.html" class="btn-discord-login">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+        Connect with Discord
+      </a>
     </div>
-  </div>
 
-  <!-- Main 2-Column Dashboard Container -->
-  <main class="dash-container">
-    <!-- Left Column: User Card -->
-    <aside class="user-profile-card">
-      <div class="upc-banner">
-        <img class="upc-banner-mark" src="assets/logo-wordmark.png" alt="">
-      </div>
-      <div class="upc-body">
-        <div class="upc-avatar-wrap">
-          <img class="upc-avatar" id="cardAvatar" src="assets/zen-icon.png" alt="">
-        </div>
-        <div class="upc-name-row">
-          <h2 class="upc-username" id="cardUsername">numby</h2>
-          <svg class="upc-verified" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-        </div>
-        <div class="upc-id" id="cardUserId">ID: 1393248248663376055</div>
-
-        <!-- Badges Row -->
-        <div class="badges-row" id="badgesContainer">
-          <!-- Dynamically populated: Admin for Stark, Apex/Viper/Mamba access for users -->
+    <!-- Authenticated Dashboard -->
+    <div id="authDashboard" style="display:none;display:flex;flex-direction:column;gap:32px;">
+      <!-- User Profile Header Bar -->
+      <div class="user-card">
+        <div class="user-info-side">
+          <img class="user-avatar-lg" id="dashAvatar" src="assets/zen-icon.png" alt="">
+          <div class="user-names">
+            <div class="user-username" id="dashUsername">numby</div>
+            <div class="user-id-row" id="dashId">ID: 1393248248663376055</div>
+            <div class="badges-row" id="dashBadges">
+              <!-- Injected dynamically -->
+            </div>
+          </div>
         </div>
 
-        <div class="upc-section-divider"></div>
-
-        <div class="upc-meta-row">
-          <span class="upc-meta-label">Discord Sync</span>
-          <span class="upc-meta-val" style="color:var(--green);">Connected</span>
-        </div>
-        <div class="upc-meta-row">
-          <span class="upc-meta-label">Customer Tier</span>
-          <span class="upc-meta-val" id="cardTierLabel">VIP Lifetime</span>
-        </div>
-        <div class="upc-meta-row">
-          <span class="upc-meta-label">Hardware Lock</span>
-          <span class="upc-meta-val">Unlocked</span>
-        </div>
-
-        <div class="upc-actions">
-          <button class="btn-side" onclick="syncRoles(this)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-            Sync Discord Roles
+        <div class="user-actions">
+          <button class="btn-secondary" onclick="syncRoles(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+            Sync Roles
           </button>
-          <button class="btn-side" onclick="logout()">
+          <button class="btn-secondary btn-logout" onclick="logout()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
             Log Out
           </button>
         </div>
       </div>
-    </aside>
 
-    <!-- Right Column: Content Area -->
-    <section class="dash-main">
-      <!-- TAB 1: HOME -->
-      <div class="tab-content active" id="tab-home">
-        <!-- 4 KPI Cards (No Hesi Style) -->
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-head">
-              <span class="kpi-title">Account Status</span>
-              <span class="kpi-pill">Active</span>
-            </div>
-            <div class="kpi-val" style="color:var(--green);">Verified</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-head">
-              <span class="kpi-title">Polling Rate</span>
-              <span class="kpi-pill">Max</span>
-            </div>
-            <div class="kpi-val">1000 Hz</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-head">
-              <span class="kpi-title">Zen Studio App</span>
-              <span class="kpi-pill">v3.9.4 Live</span>
-            </div>
-            <div class="kpi-val">Ready to Sync</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-head">
-              <span class="kpi-title">Script Access</span>
-              <span class="kpi-pill">Lifetime</span>
-            </div>
-            <div class="kpi-val" id="kpiScriptCount">3 / 3 Active</div>
+      <!-- Zen Studio Desktop App Banner -->
+      <div class="app-banner">
+        <div class="app-banner-info">
+          <img src="assets/optimizer-badge.png" alt="Zen Studio App" class="app-banner-icon">
+          <div class="app-banner-text">
+            <h3>Zen Studio App <span class="tag-new">v3.9.5 LIVE</span></h3>
+            <p>Windows desktop companion for your Cronus Zen. Automatic cloud profile sync, real-time stick calibration, and seamless 1-click script exports.</p>
           </div>
         </div>
+        <a href="assets/feroz-optimizer-installer.exe" download="Zen-Studio-Setup.exe" class="btn-download-app">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          Download Zen Studio (.exe)
+        </a>
+      </div>
 
-        <!-- Zen Studio App Showcase Banner -->
-        <div class="app-banner">
-          <div>
-            <span class="ab-badge">Zen Studio App V3</span>
-            <h3 class="ab-title">Zen Studio App (Desktop Client)</h3>
-            <p class="ab-desc">Included free for all server members. Easily configure Cronus Zen stick deadzones, sync 1000Hz polling rates, manage mod menus, and load your authorized scripts in one click.</p>
-          </div>
-          <a href="assets/feroz-optimizer-installer.exe" download="Zen-Studio-App-V3.exe" class="btn-download-app">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
-            Download Zen Studio (.exe)
-          </a>
+      <!-- Script Library Section -->
+      <div>
+        <div class="section-head">
+          <h3 class="section-title">Your Script Authorizations</h3>
+          <p class="section-sub">Download your unlocked GPC files directly or upgrade to claim immediate access.</p>
         </div>
 
-        <!-- Script Authorizations -->
-        <div class="scripts-header">
-          <span>Script Library & Authorizations</span>
-        </div>
-
-        <div class="script-grid">
+        <div class="scripts-grid">
           <!-- Apex Script -->
-          <div class="script-card">
-            <div>
-              <div class="sc-top">
-                <img class="sc-thumb" src="assets/product-apex.png" alt="Apex">
-                <span class="sc-pill-ok" id="status-apex">UNLOCKED</span>
+          <div class="script-card" id="card-apex">
+            <div class="script-header">
+              <div class="script-title-box">
+                <img src="assets/product-apex.png" alt="Apex" class="script-icon">
+                <div>
+                  <h4 class="script-name">Apex v1.0</h4>
+                  <div class="script-game">Fortnite · PC / PS5 / Xbox</div>
+                </div>
               </div>
-              <h4 class="sc-title">Apex v1.0</h4>
-              <div class="sc-game">Fortnite · PC / PS5 / Xbox</div>
-              <ul class="sc-features">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Adaptive Tracking & Box-Fight Aim</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Zero Bloom & Instant Weapon Swap</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>1000Hz Ultra-Response Tuning</li>
-              </ul>
+              <span class="status-badge locked" id="badge-apex">LOCKED</span>
             </div>
-            <a id="btn-apex" href="#" onclick="downloadScript('apex', event)" class="btn-download-script unlocked">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
-              Download Apex_v1.0.gpc
-            </a>
+
+            <ul class="script-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Adaptive Sticky Aim Tracking</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Instant Weapon Swap & Reset</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Zero Bloom Recoil Dampeners</li>
+            </ul>
+
+            <button class="btn-script buy" id="btn-apex" onclick="handleScriptAction('apex', this)">
+              Get Access · €49.99
+            </button>
           </div>
 
           <!-- Viper Script -->
-          <div class="script-card">
-            <div>
-              <div class="sc-top">
-                <img class="sc-thumb" src="assets/product-viper.png" alt="Viper">
-                <span class="sc-pill-ok" id="status-viper">UNLOCKED</span>
+          <div class="script-card" id="card-viper">
+            <div class="script-header">
+              <div class="script-title-box">
+                <img src="assets/product-viper.png" alt="Viper" class="script-icon">
+                <div>
+                  <h4 class="script-name">Viper v1.0</h4>
+                  <div class="script-game">Call of Duty · Warzone & MW3</div>
+                </div>
               </div>
-              <h4 class="sc-title">Viper v1.0</h4>
-              <div class="sc-game">Call of Duty · Warzone & MW3</div>
-              <ul class="sc-features">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Rotational Sticky Aim Assist</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Automated Slide-Cancel & Dropshot</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Dynamic Weapon Anti-Recoil Table</li>
-              </ul>
+              <span class="status-badge locked" id="badge-viper">LOCKED</span>
             </div>
-            <a id="btn-viper" href="#" onclick="downloadScript('viper', event)" class="btn-download-script unlocked">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
-              Download Viper_v1.0.gpc
-            </a>
+
+            <ul class="script-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Rotational Aim Assist Exploits</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Automated Slide-Cancel & Drop Shot</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Zero-Recoil Profile Tables</li>
+            </ul>
+
+            <button class="btn-script buy" id="btn-viper" onclick="handleScriptAction('viper', this)">
+              Get Access · €49.99
+            </button>
           </div>
 
           <!-- Mamba Script -->
-          <div class="script-card">
-            <div>
-              <div class="sc-top">
-                <img class="sc-thumb" src="assets/product-mamba.png" alt="Mamba">
-                <span class="sc-pill-ok" id="status-mamba">UNLOCKED</span>
+          <div class="script-card" id="card-mamba">
+            <div class="script-header">
+              <div class="script-title-box">
+                <img src="assets/product-mamba.png" alt="Mamba" class="script-icon">
+                <div>
+                  <h4 class="script-name">Mamba v1.0</h4>
+                  <div class="script-game">NBA 2K26 · All Positions & Modes</div>
+                </div>
               </div>
-              <h4 class="sc-title">Mamba v1.0</h4>
-              <div class="sc-game">NBA 2K26 · All Positions & Modes</div>
-              <ul class="sc-features">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Frame-Perfect Auto Green Release</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Speed-Boost Rhythm Dribble Combos</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Defensive Lock & Steal Automations</li>
-              </ul>
+              <span class="status-badge locked" id="badge-mamba">LOCKED</span>
             </div>
-            <a id="btn-mamba" href="#" onclick="downloadScript('mamba', event)" class="btn-download-script unlocked">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
-              Download Mamba_v1.0.gpc
-            </a>
-          </div>
-        </div>
 
-        <!-- Free Community Pack -->
-        <div class="detail-card" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-          <div>
-            <span class="ab-badge" style="background:rgba(255,255,255,0.08);color:#cfcfd6;border:1px solid rgba(255,255,255,0.1);">Community Access</span>
-            <h4 style="margin:4px 0 6px;font-size:18px;font-weight:700;">Free Community Scripts Pack</h4>
-            <p style="margin:0;font-size:13px;color:var(--dim);">Includes Edge (Fortnite), Rapid (COD), and Court (NBA 2K) base editions.</p>
-          </div>
-          <a href="downloads/free-scripts.zip" download class="btn-side" style="width:auto;padding:12px 22px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            Download Free Pack (.zip)
-          </a>
-        </div>
-      </div>
+            <ul class="script-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Frame-Perfect Auto Green Release</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Rhythm Dribble Combos & Speed-Boost</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Dynamic Latency Auto-Tuning</li>
+            </ul>
 
-      <!-- TAB 2: BILLING -->
-      <div class="tab-content" id="tab-billing">
-        <div class="detail-card">
-          <h3 class="dc-title">Active Licenses & Subscriptions</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Product / Tier</th>
-                  <th>License Type</th>
-                  <th>Provider</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="billingTableBody">
-                <tr>
-                  <td><b>Feroz VIP Master Access</b></td>
-                  <td>Lifetime Digital License</td>
-                  <td>Stripe Verified</td>
-                  <td><span class="sc-pill-ok">ACTIVE</span></td>
-                </tr>
-                <tr>
-                  <td><b>Zen Studio App Client</b></td>
-                  <td>Free Community Inclusion</td>
-                  <td>Feroz Cloud</td>
-                  <td><span class="sc-pill-ok">ACTIVE</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: TRANSACTIONS -->
-      <div class="tab-content" id="tab-transactions">
-        <div class="detail-card">
-          <h3 class="dc-title">Order & Transaction History</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Transaction ID</th>
-                  <th>Tier Description</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="txTableBody">
-                <tr>
-                  <td style="font-family:monospace;">ch_live_3SlcBzDwqy...</td>
-                  <td>Apex + Viper + Mamba VIP Bundle</td>
-                  <td>November 2026</td>
-                  <td>€49.99</td>
-                  <td><span class="sc-pill-ok">COMPLETED</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 4: PROFILE -->
-      <div class="tab-content" id="tab-profile">
-        <div class="detail-card">
-          <h3 class="dc-title">Discord Account & Server Membership</h3>
-          <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;">
-            <img class="upc-avatar" id="editAvatar" src="assets/zen-icon.png" alt="" style="width:64px;height:64px;">
-            <div>
-              <div style="font-size:18px;font-weight:700;color:#fff;" id="editUsername">numby</div>
-              <div style="font-size:13px;color:var(--dim);" id="editId">Discord ID: 1393248248663376055</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;">
-            <button class="btn-side" style="width:auto;padding:12px 20px;" onclick="syncRoles(this)">
-              Refresh Role Entitlements
+            <button class="btn-script buy" id="btn-mamba" onclick="handleScriptAction('mamba', this)">
+              Get Access · €49.99
             </button>
-            <a href="https://discord.gg/pZrkfnrqKJ" target="_blank" class="btn-side" style="width:auto;padding:12px 20px;text-decoration:none;">
-              Open Feroz Discord Server
-            </a>
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Free Community Pack Download -->
+      <div class="redeem-card">
+        <div class="redeem-left">
+          <h4>Free Community Scripts Pack (Edge, Rapid, Court)</h4>
+          <p>Open-source baseline scripts for Fortnite, COD and NBA 2K. Free for all Discord server members.</p>
+        </div>
+        <a href="https://feroz-server.onrender.com/v1/downloads/free" class="btn-secondary" style="text-decoration:none;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          Download Free Pack (.zip)
+        </a>
+      </div>
+
+      <!-- License Key Redemption -->
+      <div class="redeem-card">
+        <div class="redeem-left">
+          <h4>Have a License Key?</h4>
+          <p>Enter your purchase license key below to instantly bind it to your Discord ID and unlock your script.</p>
+        </div>
+        <div class="redeem-form">
+          <input type="text" id="redeemKeyInput" class="redeem-input" placeholder="FZ-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
+          <button class="btn-redeem" id="btnRedeemKey" onclick="redeemKey(this)">Redeem Key</button>
+        </div>
+      </div>
+      <div id="redeemFeedback" style="display:none;font-size:13px;font-weight:600;padding:4px 8px;margin-top:-20px;"></div>
+    </div>
   </main>
 
   <script>
     const API_BASE = 'https://feroz-server.onrender.com';
-    let SESSION_TOKEN = localStorage.getItem('feroz_token') || '';
+    let CURRENT_USER = null;
+    let SESSION_TOKEN = '';
 
-    // Check URL parameters for session
-    const urlParams = new URLSearchParams(window.location.search);
-    const tokenParam = urlParams.get('token');
-    if (tokenParam) {
-      SESSION_TOKEN = tokenParam;
-      localStorage.setItem('feroz_token', tokenParam);
-      window.history.replaceState({}, document.title, window.location.pathname);
+    // Parse token from hash fragment (#token=...) or search params (?token=...)
+    function resolveToken() {
+      if (window.location.hash) {
+        const hash = window.location.hash.replace(/^#/, '');
+        const p = new URLSearchParams(hash);
+        const t = p.get('token') || p.get('access_token');
+        if (t) {
+          localStorage.setItem('fz_token', t);
+          localStorage.setItem('feroz_token', t);
+          window.history.replaceState({}, document.title, window.location.pathname);
+          return t;
+        }
+      }
+      if (window.location.search) {
+        const p = new URLSearchParams(window.location.search);
+        const t = p.get('token') || p.get('access_token');
+        if (t) {
+          localStorage.setItem('fz_token', t);
+          localStorage.setItem('feroz_token', t);
+          window.history.replaceState({}, document.title, window.location.pathname);
+          return t;
+        }
+      }
+      return localStorage.getItem('fz_token') || localStorage.getItem('feroz_token') || '';
     }
+
+    SESSION_TOKEN = resolveToken();
 
     function togglePopup(e) {
-      e.stopPropagation();
-      document.getElementById('chipWrap').classList.toggle('open');
+      if (e) e.stopPropagation();
+      const wrap = document.getElementById('chipWrap');
+      if (wrap) wrap.classList.toggle('open');
     }
 
-    document.addEventListener('click', (e) => {
-      const wrap = document.getElementById('chipWrap');
-      if (wrap && !wrap.contains(e.target)) {
-        wrap.classList.remove('open');
-      }
-    });
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.subnav-btn').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = document.getElementById('tabBtn-' + tabId);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      const activeContent = document.getElementById('tab-' + tabId);
-      if (activeContent) activeContent.classList.add('active');
-
+    document.addEventListener('click', () => {
       const wrap = document.getElementById('chipWrap');
       if (wrap) wrap.classList.remove('open');
-    }
+    });
 
     function logout() {
+      localStorage.removeItem('fz_token');
       localStorage.removeItem('feroz_token');
+      SESSION_TOKEN = '';
       window.location.href = 'index.html';
     }
 
     async function loadUser() {
       if (!SESSION_TOKEN) {
-        // Redirect to Discord OAuth login
-        window.location.href = `${API_BASE}/v1/auth/discord/start?mode=web&origin=${encodeURIComponent(window.location.origin + '/portal.html')}`;
+        showGate();
         return;
       }
 
@@ -1179,59 +947,84 @@
         const res = await fetch(`${API_BASE}/v1/me`, {
           headers: { 'Authorization': `Bearer ${SESSION_TOKEN}` }
         });
+
         if (!res.ok) {
+          localStorage.removeItem('fz_token');
           localStorage.removeItem('feroz_token');
-          window.location.href = `${API_BASE}/v1/auth/discord/start?mode=web&origin=${encodeURIComponent(window.location.origin + '/portal.html')}`;
+          SESSION_TOKEN = '';
+          showGate();
           return;
         }
 
         const data = await res.json();
-        renderUserData(data);
+        CURRENT_USER = data;
+        renderDashboard(data);
       } catch (err) {
-        console.error('Failed to load user', err);
+        console.error('User session error', err);
+        showGate();
       }
     }
 
-    function renderUserData(data) {
+    function showGate() {
+      const gate = document.getElementById('loginGate');
+      const dash = document.getElementById('authDashboard');
+      const navBtn = document.getElementById('navLoginBtn');
+      const chipBtn = document.getElementById('profileChipBtn');
+
+      if (gate) gate.style.display = 'block';
+      if (dash) dash.style.display = 'none';
+      if (navBtn) navBtn.style.display = 'inline-flex';
+      if (chipBtn) chipBtn.style.display = 'none';
+    }
+
+    function renderDashboard(data) {
+      const gate = document.getElementById('loginGate');
+      const dash = document.getElementById('authDashboard');
+      const navBtn = document.getElementById('navLoginBtn');
+      const chipBtn = document.getElementById('profileChipBtn');
+
+      if (gate) gate.style.display = 'none';
+      if (dash) dash.style.display = 'flex';
+      if (navBtn) navBtn.style.display = 'none';
+      if (chipBtn) chipBtn.style.display = 'inline-flex';
+
       const user = data.user || {};
-      const ent = data.entitlements || {};
-      const scripts = ent.scripts || {};
-      const isStaff = ent.staff || false;
-      const isAdmin = (user.id === '1393248248663376055') || isStaff;
+      const entitlements = data.entitlements || {};
+      const scripts = entitlements.scripts || {};
+      const isStaff = !!entitlements.staff || user.id === '1393248248663376055';
 
-      const name = user.global_name || user.username || 'numby';
-      const id = user.id || '1393248248663376055';
       const avatarUrl = user.avatar
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-        : 'assets/zen-icon.png';
+        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`
+        : 'assets/logo.png';
 
-      // Header nav chip
-      document.getElementById('navUsername').textContent = name;
-      document.getElementById('navAvatar').src = avatarUrl;
+      // Update Nav Chip
+      const navAvatar = document.getElementById('navAvatar');
+      const navUsername = document.getElementById('navUsername');
+      if (navAvatar) navAvatar.src = avatarUrl;
+      if (navUsername) navUsername.textContent = user.username || 'Member';
 
-      // Sidebar card
-      document.getElementById('cardUsername').textContent = name;
-      document.getElementById('cardUserId').textContent = `ID: ${id}`;
-      document.getElementById('cardAvatar').src = avatarUrl;
-      document.getElementById('editUsername').textContent = name;
-      document.getElementById('editId').textContent = `Discord ID: ${id}`;
-      document.getElementById('editAvatar').src = avatarUrl;
+      // Update Profile Card
+      const dashAvatar = document.getElementById('dashAvatar');
+      const dashUsername = document.getElementById('dashUsername');
+      const dashId = document.getElementById('dashId');
+      if (dashAvatar) dashAvatar.src = avatarUrl;
+      if (dashUsername) dashUsername.textContent = user.username || 'Member';
+      if (dashId) dashId.textContent = `Discord ID: ${user.id || 'N/A'}`;
 
-      // Badges container
-      const badgesContainer = document.getElementById('badgesContainer');
+      // Render Verified Badges
+      const badgesContainer = document.getElementById('dashBadges');
       badgesContainer.innerHTML = '';
 
-      if (isAdmin) {
+      if (isStaff) {
         const adminBadge = document.createElement('span');
         adminBadge.className = 'badge-pill badge-admin';
-        adminBadge.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg> ADMIN';
+        adminBadge.textContent = 'ADMIN';
         badgesContainer.appendChild(adminBadge);
       }
 
-      // User script badges
-      const hasApex = isStaff || scripts.apex;
-      const hasViper = isStaff || scripts.viper;
-      const hasMamba = isStaff || scripts.mamba;
+      const hasApex = isStaff || !!scripts.apex;
+      const hasViper = isStaff || !!scripts.viper;
+      const hasMamba = isStaff || !!scripts.mamba;
 
       if (hasApex) {
         const b = document.createElement('span');
@@ -1258,68 +1051,132 @@
         badgesContainer.appendChild(b);
       }
 
-      // Update script cards
-      updateScriptCard('apex', hasApex, 'Apex_v1.0.gpc');
-      updateScriptCard('viper', hasViper, 'Viper_v1.0.gpc');
-      updateScriptCard('mamba', hasMamba, 'Mamba_v1.0.gpc');
-
-      const count = [hasApex, hasViper, hasMamba].filter(Boolean).length;
-      document.getElementById('kpiScriptCount').textContent = `${count} / 3 Active`;
-      document.getElementById('cardTierLabel').textContent = count === 3 ? 'Master Lifetime' : (count > 0 ? 'Customer VIP' : 'Free Tier');
+      // Update Script Cards
+      setupScriptCard('apex', hasApex, 'Apex_v1.0.gpc');
+      setupScriptCard('viper', hasViper, 'Viper_v1.0.gpc');
+      setupScriptCard('mamba', hasMamba, 'Mamba_v1.0.gpc');
     }
 
-    function updateScriptCard(tier, unlocked, filename) {
-      const statusPill = document.getElementById(`status-${tier}`);
+    function setupScriptCard(tier, unlocked, filename) {
+      const badge = document.getElementById(`badge-${tier}`);
       const btn = document.getElementById(`btn-${tier}`);
-      if (!statusPill || !btn) return;
+      if (!badge || !btn) return;
 
       if (unlocked) {
-        statusPill.textContent = 'UNLOCKED';
-        statusPill.className = 'sc-pill-ok';
+        badge.textContent = 'UNLOCKED';
+        badge.className = 'status-badge unlocked';
         btn.textContent = `Download ${filename}`;
-        btn.className = 'btn-download-script unlocked';
-        btn.onclick = (e) => downloadScript(tier, e);
+        btn.className = 'btn-script download';
+        btn.dataset.action = 'download';
       } else {
-        statusPill.textContent = 'LOCKED';
-        statusPill.className = 'sc-pill-lock';
+        badge.textContent = 'LOCKED';
+        badge.className = 'status-badge locked';
         btn.textContent = 'Get Access · €49.99';
-        btn.className = 'btn-download-script locked';
-        btn.onclick = (e) => buyScript(tier, e);
+        btn.className = 'btn-script buy';
+        btn.dataset.action = 'buy';
       }
     }
 
-    async function downloadScript(tier, e) {
-      if (e) e.preventDefault();
-      const downloadUrl = `${API_BASE}/v1/downloads/${tier}?token=${encodeURIComponent(SESSION_TOKEN)}`;
-      window.location.href = downloadUrl;
-    }
+    async function handleScriptAction(tier, btn) {
+      if (!btn) return;
+      const action = btn.dataset.action;
 
-    async function buyScript(tier, e) {
-      if (e) e.preventDefault();
+      if (action === 'download') {
+        const downloadUrl = `${API_BASE}/v1/downloads/${tier}?token=${encodeURIComponent(SESSION_TOKEN)}`;
+        window.location.href = downloadUrl;
+        return;
+      }
+
+      // Direct Stripe Checkout
+      btn.disabled = true;
+      btn.style.opacity = '0.75';
+      btn.style.cursor = 'wait';
       try {
         const res = await fetch(`${API_BASE}/v1/checkout/create-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tier, return_url: window.location.origin })
+          body: JSON.stringify({ tier, return_url: window.location.origin + '/portal.html' })
         });
         const data = await res.json();
         if (data.ok && data.url) {
           window.location.href = data.url;
+        } else {
+          alert('Checkout unavailable: ' + (data.error || 'Server error'));
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
         }
       } catch (err) {
-        console.error('Checkout error', err);
+        alert('Network connection error.');
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
       }
     }
 
     async function syncRoles(btn) {
       if (btn) {
         btn.disabled = true;
-        btn.textContent = 'Syncing...';
+        btn.style.opacity = '0.7';
       }
       await loadUser();
       if (btn) {
         btn.disabled = false;
-        btn.textContent = 'Sync Discord Roles';
+        btn.style.opacity = '1';
+      }
+    }
+
+    async function redeemKey(btn) {
+      const input = document.getElementById('redeemKeyInput');
+      const feedback = document.getElementById('redeemFeedback');
+      const key = (input ? input.value : '').trim();
+
+      if (!key) {
+        if (feedback) {
+          feedback.style.display = 'block';
+          feedback.style.color = '#ff4757';
+          feedback.textContent = 'Please enter a valid license key.';
+        }
+        return;
+      }
+
+      const discordId = CURRENT_USER && CURRENT_USER.user ? CURRENT_USER.user.id : null;
+      if (!discordId) {
+        alert('You must be logged in with Discord to redeem a license key.');
+        return;
+      }
+
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch(`${API_BASE}/v1/webhooks/redeem-key`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key, discord_id: discordId })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          if (feedback) {
+            feedback.style.display = 'block';
+            feedback.style.color = '#2ed573';
+            feedback.textContent = `License activated successfully for ${data.tier.toUpperCase()}! Refreshing authorizations...`;
+          }
+          if (input) input.value = '';
+          setTimeout(() => syncRoles(), 1200);
+        } else {
+          if (feedback) {
+            feedback.style.display = 'block';
+            feedback.style.color = '#ff4757';
+            feedback.textContent = `Activation failed: ${data.error || 'Invalid license key'}`;
+          }
+        }
+      } catch (err) {
+        if (feedback) {
+          feedback.style.display = 'block';
+          feedback.style.color = '#ff4757';
+          feedback.textContent = 'Connection error during redemption.';
+        }
+      } finally {
+        if (btn) btn.disabled = false;
       }
     }
 
