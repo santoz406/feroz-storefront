@@ -106,27 +106,23 @@
         function showHeroVideo() {
           if (heroMedia) heroMedia.classList.add('is-ready');
         }
-        function freezeLastFrame() {
-          player.getDuration().then(function (duration) {
-            return player.setCurrentTime(Math.max(0, duration - 0.08));
-          }).then(function () {
-            return player.pause();
-          }).catch(function () {});
-          played = true;
-        }
         function tryPlay() {
-          if (played) return;
           player.setMuted(true).catch(function () {});
-          player.setLoop(false).catch(function () {});
+          player.setLoop(true).catch(function () {});
           player.play().catch(function () {});
         }
         player.ready().then(function () {
+          player.setLoop(true).catch(function () {});
           player.setCurrentTime(0).catch(function () {}).then(tryPlay);
         }).catch(function () { tryPlay(); });
         player.on('timeupdate', function (data) {
           if (data && data.seconds > 0.03) showHeroVideo();
         });
-        player.on('ended', freezeLastFrame);
+        player.on('ended', function () {
+          player.setCurrentTime(0).then(function () {
+            player.play().catch(function () {});
+          }).catch(function () {});
+        });
         [120, 420, 900, 1700].forEach(function (ms) { setTimeout(tryPlay, ms); });
         window.addEventListener('pointerdown', tryPlay, { once: true });
       });
@@ -134,14 +130,11 @@
 
     var v = document.getElementById('heroVideo');
     if (!v) return;
-    v.muted = true; v.defaultMuted = true; v.loop = false; v.playsInline = true;
-    var played = false;
+    v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
     v.addEventListener('ended', function () {
-      try { v.pause(); v.currentTime = Math.max(0, (v.duration || 0) - 0.04); } catch (e) {}
-      played = true;
+      try { v.currentTime = 0; v.play().catch(function () {}); } catch (e) {}
     });
     function tryPlay() {
-      if (played) return;
       var p = v.play();
       if (p && p.catch) p.catch(function () {});
     }
@@ -249,17 +242,30 @@
               card._vimeoPlayer = player;
               player.ready().then(function () {
                 player.setMuted(true).catch(function () {});
-                player.setLoop(false).catch(function () {});
+                player.setLoop(true).catch(function () {});
                 player.getDuration().then(function (d) { duration = d || 0; }).catch(function () {});
                 if (cb) cb(player);
               }).catch(function () {});
 
               player.on('play', function () { card.dataset.playing = '1'; showBtn(false); });
               player.on('pause', function () { delete card.dataset.playing; showBtn(true); });
-              player.on('ended', function () { delete card.dataset.playing; showBtn(true); paintByRatio(1); });
+              player.on('ended', function () {
+                // Auto-replay smoothly; prevent Vimeo recommendation end-screens
+                player.setCurrentTime(0).then(function () {
+                  player.play().catch(function () {});
+                }).catch(function () {});
+              });
               player.on('timeupdate', function (data) {
                 duration = data.duration || duration;
-                if (!seeking && duration > 0) paintByRatio(data.seconds / duration);
+                if (!seeking && duration > 0) {
+                  paintByRatio(data.seconds / duration);
+                  // Seamless buffer rewind 0.18s before duration so Vimeo never flashes end cards
+                  if (duration > 1.5 && data.seconds >= duration - 0.18) {
+                    player.setCurrentTime(0).then(function () {
+                      player.play().catch(function () {});
+                    }).catch(function () {});
+                  }
+                }
               });
 
               if (seek && track) {
@@ -322,7 +328,7 @@
       }
 
       if (!v) return;
-      v.muted = true; v.currentTime = 0;
+      v.muted = true; v.loop = true; v.playsInline = true; v.currentTime = 0;
       function paint() {
         if (!v.duration) return;
         var p = Math.min(100, Math.max(0, v.currentTime / v.duration * 100));
@@ -337,7 +343,7 @@
       if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
       v.addEventListener('play', function () { card.dataset.playing = '1'; showBtn(false); });
       v.addEventListener('pause', function () { delete card.dataset.playing; showBtn(true); });
-      v.addEventListener('ended', function () { delete card.dataset.playing; showBtn(true); });
+      v.addEventListener('ended', function () { v.currentTime = 0; v.play().catch(function () {}); });
       v.addEventListener('timeupdate', paint);
       v.addEventListener('loadedmetadata', paint);
       if (seek && track) {
@@ -447,7 +453,7 @@
         checkoutBtn.disabled = true;
       }
 
-      fetch('https://feroz-server.onrender.com/v1/checkout/create-session', {
+      fetch('https://ferozzens.com/v1/checkout/create-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tier: tier, return_url: window.location.origin })

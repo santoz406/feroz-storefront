@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -262,7 +262,7 @@
     window.FZ = { moneyFormat: "€{{amount}}", routes: { cart: "/cart" } };
     window.addEventListener('DOMContentLoaded', function () {
       // Silent instant backend warm-up to eliminate Render cold-starts
-      fetch('https://feroz-server.onrender.com/healthz', { mode: 'no-cors' }).catch(function(){});
+      fetch('https://ferozzens.com/healthz', { mode: 'no-cors' }).catch(function(){});
 
       setTimeout(function () {
         document.querySelectorAll('[data-reveal]').forEach(function (el) {
@@ -509,7 +509,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
         </div>
 
-        <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferoz-server.onrender.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" id="homeLoginBtn" class="fz-login" onmouseenter="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:#eef0f7;text-decoration:none;padding:9px 18px;border-radius:999px;border:none;background:rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(0,0,0,.2);transition:background .14s ease;">
+        <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferozzens.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" id="homeLoginBtn" class="fz-login" onmouseenter="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:#eef0f7;text-decoration:none;padding:9px 18px;border-radius:999px;border:none;background:rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(0,0,0,.2);transition:background .14s ease;">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
           Login
         </a>
@@ -994,13 +994,13 @@
 
 
 <section id="discord" style="position:relative;z-index:1;overflow:hidden;scroll-margin-top:84px;padding:118px 24px 0;">
-  <svg viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:50%;top:340px;transform:translate(-50%,-50%);width:520px;height:520px;max-width:92vw;fill:none;stroke:color-mix(in srgb,var(--red) 30%,#34343c);stroke-width:.16;opacity:.5;pointer-events:none;z-index:0;-webkit-mask-image:radial-gradient(closest-side,#000 42%,transparent 76%);mask-image:radial-gradient(closest-side,#000 42%,transparent 76%);"><path d="M19.6 5.6A17 17 0 0 0 15.4 4.3l-.2.4a13 13 0 0 0-6.4 0l-.2-.4A17 17 0 0 0 4.4 5.6 17.6 17.6 0 0 0 1.5 17.3a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.2 0l.4.3c-.6.4-1.2.7-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 17.5 17.5 0 0 0-2.9-11.7zM8.6 14.6c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1zm6.8 0c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1z"></path></svg>
+  <svg viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:50%;top:340px;transform:translate(-50%,-50%);width:520px;height:520px;max-width:92vw;fill:none;stroke:color-mix(in srgb,var(--red) 30%,#34343c);stroke-width:.16;opacity:.5;pointer-events:none;z-index:0;-webkit-mask-image:radial-gradient(closest-side,#000 42%,transparent 76%);mask-image:radial-gradient(closest-side,#000 42%,transparent 76%);"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"></path></svg>
 
   <div data-reveal style="position:relative;z-index:2;text-align:center;max-width:560px;margin:0 auto;">
     <h2 style="margin:0;font-size:clamp(34px,5vw,46px);font-weight:800;letter-spacing:-.035em;color:#fff;">Join the community</h2>
     <p style="margin:16px auto 0;max-width:470px;font-size:15.5px;line-height:1.6;color:var(--mut);">Get direct support, profile updates, and real-world tuning advice from players actually running Feroz.</p>
     <a href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" class="fz-lift" style="display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 65%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 40px -12px var(--glow);">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.6A17 17 0 0 0 15.4 4.3l-.2.4a13 13 0 0 0-6.4 0l-.2-.4A17 17 0 0 0 4.4 5.6 17.6 17.6 0 0 0 1.5 17.3a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.2 0l.4.3c-.6.4-1.2.7-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 17.5 17.5 0 0 0-2.9-11.7zM8.6 14.6c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1zm6.8 0c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1z"></path></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"></path></svg>
       Join Discord
     </a>
   </div>
@@ -1028,7 +1028,7 @@
       <a href="/" style="display:inline-flex;align-items:center;text-decoration:none;"><img src="assets/logo-wordmark.png" alt="Feroz Zens" width="260" height="76" style="height:38px;width:auto;object-fit:contain;"></a>
       <p style="margin:16px 0 0;font-size:13.5px;line-height:1.65;color:var(--mut);">Premium Cronus Zen scripts for Fortnite, Call of Duty and NBA 2K26 - instant access, lifetime updates.</p>
       <a href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" class="fz-discord-foot" style="display:inline-flex;align-items:center;gap:9px;margin-top:22px;padding:12px 22px;border-radius:9px;font-size:14px;font-weight:700;letter-spacing:.02em;text-decoration:none;color:#fff;border:1px solid color-mix(in srgb,var(--red) 72%,transparent);background:#08080b;transition:background .14s ease;">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.6A17 17 0 0 0 15.4 4.3l-.2.4a13 13 0 0 0-6.4 0l-.2-.4A17 17 0 0 0 4.4 5.6 17.6 17.6 0 0 0 1.5 17.3a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.2 0l.4.3c-.6.4-1.2.7-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 17.5 17.5 0 0 0-2.9-11.7zM8.6 14.6c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1zm6.8 0c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1z"></path></svg>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"></path></svg>
         Join Discord
       </a>
     </div>
@@ -1054,7 +1054,7 @@
 
 
   <a class="fz-discord-float" href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" aria-label="Join Feroz Zens on Discord">
-    <svg width="25" height="25" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.6A17 17 0 0 0 15.4 4.3l-.2.4a13 13 0 0 0-6.4 0l-.2-.4A17 17 0 0 0 4.4 5.6 17.6 17.6 0 0 0 1.5 17.3a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.2 0l.4.3c-.6.4-1.2.7-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 17.5 17.5 0 0 0-2.9-11.7zM8.6 14.6c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1zm6.8 0c-1 0-1.8-1-1.8-2.1s.8-2.1 1.8-2.1 1.9 1 1.8 2.1c0 1.2-.8 2.1-1.8 2.1z"></path></svg>
+    <svg width="25" height="25" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"></path></svg>
     <span class="fz-discord-label">Join Discord</span>
   </a>
 
@@ -1320,7 +1320,7 @@
 
   <!-- Stripe & Discord Integration Bridge -->
   <script>
-    const API_BASE = 'https://feroz-server.onrender.com';
+    const API_BASE = 'https://ferozzens.com';
     window.CURRENT_USER = null;
 
     function escapeHtml(str) {
@@ -1555,5 +1555,98 @@
       }
     });
   </script>
+
+  <!-- 2.5D Eclipse Annular Ring Loader (Exclusive Conditional Modal) -->
+  <div id="fzEclipseLoader" class="fz-eclipse-overlay" style="display:none;position:fixed;inset:0;background:#030304;z-index:999999;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.28s cubic-bezier(0.16,1,0.3,1);">
+    <div class="fz-eclipse-stage">
+      <div class="fz-eclipse-bezel">
+        <div class="fz-eclipse-glow"></div>
+        <div class="fz-eclipse-core"></div>
+        <div class="fz-eclipse-ring-track"></div>
+        <div class="fz-eclipse-runner"></div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .fz-eclipse-overlay.active {
+      display: flex !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+    .fz-eclipse-stage {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fz-eclipse-bezel {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #09090c 45%, #050507 90%, #020203 100%);
+      box-shadow: 
+        0 24px 60px rgba(0, 0, 0, 0.95),
+        0 10px 30px rgba(225, 21, 38, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fz-eclipse-core {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #040406;
+      box-shadow: 
+        inset 0 4px 14px rgba(0, 0, 0, 0.9),
+        0 0 20px rgba(0, 0, 0, 0.8);
+      z-index: 3;
+    }
+    .fz-eclipse-ring-track {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3.5px solid rgba(225, 21, 38, 0.08);
+      z-index: 1;
+    }
+    .fz-eclipse-runner {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3.5px solid transparent;
+      border-top-color: #ff2a3a;
+      border-right-color: #e11526;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      filter: drop-shadow(0 0 12px #ff1a2e) drop-shadow(0 0 24px rgba(225, 21, 38, 0.7));
+      z-index: 2;
+      animation: fzEclipseSpin 1.1s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+    .fz-eclipse-glow {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(225, 21, 38, 0.28) 0%, rgba(225, 21, 38, 0.05) 55%, transparent 75%);
+      z-index: 0;
+      animation: fzEclipsePulse 2.2s ease-in-out infinite alternate;
+    }
+    @keyframes fzEclipseSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes fzEclipsePulse {
+      0% { transform: scale(0.94); opacity: 0.65; }
+      100% { transform: scale(1.08); opacity: 1; }
+    }
+  </style>
+
 </body>
 </html>

@@ -1,0 +1,8 @@
+.git
+.git/**
+.wrangler
+node_modules
+.assetsignore
+.cloudflareignore
+package*.json
+compile-theme.js

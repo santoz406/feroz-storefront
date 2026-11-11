@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/base.css?v=2.3.0">
   <style>
     @font-face {
       font-family: 'StretchPro';
@@ -118,7 +118,7 @@
       position: absolute;
       left: 50%;
       top: calc(100% + 10px);
-      width: 240px;
+      width: 248px;
       padding: 6px;
       border-radius: 14px;
       overflow: hidden;
@@ -203,22 +203,22 @@
       white-space: nowrap;
     }
 
-    /* Profile Popup */
+    /* Tactical Profile Popup (Obsidian Glass) */
     .profile-popup {
       display: none;
       position: absolute;
       top: calc(100% + 10px);
       right: 0;
-      width: 240px;
-      background: rgba(10, 10, 14, 0.92) !important;
-      backdrop-filter: blur(24px) !important;
-      -webkit-backdrop-filter: blur(24px) !important;
+      width: 248px;
+      background: rgba(10, 10, 14, 0.95) !important;
+      backdrop-filter: blur(28px) !important;
+      -webkit-backdrop-filter: blur(28px) !important;
       border: 1px solid rgba(255, 255, 255, 0.08) !important;
       border-radius: 14px;
       padding: 6px;
       flex-direction: column;
       gap: 2px;
-      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+      box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
       z-index: 100;
     }
     .profile-chip-wrap.open .profile-popup {
@@ -230,64 +230,171 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .menu-item-row {
+    .popup-user-header {
+      padding: 10px 10px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 3px;
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 10px;
-      border-radius: 8px;
+    }
+    
+    .tactical-avatar-wrap {
+      position: relative;
+      flex: none;
+      width: 42px;
+      height: 42px;
+    }
+  
+    
+    .tactical-avatar-wrap img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: block;
+    }
+  
+    
+    .avatar-status-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #22c55e;
+      border: 2px solid #0a0a0e;
+    }
+  
+    .popup-user-meta {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+    }
+    .popup-username-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .popup-username-row #menuUsername {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .popup-role-pill {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1.5px 6px;
+      border-radius: 4px;
+      text-transform: none;
+      letter-spacing: 0.04em;
+      background: rgba(225, 21, 38, 0.15);
+      border: 1px solid rgba(225, 21, 38, 0.35);
+      color: #ff4757;
+      flex: none;
+    }
+    .popup-telemetry {
+      font-size: 10.5px;
+      color: #71717a;
+      margin-top: 1px;
+    }
+
+    
+    .menu-item-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: 9px;
       text-decoration: none;
       color: #a1a1aa;
       background: transparent;
-      border: 1px solid transparent;
+      border: none;
       cursor: pointer;
       width: 100%;
       text-align: left;
       font-family: inherit;
-      transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+      transition: background 0.14s ease, color 0.14s ease;
+      box-sizing: border-box;
     }
+  
+    
     .menu-item-row:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.06);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
     }
-    .menu-item-row.danger { color: #ef4444; }
-    .menu-item-row.danger:hover {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: rgba(239, 68, 68, 0.2);
-      color: #f87171;
-    }
+  
+    
     .menu-icon-wrap {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      background: transparent;
-      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 0;
+      background: transparent !important;
+      border: none !important;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #71717a;
+      color: #8e8e98;
       flex: none;
-      transition: color 0.14s ease;
+      transition: color 0.14s ease, transform 0.14s ease;
     }
-    .menu-item-row:hover .menu-icon-wrap { color: #fff; }
-    .menu-item-row.danger .menu-icon-wrap { color: #ef4444; }
-    .menu-item-row.danger:hover .menu-icon-wrap { color: #f87171; }
-    .menu-text-wrap {
+  
+    .menu-item-row:hover 
+    .menu-icon-wrap {
+      width: 20px;
+      height: 20px;
+      border-radius: 0;
+      background: transparent !important;
+      border: none !important;
       display: flex;
-      flex-direction: column;
-      min-width: 0;
+      align-items: center;
+      justify-content: center;
+      color: #8e8e98;
+      flex: none;
+      transition: color 0.14s ease, transform 0.14s ease;
     }
+  
     .menu-item-title {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 500;
       color: inherit;
       line-height: 1.25;
+      flex: 1;
     }
-    .menu-item-sub {
-      font-size: 11px;
-      color: #71717a;
-      margin-top: 1px;
+    .popup-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      margin: 3px 4px;
+    }
+    .menu-item-row.danger {
+      color: #f87171;
+    }
+    .menu-item-row.danger 
+    .menu-icon-wrap {
+      width: 20px;
+      height: 20px;
+      border-radius: 0;
+      background: transparent !important;
+      border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8e8e98;
+      flex: none;
+      transition: color 0.14s ease, transform 0.14s ease;
+    }
+  
+    .menu-item-row.danger:hover {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
     }
 
     /* Main Container */
@@ -299,7 +406,7 @@
       padding: 24px 24px 80px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 24px;
     }
 
     /* Logged Out Gate Card */
@@ -359,400 +466,481 @@
       transform: translateY(-1px);
     }
 
-    /* User Profile Bar */
-    .user-card {
+    /* Minimalist 2-Column Dashboard (Per Stark's Hand-Drawn Sketch) */
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 36px;
+      align-items: start;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 900px) {
+      .dash-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    /* Left Panel: Account HUD */
+    .dash-user-panel {
       background: rgba(12, 12, 16, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-radius: 16px;
-      padding: 18px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-    .user-info-side {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .user-avatar-lg {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      flex: none;
-    }
-    .user-names {
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-radius: 20px;
+      padding: 32px 24px;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
-    .user-username {
-      font-size: 18px;
+
+    .dash-avatar-box {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      margin-bottom: 18px;
+    }
+    .dash-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(225, 21, 38, 0.45);
+      box-shadow: 0 0 24px rgba(225, 21, 38, 0.25);
+      display: block;
+      background: #09090c;
+    }
+    .dash-avatar-glow {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(225, 21, 38, 0.25);
+      pointer-events: none;
+    }
+
+    .dash-user-names {
+      margin-bottom: 24px;
+      width: 100%;
+    }
+    .dash-username {
+      font-size: 20px;
       font-weight: 700;
       color: #fff;
+      margin: 0 0 8px;
       letter-spacing: -0.01em;
     }
-    .user-id-row {
+    .dash-access-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+    .dash-access-tag.tag-staff {
+      background: rgba(225, 21, 38, 0.15);
+      border: 1px solid rgba(225, 21, 38, 0.45);
+      color: #ff4757;
+      box-shadow: 0 0 14px rgba(225, 21, 38, 0.25);
+    }
+    .dash-access-tag.tag-premium {
+      background: rgba(225, 21, 38, 0.1);
+      border: 1px solid rgba(225, 21, 38, 0.35);
+      color: #ff3344;
+    }
+    .dash-access-tag.tag-member {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #a1a1aa;
+    }
+    .dash-discord-id {
       font-size: 11.5px;
       color: #71717a;
       font-family: ui-monospace, SFMono-Regular, monospace;
     }
-    .badges-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-    .badge-pill {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      padding: 2px 8px;
-      border-radius: 999px;
-      text-transform: uppercase;
-    }
-    .badge-admin {
-      background: rgba(225, 21, 38, 0.15);
-      color: #ff4757;
-      border: 1px solid rgba(225, 21, 38, 0.35);
-    }
-    .badge-apex {
-      background: rgba(59, 130, 246, 0.12);
-      color: #60a5fa;
-      border: 1px solid rgba(59, 130, 246, 0.25);
-    }
-    .badge-viper {
-      background: rgba(168, 85, 247, 0.12);
-      color: #c084fc;
-      border: 1px solid rgba(168, 85, 247, 0.25);
-    }
-    .badge-mamba {
-      background: rgba(225, 21, 38, 0.12);
-      color: #f87171;
-      border: 1px solid rgba(225, 21, 38, 0.25);
-    }
-    .badge-free {
-      background: rgba(255, 255, 255, 0.05);
-      color: #9ca3af;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
 
-    .user-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      height: 34px;
-      padding: 0 14px;
-      border-radius: 8px;
-      font-size: 12.5px;
-      font-weight: 500;
-      color: #d4d4d8;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      cursor: pointer;
-      transition: all 0.14s ease;
-    }
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.14);
-    }
-    .btn-logout {
-      color: #ef4444;
-      border-color: rgba(239, 68, 68, 0.2);
-    }
-    .btn-logout:hover {
-      background: rgba(239, 68, 68, 0.1);
-      color: #f87171;
-      border-color: rgba(239, 68, 68, 0.3);
-    }
-
-    /* App Banner */
-    .app-banner {
-      background: rgba(12, 12, 16, 0.72);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 16px;
-      padding: 22px 26px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      box-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.9);
-    }
-    .app-banner-info {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .app-banner-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      object-fit: cover;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      flex: none;
-    }
-    .app-banner-text h3 {
-      font-size: 17px;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .app-banner-text p {
-      font-size: 13px;
-      color: var(--mut);
-      margin: 4px 0 0;
-      max-width: 500px;
-      line-height: 1.45;
-    }
-    .tag-new {
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ff4757, #e11526);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      box-shadow: 0 0 10px rgba(225, 21, 38, 0.5);
-    }
-    .btn-download-app {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      height: 40px;
-      padding: 0 20px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
-      background: linear-gradient(180deg, #ff2a3c, #cf1120);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 4px 16px -2px rgba(225, 21, 38, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }
-    .btn-download-app:hover {
-      background: linear-gradient(180deg, #ff3d4e, #dd1323);
-      box-shadow: 0 6px 20px 0 rgba(225, 21, 38, 0.55);
-      transform: translateY(-1px);
-    }
-
-    /* Section Titles */
-    .section-head {
-      margin-bottom: 14px;
-    }
-    .section-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      letter-spacing: -0.01em;
-    }
-    .section-sub {
-      font-size: 13px;
-      color: var(--mut);
-      margin: 3px 0 0;
-    }
-
-    /* Scripts Grid */
-    .scripts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-    @media (max-width: 900px) {
-      .scripts-grid { grid-template-columns: 1fr; }
-    }
-    .script-card {
-      background: rgba(12, 12, 16, 0.72);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 16px;
-      padding: 20px;
+    .dash-panel-actions {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
+      gap: 10px;
+      width: 100%;
     }
-    .script-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.14);
-    }
-    .script-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .script-title-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .script-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 9px;
-      object-fit: cover;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .script-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-    }
-    .script-game {
-      font-size: 11.5px;
-      color: #71717a;
-      margin: 2px 0 0;
-    }
-
-    /* Minimalist No Hesi Status Badges */
-    .status-badge {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      padding: 3px 9px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .status-badge.unlocked {
-      background: rgba(34, 197, 94, 0.08);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.2);
-    }
-    .status-badge.unlocked::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #4ade80;
-      box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
-    }
-    .status-badge.locked {
-      background: rgba(255, 255, 255, 0.04);
-      color: #71717a;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-    }
-
-    .script-features {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 12.5px;
-      color: #a1a1aa;
-    }
-    .script-features li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .script-features svg {
-      width: 13px;
-      height: 13px;
-      color: var(--red-bright);
-      flex: none;
-    }
-
-    /* Minimalist Action Buttons */
-    .btn-script {
-      margin-top: auto;
+    .dash-action-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       width: 100%;
-      height: 40px;
-      padding: 0 16px;
-      border-radius: 8px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      color: #e4e4e7;
       font-size: 13px;
       font-weight: 600;
-      text-decoration: none;
       cursor: pointer;
-      transition: all 0.15s ease;
-      border: 1px solid transparent;
-      box-sizing: border-box;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .btn-script.download {
-      background: linear-gradient(180deg, #ff2a3c, #cf1120);
+    .dash-action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.16);
       color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 4px 16px -2px rgba(225, 21, 38, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-    .btn-script.download:hover {
-      background: linear-gradient(180deg, #ff3d4e, #dd1323);
-      box-shadow: 0 6px 20px 0 rgba(225, 21, 38, 0.55);
       transform: translateY(-1px);
     }
-    .btn-script.buy {
-      background: rgba(255, 255, 255, 0.06);
-      color: #e4e4e7;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .dash-action-btn:active {
+      transform: scale(0.98);
     }
-    .btn-script.buy:hover {
-      background: rgba(255, 255, 255, 0.09);
+    .dash-action-btn.btn-logout-action:hover {
+      background: rgba(225, 21, 38, 0.12);
+      border-color: rgba(225, 21, 38, 0.35);
+      color: #ff4757;
+    }
+
+    /* Right Area: Scripts */
+    .dash-scripts-area {
+      min-width: 0;
+    }
+    .dash-scripts-header {
+      margin-bottom: 20px;
+    }
+    .dash-scripts-title {
+      font-size: 22px;
+      font-weight: 700;
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.16);
+      margin: 0;
+      letter-spacing: -0.01em;
+      display: inline-block;
+    }
+    .dash-scripts-line {
+      width: 38px;
+      height: 2.5px;
+      background: #e11526;
+      border-radius: 99px;
+      margin-top: 6px;
+      box-shadow: 0 0 10px rgba(225, 21, 38, 0.6);
+    }
+
+    .dash-scripts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 760px) {
+      .dash-scripts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-script-card {
+      background: rgba(12, 12, 16, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 18px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+      min-height: 270px;
+    }
+    .dash-script-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    .dash-script-card.unlocked {
+      border-color: rgba(225, 21, 38, 0.45);
+      box-shadow: 0 16px 44px -10px rgba(0, 0, 0, 0.85), 0 0 24px -6px rgba(225, 21, 38, 0.22);
+    }
+
+    .dash-card-icon-wrap {
+      width: 86px;
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .dash-card-img {
+      max-width: 76px;
+      max-height: 76px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.8));
+      transition: transform 0.24s ease;
+    }
+    .dash-script-card:hover .dash-card-img {
+      transform: scale(1.06);
+    }
+    .dash-padlock-wrap {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(225, 21, 38, 0.08);
+      border: 1px solid rgba(225, 21, 38, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 14px rgba(225, 21, 38, 0.15);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .dash-script-card:hover .dash-padlock-wrap {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(225, 21, 38, 0.35);
+    }
+
+    .dash-card-meta {
+      margin-bottom: 20px;
+    }
+    .dash-card-name {
+      font-size: 16.5px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 4px;
+      letter-spacing: -0.01em;
+    }
+    .dash-card-game {
+      font-size: 12px;
+      color: #8e8e98;
+    }
+
+    .dash-card-footer {
+      width: 100%;
+      margin-top: auto;
+    }
+    .dash-btn-action {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      border: none;
+      font-family: inherit;
+    }
+    .dash-btn-download {
+      background: #e11526;
+      color: #fff;
+      box-shadow: 0 10px 24px -6px rgba(225, 21, 38, 0.55);
+    }
+    .dash-btn-download:hover {
+      background: #ff2a3c;
+      box-shadow: 0 12px 28px -4px rgba(225, 21, 38, 0.7);
+      transform: translateY(-1px);
+    }
+    .dash-btn-buy {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+    .dash-btn-buy:hover {
+      background: rgba(255, 255, 255, 0.11);
+      border-color: rgba(255, 255, 255, 0.22);
+      transform: translateY(-1px);
+    }
+
+    /* Join Discord Section (Sketch Recreation) */
+    .portal-discord-section {
+      margin-top: 10px;
+      margin-bottom: 24px;
+    }
+    .portal-discord-card {
+      background: rgba(12, 12, 16, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 18px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+    }
+    .discord-card-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .discord-logo-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(88, 101, 242, 0.12);
+      border: 1px solid rgba(88, 101, 242, 0.25);
+      color: #5865F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+    }
+    .discord-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 3px;
+    }
+    .discord-card-desc {
+      font-size: 12.5px;
+      color: #8e8e98;
+      margin: 0;
+    }
+    .btn-discord-join {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 11px;
+      background: #5865F2;
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 22px -6px rgba(88, 101, 242, 0.5);
+    }
+    .btn-discord-join:hover {
+      background: #4752c4;
+      transform: translateY(-1px);
+    }
+
+    /* Master 2.5D Eclipse Annular Ring Loader */
+    .fz-eclipse-overlay {
+      position: fixed;
+      inset: 0;
+      background: #030304;
+      z-index: 9999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .fz-eclipse-overlay.active {
+      display: flex !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+    .fz-eclipse-stage {
+      position: relative;
+      width: 144px;
+      height: 144px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fz-eclipse-ambient {
+      position: absolute;
+      inset: -28px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(225, 21, 38, 0.2) 0%, transparent 68%);
+      filter: blur(15px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .fz-eclipse-bezel {
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 32%, #1b1b22 0%, #0d0d12 60%, #040407 100%);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.98), 0 10px 24px rgba(0, 0, 0, 0.85), inset 0 1px 1.5px rgba(255, 255, 255, 0.1), inset 0 -3px 8px rgba(0, 0, 0, 0.95);
+      z-index: 2;
+    }
+    .fz-eclipse-channel {
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: #060608;
+      box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.98), inset 0 -1.5px 3px rgba(255, 255, 255, 0.03), 0 1px 2px rgba(255, 255, 255, 0.04);
+      z-index: 3;
+    }
+    .fz-eclipse-sweeper {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      animation: fzEclipseSpin 1.45s cubic-bezier(0.42, 0, 0.25, 1) infinite;
+      z-index: 4;
+      pointer-events: none;
+    }
+    .fz-eclipse-arc {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 190deg, rgba(225, 21, 38, 0.08) 220deg, rgba(255, 30, 50, 0.45) 280deg, rgba(255, 50, 70, 0.85) 330deg, #ff2a3c 354deg, #ffffff 360deg);
+      mask: radial-gradient(circle, transparent 53px, #000 54px, #000 68px, transparent 69px);
+      -webkit-mask: radial-gradient(circle, transparent 53px, #000 54px, #000 68px, transparent 69px);
+      filter: drop-shadow(0 0 10px #ff1e38) drop-shadow(0 0 25px #e11526) drop-shadow(0 0 45px rgba(225,21,38,0.7));
+    }
+    .fz-eclipse-cap {
+      position: absolute;
+      width: 106px;
+      height: 106px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 45% 36%, #18181f 0%, #0b0b0e 65%, #050507 100%);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.96), 0 3px 8px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.08), inset 0 -2.5px 6px rgba(0, 0, 0, 0.92);
+      z-index: 5;
+    }
+    @keyframes fzEclipseSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     /* Redeem & Community Cards */
     .redeem-card {
-      background: rgba(12, 12, 16, 0.72);
+      position: relative;
+      background: rgba(10, 10, 14, 0.88);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-radius: 16px;
-      padding: 20px 24px;
+      padding: 18px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 20px;
       flex-wrap: wrap;
-      box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
     .redeem-left h4 {
       font-size: 15px;
       font-weight: 700;
       color: #fff;
       margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .redeem-left p {
       font-size: 12.5px;
       color: var(--mut);
       margin: 3px 0 0;
+    }
+    .badge-open {
+      font-size: 9.5px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #d4d4d8;
     }
     .redeem-form {
       display: flex;
@@ -762,37 +950,48 @@
       min-width: 280px;
       max-width: 440px;
     }
-    .redeem-input {
+    .terminal-input-wrap {
+      position: relative;
       flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .redeem-input {
+      width: 100%;
       height: 38px;
       padding: 0 14px;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #fff;
-      font-size: 13px;
+      font-size: 12.5px;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      letter-spacing: 0.04em;
       outline: none;
-      transition: border-color 0.14s ease;
+      transition: all 0.15s ease;
     }
     .redeem-input:focus {
       border-color: var(--red-bright);
+      box-shadow: 0 0 12px rgba(225, 21, 38, 0.35);
     }
     .btn-redeem {
       height: 38px;
-      padding: 0 16px;
+      padding: 0 18px;
       border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: inherit;
       color: #fff;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       cursor: pointer;
       transition: all 0.14s ease;
       white-space: nowrap;
     }
     .btn-redeem:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.14);
       color: #fff;
+      border-color: rgba(255, 255, 255, 0.22);
     }
 
     /* Modal System */
@@ -803,9 +1002,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.72);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(0, 0, 0, 0.76);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
@@ -817,11 +1016,11 @@
     .fz-modal-card {
       width: 90%;
       max-width: 520px;
-      background: rgba(12, 12, 16, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 10, 14, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.11);
       border-radius: 18px;
       padding: 24px 26px;
-      box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.98), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -839,13 +1038,14 @@
       padding-bottom: 12px;
     }
     .fz-modal-title {
-      font-size: 17px;
+      font-size: 16.5px;
       font-weight: 700;
       color: #fff;
       margin: 0;
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.01em;
     }
     .fz-modal-close {
       background: transparent;
@@ -860,6 +1060,177 @@
       transition: color 0.14s ease;
     }
     .fz-modal-close:hover { color: #fff; }
+
+    /* Purchases & Authorizations Modal (Framer Clean) */
+    .ledger-user-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .ledger-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+    }
+    .ledger-user-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .ledger-user-uid {
+      font-size: 11.5px;
+      color: #71717a;
+      font-family: inherit;
+    }
+    .modal-customer-badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: none;
+      padding: 3px 9px;
+      border-radius: 999px;
+      flex: none;
+    }
+    .modal-customer-badge.active {
+      background: rgba(225, 21, 38, 0.12);
+      border: 1px solid rgba(225, 21, 38, 0.35);
+      color: #ff4757;
+    }
+    .modal-customer-badge.staff {
+      background: rgba(225, 21, 38, 0.18);
+      border: 1px solid rgba(225, 21, 38, 0.45);
+      color: #ff3344;
+    }
+    .modal-customer-badge.free {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #a1a1aa;
+    }
+    .purchase-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .purchase-item-row:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .btn-purchase-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      background: #e11526;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-purchase-download:hover {
+      background: #ff2a3c;
+      transform: translateY(-1px);
+    }
+    .btn-purchase-buy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #d4d4d8;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-purchase-buy:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    /* Lifetime Modal Holographic Certificate */
+    .cert-box {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(225, 21, 38, 0.08), rgba(12, 12, 16, 0.6));
+      border: 1px solid rgba(225, 21, 38, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cert-tag {
+      font-size: 9.5px;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      color: #ff4757;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .cert-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .cert-desc {
+      font-size: 12.5px;
+      color: var(--mut);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .cert-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .cert-metric-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .cert-k {
+      font-size: 9px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      color: #71717a;
+      text-transform: none;
+    }
+    .cert-v {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #4ade80;
+    }
+
     .btn-modal-dl {
       display: inline-flex;
       align-items: center;
@@ -896,9 +1267,211 @@
       background: rgba(255, 255, 255, 0.1);
       color: #fff;
     }
-  </style>
+  
+  /* High-end Framer Badge for Nav & Banners */
+  .fz-badge-new {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff3b4e, #e11526);
+    box-shadow: 0 0 14px rgba(225, 21, 38, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    vertical-align: middle;
+  }
+
+
+  /* Ultra-Premium iOS 27 Translucent Glassmorphism with Smooth Crimson Ambient Tint */
+  .profile-popup {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 252px;
+    background: radial-gradient(130% 120% at 90% 0%, rgba(225, 21, 38, 0.16) 0%, rgba(18, 8, 12, 0.82) 45%, rgba(10, 10, 13, 0.88) 100%) !important;
+    backdrop-filter: blur(36px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 18px;
+    padding: 10px;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.96), 0 0 28px -6px rgba(225, 21, 38, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+    z-index: 100;
+  }
+  .profile-chip-wrap.open .profile-popup {
+    display: flex !important;
+    animation: menuPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes menuPop {
+    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* User Header: Clean, borderless separation with generous avatar and glowing access name */
+  .popup-user-header {
+    padding: 6px 8px 10px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: none !important;
+  }
+  .tactical-avatar-wrap {
+    position: relative;
+    flex: none;
+    width: 44px;
+    height: 44px;
+  }
+  .tactical-avatar-wrap img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    display: block;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+  .avatar-status-dot {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    border: 2px solid #0d0a0d;
+    box-shadow: 0 0 8px #22c55e;
+  }
+  .popup-user-meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+  .popup-username {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  /* Glowing name reference indicating tier access directly */
+  .popup-username.glow-staff {
+    color: #ffffff;
+    text-shadow: 0 0 14px rgba(255, 60, 80, 0.8), 0 0 28px rgba(225, 21, 38, 0.5);
+  }
+  .popup-username.glow-premium {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 71, 87, 0.6);
+  }
+  .popup-username.glow-member {
+    color: #f4f4f5;
+  }
+
+  /* Smooth Area Highlighter on Hover, zero borders */
+  .menu-item-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #c4c4cc;
+    background: transparent;
+    border: none !important;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    transition: background 0.16s cubic-bezier(0.16, 1, 0.3, 1), color 0.14s ease, transform 0.12s ease;
+    box-sizing: border-box;
+  }
+  .menu-item-row:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+  }
+  .menu-item-row:active {
+    background: rgba(255, 255, 255, 0.12) !important;
+    transform: scale(0.98);
+  }
+
+  /* Animated Reactive Motion on Icons (scale + gentle bounce on hover & active) */
+  .menu-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: none !important;
+    color: #9d9da8;
+    flex: none;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.16s ease;
+  }
+  .menu-item-row:hover .menu-icon-wrap {
+    color: #ffffff;
+    transform: scale(1.22) rotate(2deg);
+  }
+  .menu-item-row:active .menu-icon-wrap {
+    transform: scale(0.95);
+  }
+
+  /* Primary word bold and big */
+  .menu-item-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: inherit;
+    line-height: 1;
+    flex: 1;
+  }
+
+  /* Log Out Row: Standalone icon-only big button */
+  .menu-item-row.logout-icon-only {
+    justify-content: center;
+    padding: 11px 12px;
+    margin-top: 2px;
+    border-radius: 12px;
+    background: rgba(239, 68, 68, 0.07) !important;
+    color: #ef4444 !important;
+  }
+  .menu-item-row.logout-icon-only:hover {
+    background: rgba(239, 68, 68, 0.16) !important;
+    color: #ff5c5c !important;
+    box-shadow: 0 0 16px -2px rgba(239, 68, 68, 0.35);
+  }
+  .menu-item-row.logout-icon-only:hover .menu-icon-wrap {
+    transform: scale(1.25) translateX(2px);
+    color: #ff5c5c;
+  }
+  .menu-item-row.logout-icon-only:active {
+    transform: scale(0.96);
+  }
+
+  /* Match Floating Modals (Transactions & Billing) to the same Dark Red iOS 27 Translucent Glass */
+  .fz-modal-card {
+    background: radial-gradient(130% 120% at 85% 0%, rgba(225, 21, 38, 0.14) 0%, rgba(18, 8, 12, 0.85) 45%, rgba(10, 10, 13, 0.92) 100%) !important;
+    backdrop-filter: blur(36px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.98), 0 0 36px -8px rgba(225, 21, 38, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  }
+
+/* End Ultra-Premium iOS 27 */
+</style>
 </head>
 <body>
+
+
+
   <!-- Fixed Ambient Atmospheric Layers -->
   <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:#000;"></div>
   <div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);background-size:46px 46px;"></div>
@@ -908,17 +1481,17 @@
   <div id="ambientBackdrop" class="ambient-backdrop" onclick="closeAllPopups()"></div>
 
   <!-- Navbar matching index.html 100% -->
-  <nav id="navWrap">
+  <nav id="navWrap" class="float" style="position:sticky;top:0;z-index:10000;width:100%;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(5,5,8,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:background .3s ease,border-color .3s ease;">
     <div id="navBar">
       <a href="index.html" style="display:inline-flex;align-items:center;text-decoration:none;flex:none;">
         <img src="assets/logo.png" alt="Feroz Zens" width="54" height="54" style="width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(225,21,38,.45));">
       </a>
 
       <div class="navlinks">
-        <a href="index.html" class="fz-navlink">Home</a>
+        <a href="index.html" class="fz-navlink" style="text-decoration:none;">Home</a>
 
         <div class="fz-scripts" style="position:relative;display:inline-flex;align-items:center;">
-          <a href="index.html#products" class="fz-navlink" style="display:inline-flex;align-items:center;gap:5px;">Scripts
+          <a href="index.html#products" class="fz-navlink" style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;">Scripts
             <svg class="fz-scripts-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .22s cubic-bezier(.16,1,.3,1);"><path d="M6 9l6 6 6-6"></path></svg>
           </a>
           <div style="position:absolute;left:50%;top:100%;transform:translateX(-50%);width:250px;height:14px;"></div>
@@ -938,8 +1511,8 @@
           </div>
         </div>
 
-        <a href="index.html#optimizer" class="fz-navlink" style="display:inline-flex;align-items:center;gap:6px;">Zen Studio App <span class="tag-new">NEW</span></a>
-        <a href="index.html#faq" class="fz-navlink">FAQ</a>
+        <a href="index.html#optimizer" class="fz-navlink" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;">Zen Studio App <span class="fz-badge-new">NEW</span></a>
+        <a href="index.html#faq" class="fz-navlink" style="text-decoration:none;">FAQ</a>
       </div>
 
       <div style="display:flex;align-items:center;gap:14px;flex:none;">
@@ -950,72 +1523,65 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
           </div>
 
-          <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferoz-server.onrender.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" id="navLoginBtn" class="btn-secondary" onmouseenter="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" style="text-decoration:none;">
+          <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferozzens.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" onclick="triggerSecureDiscordLogin(this.href, event)" id="navLoginBtn" class="btn-secondary" onmouseenter="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" style="text-decoration:none;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
             Login
           </a>
 
+          
           <div class="profile-popup" id="profilePopup">
-            <div style="padding: 10px 10px 10px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 3px; display: flex; align-items: center; gap: 10px;">
-              <img id="menuAvatar" src="assets/favicon.png" alt="" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2);">
-              <div style="display: flex; flex-direction: column; min-width: 0;">
-                <span id="menuUsername" style="font-size: 13px; font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Member</span>
-                <span id="menuRoleBadge" style="font-size: 10px; font-weight: 700; color: #ff4757; text-transform: uppercase;">Customer</span>
+            <!-- Executive User Header -->
+            <div class="popup-user-header">
+              <div class="tactical-avatar-wrap">
+                <img id="menuAvatar" src="assets/favicon.png" alt="">
+                <span class="avatar-status-dot"></span>
+              </div>
+              <div class="popup-user-meta">
+                <span id="menuUsername" class="popup-username glow-member">Member</span>
               </div>
             </div>
 
-            <a href="portal.html" class="menu-item-row">
-              <div class="menu-icon-wrap">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-              </div>
-              <div class="menu-text-wrap">
+            <!-- Clean Primary-Word Navigation Rows -->
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              <a href="portal.html" class="menu-item-row" title="Dashboard">
+                <div class="menu-icon-wrap">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                </div>
                 <span class="menu-item-title">Dashboard</span>
-                <span class="menu-item-sub">Script downloads & tools</span>
-              </div>
-            </a>
+              </a>
 
-            <button type="button" onclick="openTransactionsModal()" class="menu-item-row">
-              <div class="menu-icon-wrap">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-              </div>
-              <div class="menu-text-wrap">
+              <button type="button" onclick="openTransactionsModal()" class="menu-item-row" title="Transactions">
+                <div class="menu-icon-wrap">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+                </div>
                 <span class="menu-item-title">Transactions</span>
-                <span class="menu-item-sub">Purchased scripts & orders</span>
-              </div>
-            </button>
+              </button>
 
-            <button type="button" onclick="openBillingModal()" class="menu-item-row">
-              <div class="menu-icon-wrap">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-              </div>
-              <div class="menu-text-wrap">
-                <span class="menu-item-title">Billing & Plans</span>
-                <span class="menu-item-sub">Perpetual license status</span>
-              </div>
-            </button>
+              <button type="button" onclick="openBillingModal()" class="menu-item-row" title="Billing & Plans">
+                <div class="menu-icon-wrap">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <span class="menu-item-title">Billing &amp; Plans</span>
+              </button>
 
-            <button type="button" onclick="syncRoles(this)" class="menu-item-row">
-              <div class="menu-icon-wrap">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
-              </div>
-              <div class="menu-text-wrap">
+              <button type="button" onclick="syncRoles(this)" class="menu-item-row" title="Sync Roles">
+                <div class="menu-icon-wrap">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                </div>
                 <span class="menu-item-title">Sync Roles</span>
-                <span class="menu-item-sub">Refresh Discord permissions</span>
-              </div>
-            </button>
+              </button>
 
-            <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 4px;"></div>
-
-            <button type="button" onclick="logout()" class="menu-item-row danger">
-              <div class="menu-icon-wrap">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-              </div>
-              <div class="menu-text-wrap">
-                <span class="menu-item-title">Log Out</span>
-              </div>
-            </button>
+              <!-- Log Out: Big Icon Only -->
+              <button type="button" onclick="logout()" class="menu-item-row logout-icon-only" title="Log Out" aria-label="Log Out">
+                <div class="menu-icon-wrap">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
+      </div>
+  
       </div>
     </div>
   </nav>
@@ -1027,206 +1593,188 @@
       <img src="assets/logo.png" alt="Feroz Zens" class="gate-logo">
       <h2 class="gate-title">Customer Command Center</h2>
       <p class="gate-desc">Connect with your Discord account to access your script authorizations, live downloads, and Zen Studio App.</p>
-      <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferoz-server.onrender.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" class="btn-discord-login" onmouseenter="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://feroz-server.onrender.com/healthz',{mode:'no-cors'}).catch(()=>{})">
+      <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferozzens.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" onclick="triggerSecureDiscordLogin(this.href, event)" class="btn-discord-login" onmouseenter="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
         Connect with Discord
       </a>
     </div>
 
-    <!-- Authenticated Dashboard -->
-    <div id="authDashboard" style="display:none;display:flex;flex-direction:column;gap:28px;">
-      <!-- User Profile Header Bar -->
-      <div class="user-card">
-        <div class="user-info-side">
-          <img class="user-avatar-lg" id="dashAvatar" src="assets/favicon.png" alt="">
-          <div class="user-names">
-            <div class="user-username" id="dashUsername">Member</div>
-            <div class="user-id-row" id="dashId">Discord ID: Loading...</div>
-            <div class="badges-row" id="dashBadges">
-              <!-- Injected dynamically -->
-            </div>
-          </div>
+    <!-- Authenticated Dashboard (Minimalist 2-Column Per Stark's Sketch) -->
+    <div id="authDashboard" style="display:none;" class="dash-layout">
+      <!-- Left Panel: Account & Access Status -->
+      <aside class="dash-user-panel">
+        <div class="dash-avatar-box">
+          <img id="dashAvatar" src="assets/favicon.png" alt="Avatar" class="dash-avatar-img">
+          <span class="dash-avatar-glow"></span>
+        </div>
+        
+        <div class="dash-user-names">
+          <h2 id="dashUsername" class="dash-username">Member</h2>
+          <div id="dashAccessTag" class="dash-access-tag tag-member">Member</div>
+          <div id="dashId" class="dash-discord-id">Discord ID: Loading...</div>
         </div>
 
-        <div class="user-actions">
-          <button class="btn-secondary" onclick="syncRoles(this)">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
-            Sync Roles
+        <div class="dash-panel-actions">
+          <button type="button" class="dash-action-btn" onclick="syncRoles(this)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+            <span>Sync Roles</span>
           </button>
-          <button class="btn-secondary btn-logout" onclick="logout()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-            Log Out
+
+          <button type="button" class="dash-action-btn btn-logout-action" onclick="logout()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Log Out</span>
           </button>
         </div>
-      </div>
+      </aside>
 
-      <!-- Zen Studio Desktop App Banner -->
-      <div class="app-banner">
-        <div class="app-banner-info">
-          <img src="assets/optimizer-badge.png" alt="Zen Studio App" class="app-banner-icon">
-          <div class="app-banner-text">
-            <h3>Zen Studio App <span class="tag-new">v3.9.5 LIVE</span></h3>
-            <p>Windows desktop companion for your Cronus Zen. Automatic cloud profile sync, real-time stick calibration, and seamless 1-click script exports.</p>
-          </div>
-        </div>
-        <a href="assets/feroz-optimizer-installer.exe" download="Zen-Studio-Setup.exe" class="btn-download-app">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
-          Download Zen Studio (.exe)
-        </a>
-      </div>
-
-      <!-- Script Library Section -->
-      <div>
-        <div class="section-head">
-          <h3 class="section-title">Your Script Authorizations</h3>
-          <p class="section-sub">Download your unlocked GPC files directly or upgrade to claim immediate access.</p>
+      <!-- Right Area: Scripts Grid -->
+      <section class="dash-scripts-area">
+        <div class="dash-scripts-header">
+          <h3 class="dash-scripts-title">Scripts</h3>
+          <div class="dash-scripts-line"></div>
         </div>
 
-        <div class="scripts-grid">
-          <!-- Apex Script -->
-          <div class="script-card" id="card-apex">
-            <div class="script-header">
-              <div class="script-title-box">
-                <img src="assets/product-apex.png" alt="Apex" class="script-icon">
-                <div>
-                  <h4 class="script-name">Apex v1.0</h4>
-                  <div class="script-game">Fortnite · PC / PS5 / Xbox</div>
-                </div>
-              </div>
-              <span class="status-badge locked" id="badge-apex">Locked</span>
+        <div class="dash-scripts-grid">
+          <!-- Apex Card -->
+          <div class="dash-script-card" id="card-apex">
+            <div class="dash-card-icon-wrap" id="icon-wrap-apex">
+              <img src="assets/product-apex.png" alt="Apex" class="dash-card-img" id="img-apex">
             </div>
-
-            <ul class="script-features">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Adaptive Sticky Aim Tracking</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Instant Weapon Swap & Reset</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Zero Bloom Recoil Dampeners</li>
-            </ul>
-
-            <button class="btn-script buy" id="btn-apex" onclick="handleScriptAction('apex', this)">
-              Get Access · €49.99
-            </button>
-          </div>
-
-          <!-- Viper Script -->
-          <div class="script-card" id="card-viper">
-            <div class="script-header">
-              <div class="script-title-box">
-                <img src="assets/product-viper.png" alt="Viper" class="script-icon">
-                <div>
-                  <h4 class="script-name">Viper v1.0</h4>
-                  <div class="script-game">Call of Duty · Warzone & MW3</div>
-                </div>
-              </div>
-              <span class="status-badge locked" id="badge-viper">Locked</span>
+            <div class="dash-card-meta">
+              <h4 class="dash-card-name">Apex v1.0</h4>
+              <span class="dash-card-game">Fortnite</span>
             </div>
-
-            <ul class="script-features">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Rotational Aim Assist Exploits</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Automated Slide-Cancel & Drop Shot</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Zero-Recoil Profile Tables</li>
-            </ul>
-
-            <button class="btn-script buy" id="btn-viper" onclick="handleScriptAction('viper', this)">
-              Get Access · €49.99
-            </button>
-          </div>
-
-          <!-- Mamba Script -->
-          <div class="script-card" id="card-mamba">
-            <div class="script-header">
-              <div class="script-title-box">
-                <img src="assets/product-mamba.png" alt="Mamba" class="script-icon">
-                <div>
-                  <h4 class="script-name">Mamba v1.0</h4>
-                  <div class="script-game">NBA 2K26 · All Positions & Modes</div>
-                </div>
-              </div>
-              <span class="status-badge locked" id="badge-mamba">Locked</span>
+            <div class="dash-card-footer">
+              <button class="dash-btn-action dash-btn-buy" id="btn-apex" onclick="handleScriptAction('apex', this)">
+                Get Access · €49.99
+              </button>
             </div>
+          </div>
 
-            <ul class="script-features">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Frame-Perfect Auto Green Release</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Rhythm Dribble Combos & Speed-Boost</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>Dynamic Latency Auto-Tuning</li>
-            </ul>
+          <!-- Viper Card -->
+          <div class="dash-script-card" id="card-viper">
+            <div class="dash-card-icon-wrap" id="icon-wrap-viper">
+              <img src="assets/product-viper.png" alt="Viper" class="dash-card-img" id="img-viper">
+            </div>
+            <div class="dash-card-meta">
+              <h4 class="dash-card-name">Viper v1.0</h4>
+              <span class="dash-card-game">Call of Duty</span>
+            </div>
+            <div class="dash-card-footer">
+              <button class="dash-btn-action dash-btn-buy" id="btn-viper" onclick="handleScriptAction('viper', this)">
+                Get Access · €49.99
+              </button>
+            </div>
+          </div>
 
-            <button class="btn-script buy" id="btn-mamba" onclick="handleScriptAction('mamba', this)">
-              Get Access · €49.99
-            </button>
+          <!-- Mamba Card -->
+          <div class="dash-script-card" id="card-mamba">
+            <div class="dash-card-icon-wrap" id="icon-wrap-mamba">
+              <img src="assets/product-mamba.png" alt="Mamba" class="dash-card-img" id="img-mamba">
+            </div>
+            <div class="dash-card-meta">
+              <h4 class="dash-card-name">Mamba v1.0</h4>
+              <span class="dash-card-game">NBA 2K26</span>
+            </div>
+            <div class="dash-card-footer">
+              <button class="dash-btn-action dash-btn-buy" id="btn-mamba" onclick="handleScriptAction('mamba', this)">
+                Get Access · €49.99
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Free Community Pack Download -->
-      <div class="redeem-card">
-        <div class="redeem-left">
-          <h4>Free Community Scripts Pack (Edge, Rapid, Court)</h4>
-          <p>Open-source baseline scripts for Fortnite, COD and NBA 2K. Free for all Discord server members.</p>
+        <!-- License Key Redemption (Clean & Discreet) -->
+        <div style="margin-top:20px;padding:16px 20px;border-radius:14px;background:rgba(12,12,16,0.5);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#e4e4e7;">Redeem License Key</div>
+            <div style="font-size:11.5px;color:#71717a;">Bind your purchase key to your Discord account.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex:1;max-width:340px;min-width:240px;">
+            <input type="text" id="redeemKeyInput" placeholder="FZ-XXXX-XXXX-XXXX" style="width:100%;height:36px;padding:0 12px;border-radius:9px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:12px;font-family:monospace;outline:none;" autocomplete="off" spellcheck="false">
+            <button id="btnRedeemKey" onclick="redeemKey(this)" style="height:36px;padding:0 14px;border-radius:9px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:#fff;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;">Redeem</button>
+          </div>
         </div>
-        <a href="downloads/Feroz-Free-Scripts-Pack.zip" download="Feroz-Free-Scripts-Pack.zip" class="btn-secondary" style="text-decoration:none;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-          Download Free Pack (.zip)
-        </a>
-      </div>
-
-      <!-- License Key Redemption -->
-      <div class="redeem-card">
-        <div class="redeem-left">
-          <h4>Have a License Key?</h4>
-          <p>Enter your purchase license key below to instantly bind it to your Discord ID and unlock your script.</p>
-        </div>
-        <div class="redeem-form">
-          <input type="text" id="redeemKeyInput" class="redeem-input" placeholder="FZ-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
-          <button class="btn-redeem" id="btnRedeemKey" onclick="redeemKey(this)">Redeem Key</button>
-        </div>
-      </div>
-      <div id="redeemFeedback" style="display:none;font-size:12.5px;font-weight:600;padding:4px 8px;margin-top:-16px;"></div>
+        <div id="redeemFeedback" style="display:none;font-size:12px;font-weight:600;padding:6px 10px;margin-top:8px;"></div>
+      </section>
     </div>
+
+    <!-- Join Discord Section (Sketch Recreation) -->
+    <section class="portal-discord-section">
+      <div class="portal-discord-card">
+        <div class="discord-card-content">
+          <div class="discord-logo-wrap">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+          </div>
+          <div>
+            <h3 class="discord-card-title">Join Discord</h3>
+            <p class="discord-card-desc">Get direct script support, instant role synchronization, and daily script updates.</p>
+          </div>
+        </div>
+        <a href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" class="btn-discord-join">
+          <span>Join Server</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
   </main>
 
-  <!-- Transactions Modal -->
+  <!-- Transactions Modal (Your Account & Purchases) -->
   <div class="fz-modal-overlay" id="transactionsModal" onclick="closeModalOnBg(event, 'transactionsModal')">
     <div class="fz-modal-card">
       <div class="fz-modal-header">
         <h3 class="fz-modal-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-          Your Account & Purchases
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+          Your Account &amp; Purchases
         </h3>
         <button class="fz-modal-close" onclick="closeModal('transactionsModal')">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
       </div>
-      <div id="transModalBody" style="display:flex;flex-direction:column;gap:12px;"></div>
+      <div id="transModalBody" style="display:flex;flex-direction:column;gap:10px;"></div>
     </div>
   </div>
 
-  <!-- Billing Modal -->
+  <!-- Billing Modal (Perpetual Accreditation) -->
   <div class="fz-modal-overlay" id="billingModal" onclick="closeModalOnBg(event, 'billingModal')">
     <div class="fz-modal-card">
       <div class="fz-modal-header">
         <h3 class="fz-modal-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-          Billing & Plans
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          Billing &amp; License Model
         </h3>
         <button class="fz-modal-close" onclick="closeModal('billingModal')">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
       </div>
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <div style="padding:14px 16px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);">
-          <div style="font-size:14px;font-weight:700;color:#fff;">Perpetual Licenses Active</div>
-          <p style="font-size:12.5px;color:var(--mut);line-height:1.5;margin:6px 0 0;">All Feroz Zens script tiers are permanent one-time orders. Once purchased or unlocked via Discord roles, access never expires and includes all future patch updates.</p>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
-          <span style="font-size:13px;color:#a1a1aa;">Active Subscriptions</span>
-          <span style="font-size:12px;font-weight:600;color:#4ade80;">None · Lifetime Model</span>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="cert-box">
+          <span class="cert-tag">
+            <span class="slot-dot"></span>PERPETUAL HARDWARE CLEARANCE
+          </span>
+          <div class="cert-title">One-Time Perpetual Licensing</div>
+          <p class="cert-desc">All Feroz Zens script tiers are permanent one-time orders. Once purchased or unlocked via Discord roles, access never expires and includes all future patch updates.</p>
+          <div class="cert-metrics">
+            <div class="cert-metric-cell">
+              <span class="cert-k">RECURRING FEES</span>
+              <span class="cert-v">€0.00 / MO</span>
+            </div>
+            <div class="cert-metric-cell">
+              <span class="cert-k">HARDWARE UPDATES</span>
+              <span class="cert-v">LIFETIME INCL.</span>
+            </div>
+            <div class="cert-metric-cell">
+              <span class="cert-k">CLOUD PROFILE</span>
+              <span class="cert-v">UNLIMITED SYNC</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    const API_BASE = 'https://feroz-server.onrender.com';
+    const API_BASE = 'https://ferozzens.com';
     let CURRENT_USER = null;
     let SESSION_TOKEN = '';
 
@@ -1315,36 +1863,36 @@
       const hasMamba = isStaff || (ent && ent.scripts && ent.scripts.mamba);
 
       let html = `
-        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);">
-          <img src="${user && user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64` : 'assets/favicon.png'}" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,0.2);">
+        <div class="ledger-user-banner">
+          <img src="${user && user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64` : 'assets/favicon.png'}" class="ledger-avatar">
           <div style="min-width:0;flex:1;">
-            <div style="font-size:13.5px;font-weight:700;color:#fff;">${user ? escapeHtml(user.username) : 'Customer'}</div>
-            <div style="font-size:11px;color:#71717a;font-family:monospace;">ID: ${user ? user.id : 'N/A'} · Discord Linked</div>
+            <div class="ledger-user-name">${user ? escapeHtml(user.username) : 'Customer'}</div>
+            <div class="ledger-user-uid">ID: ${user ? user.id : 'N/A'} · Discord Linked</div>
           </div>
-          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(225,21,38,0.12);border:1px solid rgba(225,21,38,0.3);color:#ff4757;">
-            ${isStaff ? 'STAFF' : (hasApex || hasViper || hasMamba ? 'ACTIVE CUSTOMER' : 'FREE ACCESS')}
+          <span class="modal-customer-badge ${isStaff ? 'staff' : (hasApex || hasViper || hasMamba ? 'active' : 'free')}">
+            ${isStaff ? 'Staff Access' : (hasApex || hasViper || hasMamba ? 'Active Member' : 'Community Member')}
           </span>
         </div>
 
-        <div style="font-size:11px;font-weight:700;color:#71717a;text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;">Purchases & Script Licenses</div>
+        <div style="font-size:10.5px;font-weight:700;color:#71717a;letter-spacing:0.06em;text-transform: none;margin:6px 0 2px;">PURCHASES &amp; SCRIPT LICENSES</div>
       `;
 
       const products = [
-        { id: 'apex', name: 'Apex v1.0', game: 'Fortnite', price: '€49.99', unlocked: hasApex, file: 'Apex_v1.0.gpc' },
-        { id: 'viper', name: 'Viper v1.0', game: 'Call of Duty', price: '€49.99', unlocked: hasViper, file: 'Viper_v1.0.gpc' },
-        { id: 'mamba', name: 'Mamba v1.0', game: 'NBA 2K26', price: '€49.99', unlocked: hasMamba, file: 'Mamba_v1.0.gpc' }
+        { id: 'apex', name: 'Apex v1.0', game: 'Fortnite · Lifetime Perpetual', price: '€49.99', unlocked: hasApex, file: 'Apex_v1.0.gpc' },
+        { id: 'viper', name: 'Viper v1.0', game: 'Call of Duty · Lifetime Perpetual', price: '€49.99', unlocked: hasViper, file: 'Viper_v1.0.gpc' },
+        { id: 'mamba', name: 'Mamba v1.0', game: 'NBA 2K26 · Lifetime Perpetual', price: '€49.99', unlocked: hasMamba, file: 'Mamba_v1.0.gpc' }
       ];
 
       products.forEach(p => {
         html += `
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
-            <div>
-              <div style="font-size:13.5px;font-weight:600;color:#fff;">${p.name}</div>
-              <div style="font-size:11px;color:#71717a;">${p.game} · ${p.unlocked ? 'Lifetime Perpetual' : p.price}</div>
+          <div class="purchase-item-row">
+            <div style="display:flex;flex-direction:column;gap:3px;min-width:0;">
+              <span style="font-size:14.5px;font-weight:700;color:#fff;">${p.name}</span>
+              <span style="font-size:12px;color:#8e8e98;">${p.game}</span>
             </div>
             ${p.unlocked 
-              ? `<a href="${API_BASE}/v1/downloads/${p.id}?token=${encodeURIComponent(SESSION_TOKEN)}" class="btn-modal-dl">Download</a>`
-              : `<button onclick="closeModal('transactionsModal');handleScriptAction('${p.id}', document.getElementById('btn-${p.id}'))" class="btn-modal-buy">Get Access</button>`
+              ? `<a href="${API_BASE}/v1/downloads/${p.id}?token=${encodeURIComponent(SESSION_TOKEN)}" class="btn-purchase-download">Download</a>`
+              : `<button onclick="closeModal('transactionsModal');handleScriptAction('${p.id}', document.getElementById('btn-${p.id}'))" class="btn-purchase-buy">Get Access</button>`
             }
           </div>
         `;
@@ -1376,155 +1924,203 @@
     function logout() {
       localStorage.removeItem('fz_token');
       localStorage.removeItem('feroz_token');
+      localStorage.removeItem('fz_user_cache');
       SESSION_TOKEN = '';
       window.location.href = 'index.html';
     }
 
-    async function loadUser() {
-      if (!SESSION_TOKEN) {
-        showGate();
-        return;
+    
+    function showEclipseLoader() {
+      const loader = document.getElementById('fzEclipseLoader');
+      if (loader) {
+        loader.classList.add('active');
       }
+    }
 
-      try {
-        const res = await fetch(`${API_BASE}/v1/me`, {
-          headers: { 'Authorization': `Bearer ${SESSION_TOKEN}` }
-        });
+    function hideEclipseLoader() {
+      const loader = document.getElementById('fzEclipseLoader');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.classList.remove('active');
+          loader.style.opacity = '';
+        }, 300);
+      }
+    }
 
-        if (!res.ok) {
-          localStorage.removeItem('fz_token');
-          localStorage.removeItem('feroz_token');
-          SESSION_TOKEN = '';
+    async function loadUser() {
+        if (!SESSION_TOKEN) {
           showGate();
           return;
         }
 
-        const data = await res.json();
-        CURRENT_USER = data;
-        renderDashboard(data);
-      } catch (err) {
-        console.error('User session error', err);
-        showGate();
-      }
-    }
+        // 1. Instant 0ms cache hydration
+        const cachedUserData = localStorage.getItem('fz_user_cache');
+        let hasValidCache = false;
+        if (cachedUserData) {
+          try {
+            const parsed = JSON.parse(cachedUserData);
+            if (parsed && parsed.user) {
+              CURRENT_USER = parsed;
+              renderDashboard(parsed);
+              hasValidCache = true;
+            }
+          } catch (e) {}
+        }
 
-    function showGate() {
-      const gate = document.getElementById('loginGate');
-      const dash = document.getElementById('authDashboard');
-      const navBtn = document.getElementById('navLoginBtn');
-      const chipBtn = document.getElementById('profileChipBtn');
+        // If no cache, display red eclipse loader during network fetch
+        if (!hasValidCache) {
+          showEclipseLoader();
+        }
 
-      if (gate) gate.style.display = 'block';
-      if (dash) dash.style.display = 'none';
-      if (navBtn) navBtn.style.display = 'inline-flex';
-      if (chipBtn) chipBtn.style.display = 'none';
-    }
+        // 2. Non-blocking background sync (never blocks rendering)
+        try {
+          const res = await fetch(`${API_BASE}/v1/me`, {
+            headers: { 'Authorization': `Bearer ${SESSION_TOKEN}` }
+          });
 
-    function renderDashboard(data) {
-      const gate = document.getElementById('loginGate');
-      const dash = document.getElementById('authDashboard');
-      const navBtn = document.getElementById('navLoginBtn');
-      const chipBtn = document.getElementById('profileChipBtn');
-
-      if (gate) gate.style.display = 'none';
-      if (dash) dash.style.display = 'flex';
-      if (navBtn) navBtn.style.display = 'none';
-      if (chipBtn) chipBtn.style.display = 'inline-flex';
-
-      const user = data.user || {};
-      const entitlements = data.entitlements || {};
-      const scripts = entitlements.scripts || {};
-      const isStaff = !!entitlements.staff || user.id === '1393248248663376055';
-
-      const avatarUrl = user.avatar
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`
-        : 'assets/logo.png';
-
-      // Update Nav Chip & Dropdown
-      const navAvatar = document.getElementById('navAvatar');
-      const navUsername = document.getElementById('navUsername');
-      const menuAvatar = document.getElementById('menuAvatar');
-      const menuUsername = document.getElementById('menuUsername');
-      const menuRoleBadge = document.getElementById('menuRoleBadge');
-      if (navAvatar) navAvatar.src = avatarUrl;
-      if (navUsername) navUsername.textContent = user.username || 'Member';
-      if (menuAvatar) menuAvatar.src = avatarUrl;
-      if (menuUsername) menuUsername.textContent = user.username || 'Member';
-      if (menuRoleBadge) menuRoleBadge.textContent = isStaff ? 'STAFF ACCESS' : 'MEMBER';
-
-      // Update Profile Card
-      const dashAvatar = document.getElementById('dashAvatar');
-      const dashUsername = document.getElementById('dashUsername');
-      const dashId = document.getElementById('dashId');
-      if (dashAvatar) dashAvatar.src = avatarUrl;
-      if (dashUsername) dashUsername.textContent = user.username || 'Member';
-      if (dashId) dashId.textContent = `Discord ID: ${user.id || 'N/A'}`;
-
-      // Render Verified Badges
-      const badgesContainer = document.getElementById('dashBadges');
-      badgesContainer.innerHTML = '';
-
-      if (isStaff) {
-        const adminBadge = document.createElement('span');
-        adminBadge.className = 'badge-pill badge-admin';
-        adminBadge.textContent = 'ADMIN';
-        badgesContainer.appendChild(adminBadge);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.user) {
+              CURRENT_USER = data;
+              localStorage.setItem('fz_user_cache', JSON.stringify(data));
+              renderDashboard(data);
+            }
+          } else if (res.status === 401 || res.status === 403) {
+            localStorage.removeItem('fz_token');
+            localStorage.removeItem('feroz_token');
+            localStorage.removeItem('fz_user_cache');
+            SESSION_TOKEN = '';
+            showGate();
+          }
+        } catch (err) {
+          console.warn('Background sync deferred:', err);
+        } finally {
+          hideEclipseLoader();
+        }
       }
 
-      const hasApex = isStaff || !!scripts.apex;
-      const hasViper = isStaff || !!scripts.viper;
-      const hasMamba = isStaff || !!scripts.mamba;
+      function showGate() {
+        const gate = document.getElementById('loginGate');
+        const dash = document.getElementById('authDashboard');
+        const navBtn = document.getElementById('navLoginBtn');
+        const chipBtn = document.getElementById('profileChipBtn');
 
-      if (hasApex) {
-        const b = document.createElement('span');
-        b.className = 'badge-pill badge-apex';
-        b.textContent = 'APEX ACCESS';
-        badgesContainer.appendChild(b);
-      }
-      if (hasViper) {
-        const b = document.createElement('span');
-        b.className = 'badge-pill badge-viper';
-        b.textContent = 'VIPER ACCESS';
-        badgesContainer.appendChild(b);
-      }
-      if (hasMamba) {
-        const b = document.createElement('span');
-        b.className = 'badge-pill badge-mamba';
-        b.textContent = 'MAMBA ACCESS';
-        badgesContainer.appendChild(b);
-      }
-      if (!hasApex && !hasViper && !hasMamba) {
-        const b = document.createElement('span');
-        b.className = 'badge-pill badge-free';
-        b.textContent = 'FREE MEMBER';
-        badgesContainer.appendChild(b);
+        if (gate) gate.style.display = 'block';
+        if (dash) dash.style.display = 'none';
+        if (navBtn) navBtn.style.display = 'inline-flex';
+        if (chipBtn) chipBtn.style.display = 'none';
+        hideEclipseLoader();
       }
 
-      // Update Script Cards
-      setupScriptCard('apex', hasApex, 'Apex_v1.0.gpc');
-      setupScriptCard('viper', hasViper, 'Viper_v1.0.gpc');
-      setupScriptCard('mamba', hasMamba, 'Mamba_v1.0.gpc');
-    }
+      function renderDashboard(data) {
+        const gate = document.getElementById('loginGate');
+        const dash = document.getElementById('authDashboard');
+        const navBtn = document.getElementById('navLoginBtn');
+        const chipBtn = document.getElementById('profileChipBtn');
 
-    function setupScriptCard(tier, unlocked, filename) {
-      const badge = document.getElementById(`badge-${tier}`);
-      const btn = document.getElementById(`btn-${tier}`);
-      if (!badge || !btn) return;
+        if (gate) gate.style.display = 'none';
+        if (dash) dash.style.display = 'grid';
+        if (navBtn) navBtn.style.display = 'none';
+        if (chipBtn) chipBtn.style.display = 'inline-flex';
 
-      if (unlocked) {
-        badge.textContent = 'Unlocked';
-        badge.className = 'status-badge unlocked';
-        btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg> Download ${filename}`;
-        btn.className = 'btn-script download';
-        btn.dataset.action = 'download';
-      } else {
-        badge.textContent = 'Locked';
-        badge.className = 'status-badge locked';
-        btn.innerHTML = 'Get Access · €49.99';
-        btn.className = 'btn-script buy';
-        btn.dataset.action = 'buy';
+        const user = data.user || {};
+        const entitlements = data.entitlements || {};
+        const scripts = entitlements.scripts || {};
+        const isStaff = !!entitlements.staff || user.id === '1393248248663376055';
+
+        const hasApex = isStaff || !!scripts.apex;
+        const hasViper = isStaff || !!scripts.viper;
+        const hasMamba = isStaff || !!scripts.mamba;
+
+        const avatarUrl = user.avatar
+          ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`
+          : 'assets/logo.png';
+
+        // Update Nav Chip & Dropdown
+        const navAvatar = document.getElementById('navAvatar');
+        const navUsername = document.getElementById('navUsername');
+        const menuAvatar = document.getElementById('menuAvatar');
+        const menuUsername = document.getElementById('menuUsername');
+
+        if (navAvatar) navAvatar.src = avatarUrl;
+        if (navUsername) navUsername.textContent = user.username || 'Member';
+        if (menuAvatar) menuAvatar.src = avatarUrl;
+        if (menuUsername) {
+          menuUsername.textContent = user.username || 'Member';
+          menuUsername.className = 'popup-username ' + (isStaff ? 'glow-staff' : ((hasApex || hasViper || hasMamba) ? 'glow-premium' : 'glow-member'));
+        }
+
+        // Update Left Panel HUD
+        const dashAvatar = document.getElementById('dashAvatar');
+        const dashUsername = document.getElementById('dashUsername');
+        const dashId = document.getElementById('dashId');
+        const dashAccessTag = document.getElementById('dashAccessTag');
+
+        if (dashAvatar) dashAvatar.src = avatarUrl;
+        if (dashUsername) dashUsername.textContent = user.username || 'Member';
+        if (dashId) dashId.textContent = `Discord ID: ${user.id || 'N/A'}`;
+
+        if (dashAccessTag) {
+          if (isStaff) {
+            dashAccessTag.textContent = 'Staff Access';
+            dashAccessTag.className = 'dash-access-tag tag-staff';
+          } else if (hasApex && hasViper && hasMamba) {
+            dashAccessTag.textContent = 'Full Bundle Access';
+            dashAccessTag.className = 'dash-access-tag tag-premium';
+          } else if (hasApex || hasViper || hasMamba) {
+            const tiers = [];
+            if (hasApex) tiers.push('Apex');
+            if (hasViper) tiers.push('Viper');
+            if (hasMamba) tiers.push('Mamba');
+            dashAccessTag.textContent = `${tiers.join(' · ')} Access`;
+            dashAccessTag.className = 'dash-access-tag tag-premium';
+          } else {
+            dashAccessTag.textContent = 'Community Member';
+            dashAccessTag.className = 'dash-access-tag tag-member';
+          }
+        }
+
+        // Update Script Cards
+        setupScriptCard('apex', hasApex, 'Apex_v1.0.gpc');
+        setupScriptCard('viper', hasViper, 'Viper_v1.0.gpc');
+        setupScriptCard('mamba', hasMamba, 'Mamba_v1.0.gpc');
+
+        hideEclipseLoader();
       }
-    }
+
+      function setupScriptCard(tier, unlocked, filename) {
+        const card = document.getElementById(`card-${tier}`);
+        const iconWrap = document.getElementById(`icon-wrap-${tier}`);
+        const btn = document.getElementById(`btn-${tier}`);
+        if (!card || !btn) return;
+
+        if (unlocked) {
+          card.classList.add('unlocked');
+          card.classList.remove('locked');
+          if (iconWrap) {
+            iconWrap.innerHTML = `<img src="assets/product-${tier}.png" alt="${tier}" class="dash-card-img">`;
+          }
+          btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg> Download .gpc`;
+          btn.className = 'dash-btn-action dash-btn-download';
+          btn.dataset.action = 'download';
+        } else {
+          card.classList.add('locked');
+          card.classList.remove('unlocked');
+          if (iconWrap) {
+            iconWrap.innerHTML = `
+              <div class="dash-padlock-wrap">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#e11526" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </div>`;
+          }
+          btn.innerHTML = 'Get Access · €49.99';
+          btn.className = 'dash-btn-action dash-btn-buy';
+          btn.dataset.action = 'buy';
+        }
+      }
 
     async function handleScriptAction(tier, btn) {
       if (!btn) return;
@@ -1631,12 +2227,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       // Silent instant backend warm-up to eliminate Render cold-starts
-      fetch('https://feroz-server.onrender.com/healthz', { mode: 'no-cors' }).catch(() => {});
+      fetch('https://ferozzens.com/healthz', { mode: 'no-cors' }).catch(() => {});
       loadUser();
 
       // Tactile Cursor Spotlight on Cards
       document.addEventListener('mousemove', (e) => {
-        const cards = document.querySelectorAll('.user-card, .app-banner, .script-card, .redeem-card');
+        const cards = document.querySelectorAll('.user-card, .app-banner, .memory-bay-row, .script-card, .redeem-card');
         for (let i = 0; i < cards.length; i++) {
           const rect = cards[i].getBoundingClientRect();
           const x = e.clientX - rect.left;
@@ -1647,5 +2243,55 @@
       });
     });
   </script>
+
+  <!-- Master 2.5D Eclipse Annular Ring Loader (Direct Reproduction of Reference) -->
+  <div id="fzEclipseLoader" class="fz-eclipse-overlay" style="display:none;opacity:0;">
+    <div class="fz-eclipse-stage">
+      <div class="fz-eclipse-ambient"></div>
+      <div class="fz-eclipse-bezel"></div>
+      <div class="fz-eclipse-channel"></div>
+      <div class="fz-eclipse-sweeper">
+        <div class="fz-eclipse-arc"></div>
+      </div>
+      <div class="fz-eclipse-cap"></div>
+    </div>
+  </div>
+
+<script>
+  async function triggerSecureDiscordLogin(targetUrl, e) {
+    if (e) e.preventDefault();
+    showEclipseLoader();
+
+    const checkServer = async () => {
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 3500);
+        const res = await fetch('https://ferozzens.com/healthz', { signal: ctrl.signal });
+        clearTimeout(t);
+        return res.ok;
+      } catch (err) {
+        return false;
+      }
+    };
+
+    // Quick initial ping
+    const isAwake = await checkServer();
+    if (isAwake) {
+      window.location.href = targetUrl;
+      return;
+    }
+
+    // Poll until awake, then redirect immediately with fresh code
+    const startTime = Date.now();
+    const pollInterval = setInterval(async () => {
+      const awake = await checkServer();
+      if (awake || (Date.now() - startTime > 35000)) {
+        clearInterval(pollInterval);
+        window.location.href = targetUrl;
+      }
+    }, 1500);
+  }
+</script>
 </body>
 </html>
+<!-- deploy: 2026-11-11-0216 -->
