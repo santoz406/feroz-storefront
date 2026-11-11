@@ -244,6 +244,7 @@
                 player.setMuted(true).catch(function () {});
                 player.setLoop(true).catch(function () {});
                 player.getDuration().then(function (d) { duration = d || 0; }).catch(function () {});
+                player.play().catch(function () {});
                 if (cb) cb(player);
               }).catch(function () {});
 
@@ -293,17 +294,7 @@
           });
         }
 
-        if ('IntersectionObserver' in window) {
-          var observer = new IntersectionObserver(function (entries) {
-            if (entries[0].isIntersecting) {
-              activateFrame();
-              observer.disconnect();
-            }
-          }, { rootMargin: '200px' });
-          observer.observe(card);
-        } else {
-          activateFrame();
-        }
+        activateFrame();
 
         function toggle() {
           activateFrame(function (player) {
@@ -520,20 +511,130 @@
   }
 
   /* ============================================================
-     SCRIPTS DROPDOWN (nav) — pulse target product
+     SCRIPTS DROPDOWN & CLEAN PATH ROUTER (Zero # hashes in URLs)
      ============================================================ */
-  function initScriptJump() {
-    document.querySelectorAll('[data-script-jump]').forEach(function (a) {
-      a.addEventListener('click', function () {
-        var id = a.getAttribute('data-script-jump');
-        var el = document.getElementById(id);
-        if (!el) return;
-        setTimeout(function () {
-          el.classList.add('pulse');
-          setTimeout(function () { el.classList.remove('pulse'); }, 650);
-        }, 360);
-      });
+  var ROUTE_MAP = {
+    '/': 'top',
+    '/top': 'top',
+    '/home': 'top',
+    '/scripts': 'products',
+    '/apex': 'prod-apex',
+    '/viper': 'prod-viper',
+    '/mamba': 'prod-mamba',
+    '/zen-studio': 'optimizer',
+    '/app': 'optimizer',
+    '/download': 'opt-download',
+    '/reviews': 'reviews',
+    '/why-feroz': 'expect',
+    '/faq': 'faq',
+    '/discord': 'discord'
+  };
+
+  var HASH_TO_CLEAN = {
+    '#top': '/',
+    '#products': '/scripts',
+    '#prod-apex': '/apex',
+    '#prod-viper': '/viper',
+    '#prod-mamba': '/mamba',
+    '#optimizer': '/zen-studio',
+    '#opt-download': '/download',
+    '#reviews': '/reviews',
+    '#expect': '/why-feroz',
+    '#faq': '/faq',
+    '#discord': '/discord'
+  };
+
+  function scrollToSection(sectionId, cleanPath, pushHistory) {
+    if (sectionId === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (pushHistory && window.history && window.history.pushState) {
+        window.history.pushState(null, '', cleanPath === '/top' || cleanPath === '/home' ? '/' : (cleanPath || '/'));
+      }
+      return true;
+    }
+    var el = document.getElementById(sectionId);
+    if (!el) return false;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (sectionId.indexOf('prod-') === 0) {
+      setTimeout(function () {
+        el.classList.add('pulse');
+        setTimeout(function () { el.classList.remove('pulse'); }, 650);
+      }, 360);
+    }
+    if (pushHistory && window.history && window.history.pushState) {
+      window.history.pushState(null, '', cleanPath);
+    }
+    return true;
+  }
+
+  function initCleanRouter() {
+    // 1. Track cursor on .scriptRow for radioactive halftone border & fill spotlight
+    document.addEventListener('mousemove', function (e) {
+      var rows = document.querySelectorAll('.scriptRow');
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i].getBoundingClientRect();
+        rows[i].style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+        rows[i].style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+      }
+    }, { passive: true });
+
+    // 2. Normalize any legacy #hash or /index.html or /portal.html in the address bar immediately
+    var curPath = window.location.pathname.replace(/\/+$/, '') || '/';
+    var curHash = window.location.hash;
+
+    if (curPath === '/index.html' || curPath === '/top' || curPath === '/home') {
+      window.history.replaceState(null, '', '/' + window.location.search);
+      curPath = '/';
+    } else if (curPath === '/portal.html' || curPath === '/portal') {
+      window.history.replaceState(null, '', '/dashboard' + window.location.search);
+      curPath = '/dashboard';
+    }
+
+    if (curHash && HASH_TO_CLEAN[curHash]) {
+      var mappedClean = HASH_TO_CLEAN[curHash];
+      var targetSec = ROUTE_MAP[mappedClean];
+      window.history.replaceState(null, '', mappedClean + window.location.search);
+      if (targetSec && targetSec !== 'top') {
+        setTimeout(function () { scrollToSection(targetSec, mappedClean, false); }, 80);
+      }
+    } else if (ROUTE_MAP[curPath] && ROUTE_MAP[curPath] !== 'top') {
+      var initialSec = ROUTE_MAP[curPath];
+      setTimeout(function () { scrollToSection(initialSec, curPath, false); }, 100);
+    }
+
+    // 3. Intercept clean path clicks on the landing page for instant smooth scroll without page reload
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href]');
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || href.indexOf('http') === 0 || href.indexOf('mailto:') === 0) return;
+
+      // Convert any remaining #hash link on the fly
+      if (HASH_TO_CLEAN[href]) {
+        href = HASH_TO_CLEAN[href];
+      }
+
+      var targetId = ROUTE_MAP[href];
+      if (!targetId) return;
+
+      // Only intercept in-page if the target element exists on the current page (or if it's '/' on landing page)
+      var isLanding = !!document.getElementById('products');
+      if (isLanding) {
+        e.preventDefault();
+        scrollToSection(targetId, href === '/top' || href === '/home' ? '/' : href, true);
+      }
     });
+
+    window.addEventListener('popstate', function () {
+      var p = window.location.pathname.replace(/\/+$/, '') || '/';
+      if (ROUTE_MAP[p]) {
+        scrollToSection(ROUTE_MAP[p], p, false);
+      }
+    });
+  }
+
+  function initScriptJump() {
+    initCleanRouter();
   }
 
   /* ============================================================

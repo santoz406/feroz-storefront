@@ -81,13 +81,13 @@
             "@type": "ListItem",
             "position": 2,
             "name": "Cronus Zen Scripts",
-            "item": "https://ferozzens.com/#products"
+            "item": "https://ferozzens.com/scripts"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "Zen Studio Live",
-            "item": "https://ferozzens.com/#optimizer"
+            "item": "https://ferozzens.com/zen-studio"
           }
         ]
       },
@@ -115,7 +115,7 @@
       },
       {
         "@type": "Product",
-        "@id": "https://ferozzens.com/#prod-apex",
+        "@id": "https://ferozzens.com/apex",
         "name": "Apex | Fortnite Cronus Zen Script v1.0",
         "image": "https://ferozzens.com/assets/product-apex.png",
         "description": "Undetected Fortnite Cronus Zen script by Feroz Zens featuring adaptive sticky aim assist, box-fight tracking, zero bloom, and instant weapon swap.",
@@ -123,7 +123,7 @@
         "category": "Gaming > Cronus Zen Scripts",
         "offers": {
           "@type": "Offer",
-          "url": "https://ferozzens.com/#prod-apex",
+          "url": "https://ferozzens.com/apex",
           "price": "49.99",
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
@@ -138,7 +138,7 @@
       },
       {
         "@type": "Product",
-        "@id": "https://ferozzens.com/#prod-viper",
+        "@id": "https://ferozzens.com/viper",
         "name": "Viper | Call of Duty Warzone & MW3 Cronus Zen Script v1.0",
         "image": "https://ferozzens.com/assets/product-viper.png",
         "description": "Premium Call of Duty Warzone Cronus Zen script by Feroz Zens with maximum rotational aim assist, zero recoil profiles, auto slide-cancel, and rapid fire.",
@@ -146,7 +146,7 @@
         "category": "Gaming > Cronus Zen Scripts",
         "offers": {
           "@type": "Offer",
-          "url": "https://ferozzens.com/#prod-viper",
+          "url": "https://ferozzens.com/viper",
           "price": "49.99",
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
@@ -161,7 +161,7 @@
       },
       {
         "@type": "Product",
-        "@id": "https://ferozzens.com/#prod-mamba",
+        "@id": "https://ferozzens.com/mamba",
         "name": "Mamba | NBA 2K26 Cronus Zen Script v1.0",
         "image": "https://ferozzens.com/assets/product-mamba.png",
         "description": "Elite NBA 2K26 Cronus Zen script by Feroz Zens with frame-perfect auto green shot release, speed-boost rhythm dribble combos, and custom jumper calibration.",
@@ -169,7 +169,7 @@
         "category": "Gaming > Cronus Zen Scripts",
         "offers": {
           "@type": "Offer",
-          "url": "https://ferozzens.com/#prod-mamba",
+          "url": "https://ferozzens.com/mamba",
           "price": "49.99",
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
@@ -246,7 +246,7 @@
   <link rel="preconnect" href="https://f.vimeocdn.com" crossorigin>
   <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap">
-  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/base.css?v=2.5">
 
   <style>
     :root{
@@ -283,7 +283,7 @@
       });
     });
   </script>
-  <script src="assets/feroz.js" defer></script>
+  <script src="assets/feroz.js?v=2.5" defer></script>
 </head>
 <body class="template-index">
 
@@ -292,212 +292,36 @@
   <div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);background-size:46px 46px;"></div>
   <div id="scrollbar" style="position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;z-index:60;background:linear-gradient(90deg,var(--red-deep),var(--red-bright));box-shadow:0 0 10px var(--glow);pointer-events:none;transition:transform .08s linear;"></div>
 
-  <style>
-  /* Ambient Soft Backdrop Blur Overlay for Popups & Modals */
-  .ambient-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 38;
-    background: rgba(0, 0, 0, 0.58);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.26s ease;
-  }
-  body.blur-backdrop-active .ambient-backdrop {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Scripts Dropdown Menu — Theme Glassmorphism */
-  #navWrap .fz-scripts-menu {
-    position: absolute;
-    left: 50%;
-    top: calc(100% + 12px);
-    width: 250px;
-    padding: 8px;
-    border-radius: 18px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(10, 10, 14, 0.78) !important;
-    backdrop-filter: blur(28px) !important;
-    -webkit-backdrop-filter: blur(28px) !important;
-    box-shadow: 0 28px 70px -20px rgba(0, 0, 0, 0.95), 0 0 35px -10px rgba(225, 21, 38, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    z-index: 50;
-    opacity: 0;
-    visibility: hidden;
-    transform: translate(-50%, -8px) scale(0.96);
-    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
-  }
-  #navWrap .fz-scripts:hover .fz-scripts-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0) scale(1);
-  }
-  #navWrap .fz-scripts:hover .fz-scripts-chev {
-    transform: rotate(180deg);
-  }
-
-  /* Micro-interactions on Script Menu Items — Minimalist No Hesi Style */
-  .scriptRow {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding: 8px 12px;
-    border-radius: 8px;
-    text-decoration: none;
-    background: transparent;
-    border: 1px solid transparent;
-    transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease !important;
-  }
-  .scriptRow:hover {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border-color: rgba(255, 255, 255, 0.06) !important;
-    transform: none !important;
-    box-shadow: none !important;
-  }
-  .scriptRow:hover .srName {
-    color: #fff !important;
-  }
-
-  /* User Profile Dropdown Menu — Theme Obsidian Glass */
-  .profile-popup {
-    display: none;
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    width: 240px;
-    background: rgba(10, 10, 14, 0.92) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 14px;
-    padding: 6px;
-    flex-direction: column;
-    gap: 2px;
-    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
-    z-index: 100;
-  }
-  .profile-chip-wrap.open .profile-popup {
-    display: flex !important;
-    animation: menuPop 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  @keyframes menuPop {
-    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  /* Minimalist Reactive Menu Rows */
-  .menu-item-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #a1a1aa;
-    background: transparent;
-    border: 1px solid transparent;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    font-family: inherit;
-    transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease;
-  }
-  .menu-item-row:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.06);
-    color: #fff;
-    transform: none;
-  }
-  .menu-item-row.danger {
-    color: #ef4444;
-  }
-  .menu-item-row.danger:hover {
-    background: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.2);
-    color: #f87171;
-  }
-  .menu-icon-wrap {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    background: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #71717a;
-    flex: none;
-    transition: color 0.14s ease;
-  }
-  .menu-item-row:hover .menu-icon-wrap {
-    background: transparent;
-    border-color: transparent;
-    color: #fff;
-    box-shadow: none;
-  }
-  .menu-item-row.danger .menu-icon-wrap {
-    color: #ef4444;
-  }
-  .menu-item-row.danger:hover .menu-icon-wrap {
-    color: #f87171;
-  }
-  .menu-text-wrap {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-  .menu-item-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: inherit;
-    line-height: 1.25;
-  }
-  .menu-item-sub {
-    font-size: 11px;
-    color: #71717a;
-    margin-top: 1px;
-  }
-</style>
-
-<!-- Ambient Soft Backdrop Blur Overlay for Popups & Modals -->
+  <!-- Ambient Soft Backdrop Blur Overlay for Popups & Modals -->
 <div id="ambientBackdrop" class="ambient-backdrop" onclick="closeAllPopups()"></div>
 
 <nav id="navWrap" class="float" style="position:sticky;top:0;z-index:40;width:100%;border-bottom:1px solid transparent;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .5s cubic-bezier(.16,1,.3,1),border-color .5s cubic-bezier(.16,1,.3,1),backdrop-filter .5s ease;">
-  <div id="navBar" style="max-width:1160px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid transparent;border-radius:0;transition:max-width .6s cubic-bezier(.16,1,.3,1),padding .55s cubic-bezier(.16,1,.3,1),border-radius .55s cubic-bezier(.16,1,.3,1),background .55s ease,box-shadow .55s ease,border-color .55s ease,margin-top .55s cubic-bezier(.16,1,.3,1);">
-    <a href="#top" style="display:inline-flex;align-items:center;text-decoration:none;flex:none;"><img src="assets/logo.png" alt="Feroz Zens" width="54" height="54" style="width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(225,21,38,.45));"></a>
+  <div id="navBar" style="position:relative;max-width:1160px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid transparent;border-radius:0;transition:max-width .6s cubic-bezier(.16,1,.3,1),padding .55s cubic-bezier(.16,1,.3,1),border-radius .55s cubic-bezier(.16,1,.3,1),background .55s ease,box-shadow .55s ease,border-color .55s ease,margin-top .55s cubic-bezier(.16,1,.3,1);">
+    <a href="/" style="display:inline-flex;align-items:center;text-decoration:none;flex:none;"><img src="assets/logo.png" alt="Feroz Zens" width="54" height="54" style="width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(225,21,38,.45));"></a>
 
     <div class="navlinks" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;color:#c6c6cd;">
-      <a href="#top" class="fz-navlink" style="text-decoration:none;color:#fff;">Home</a>
+      <a href="/" class="fz-navlink" style="text-decoration:none;color:#fff;">Home</a>
 
       <div class="fz-scripts" style="position:relative;display:inline-flex;align-items:center;">
-        <a href="#products" class="fz-navlink" style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;color:#c6c6cd;">Scripts
+        <a href="/scripts" class="fz-navlink" style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;color:#c6c6cd;">Scripts
           <svg class="fz-scripts-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .22s cubic-bezier(.16,1,.3,1);"><path d="M6 9l6 6 6-6"></path></svg>
         </a>
         <div style="position:absolute;left:50%;top:100%;transform:translateX(-50%);width:250px;height:14px;"></div>
         <div class="fz-scripts-menu">
-          <a href="#prod-apex" data-script-jump="prod-apex" class="scriptRow">
-            <span class="srName" style="font-size:13.5px;font-weight:600;color:#e4e4e7;letter-spacing:-.01em;">Apex</span>
-            <span style="font-size:11px;color:#71717a;">Fortnite</span>
+          <a href="/apex" data-script-jump="prod-apex" class="scriptRow script-apex">
+            <span class="srName">Apex Script</span>
           </a>
-          <a href="#prod-viper" data-script-jump="prod-viper" class="scriptRow">
-            <span class="srName" style="font-size:13.5px;font-weight:600;color:#e4e4e7;letter-spacing:-.01em;">Viper</span>
-            <span style="font-size:11px;color:#71717a;">Call of Duty</span>
+          <a href="/viper" data-script-jump="prod-viper" class="scriptRow script-viper">
+            <span class="srName">Viper Script</span>
           </a>
-          <a href="#prod-mamba" data-script-jump="prod-mamba" class="scriptRow">
-            <span class="srName" style="font-size:13.5px;font-weight:600;color:#e4e4e7;letter-spacing:-.01em;">Mamba</span>
-            <span style="font-size:11px;color:#71717a;">NBA 2K26</span>
+          <a href="/mamba" data-script-jump="prod-mamba" class="scriptRow script-mamba">
+            <span class="srName">Mamba Script</span>
           </a>
         </div>
       </div>
 
-      <a href="#optimizer" class="fz-navlink" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;">Zen Studio App <span style="padding:2px 7px;border-radius:999px;background:linear-gradient(135deg,#ff4757,#e11526);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em;box-shadow:0 0 12px rgba(225,21,38,.55);">NEW</span></a>
-      <a href="#faq" class="fz-navlink" style="text-decoration:none;">FAQ</a>
+      <a href="/zen-studio" class="fz-navlink" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;">Zen Studio App <span style="padding:2px 7px;border-radius:999px;background:linear-gradient(135deg,#ff4757,#e11526);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em;box-shadow:0 0 12px rgba(225,21,38,.55);">NEW</span></a>
+      <a href="/faq" class="fz-navlink" style="text-decoration:none;">FAQ</a>
     </div>
 
     <div style="display:flex;align-items:center;gap:14px;flex:none;">
@@ -509,62 +333,60 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
         </div>
 
-        <a href="https://discord.com/api/oauth2/authorize?client_id=1512469722585759866&redirect_uri=https%3A%2F%2Fferozzens.com%2Fv1%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify&prompt=consent&state=eyJtb2RlIjoid2ViIiwib3JpZ2luIjoiaHR0cHM6Ly9mZXJvenplbnMuY29tL3BvcnRhbC5odG1sIn0" id="homeLoginBtn" class="fz-login" onmouseenter="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:#eef0f7;text-decoration:none;padding:9px 18px;border-radius:999px;border:none;background:rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(0,0,0,.2);transition:background .14s ease;">
+        <a href="/v1/auth/discord/start?mode=web&origin=https%3A%2F%2Fferozzens.com%2Fdashboard" id="homeLoginBtn" class="fz-login" onmouseenter="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" ontouchstart="fetch('https://ferozzens.com/healthz',{mode:'no-cors'}).catch(()=>{})" style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:#eef0f7;text-decoration:none;padding:9px 18px;border-radius:999px;border:none;background:rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(0,0,0,.2);transition:background .14s ease;">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
           Login
         </a>
 
         <div class="profile-popup" id="homePopup">
-          <!-- User Info Banner -->
-          <div style="padding: 10px 12px 12px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 4px; display: flex; align-items: center; gap: 10px;">
-            <img id="menuAvatar" src="assets/favicon.png" alt="" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--red-bright); box-shadow: 0 0 10px rgba(225,21,38,0.4);">
-            <div style="display: flex; flex-direction: column; min-width: 0;">
-              <span id="menuUsername" style="font-size: 13.5px; font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">numby</span>
-              <span id="menuRoleBadge" style="font-size: 10px; font-weight: 800; color: #ff4757; text-transform: uppercase; letter-spacing: 0.04em;">Member</span>
+          <!-- Executive User Header -->
+          <div class="popup-user-header">
+            <div class="tactical-avatar-wrap">
+              <img id="menuAvatar" src="assets/favicon.png" alt="">
+              <span class="avatar-status-dot"></span>
+            </div>
+            <div class="popup-user-meta">
+              <span id="menuUsername" class="popup-username glow-member">Member</span>
             </div>
           </div>
 
-          <!-- Working Features Only (Zero Ghost Items) -->
-          <a href="portal.html" class="menu-item-row">
-            <div class="menu-icon-wrap">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            </div>
-            <div class="menu-text-wrap">
+          <!-- Clean Primary-Word Navigation Rows -->
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <a href="/dashboard" class="menu-item-row" title="Dashboard">
+              <div class="menu-icon-wrap">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </div>
               <span class="menu-item-title">Dashboard</span>
-              <span class="menu-item-sub">Script downloads & tools</span>
-            </div>
-          </a>
+            </a>
 
-          <button type="button" onclick="openTransactionsModal()" class="menu-item-row">
-            <div class="menu-icon-wrap">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-            </div>
-            <div class="menu-text-wrap">
+            <button type="button" onclick="openTransactionsModal()" class="menu-item-row" title="Transactions">
+              <div class="menu-icon-wrap">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+              </div>
               <span class="menu-item-title">Transactions</span>
-              <span class="menu-item-sub">Purchased scripts & orders</span>
-            </div>
-          </button>
+            </button>
 
-          <button type="button" onclick="openBillingModal()" class="menu-item-row">
-            <div class="menu-icon-wrap">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-            </div>
-            <div class="menu-text-wrap">
-              <span class="menu-item-title">Billing & Plans</span>
-              <span class="menu-item-sub">Perpetual license status</span>
-            </div>
-          </button>
+            <button type="button" onclick="openBillingModal()" class="menu-item-row" title="Billing & Plans">
+              <div class="menu-icon-wrap">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              </div>
+              <span class="menu-item-title">Billing &amp; Plans</span>
+            </button>
 
-          <div style="height: 1px; background: rgba(255,255,255,0.06); margin: 4px 6px;"></div>
+            <button type="button" onclick="syncRoles(this)" class="menu-item-row" title="Sync Roles">
+              <div class="menu-icon-wrap">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+              </div>
+              <span class="menu-item-title">Sync Roles</span>
+            </button>
 
-          <button type="button" onclick="homeLogout()" class="menu-item-row danger">
-            <div class="menu-icon-wrap danger">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-            </div>
-            <div class="menu-text-wrap">
-              <span class="menu-item-title" style="color: #ff5263;">Log Out</span>
-            </div>
-          </button>
+            <!-- Log Out: Big Icon Only -->
+            <button type="button" onclick="homeLogout()" class="menu-item-row logout-icon-only" title="Log Out" aria-label="Log Out">
+              <div class="menu-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -596,7 +418,7 @@
 
       <p data-reveal="down" style="margin:18px 0 0;max-width:480px;font-size:14.5px;line-height:1.6;color:var(--mut);">Engineered by Feroz Zens for controller dominance on PS5, Xbox, and PC. Download undetected GPC scripts for Fortnite, Call of Duty Warzone, and NBA 2K26, or launch the free Zen Studio companion app.</p>
 
-      <a data-reveal="down" href="#optimizer" class="fz-lift" style="display:inline-flex;align-items:center;justify-content:center;margin-top:26px;padding:12px 26px;border-radius:999px;font-size:14.5px;font-weight:600;letter-spacing:-.01em;cursor:pointer;text-decoration:none;color:#15151a;border:1px solid rgba(255,255,255,.65);background:linear-gradient(180deg,#fdfdff,#cbccd3);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -10px 18px rgba(0,0,0,.07),0 12px 30px -10px rgba(0,0,0,.7);">Try Zen Studio App for FREE</a>
+      <a data-reveal="down" href="/zen-studio" class="fz-lift" style="display:inline-flex;align-items:center;justify-content:center;margin-top:26px;padding:12px 26px;border-radius:999px;font-size:14.5px;font-weight:600;letter-spacing:-.01em;cursor:pointer;text-decoration:none;color:#15151a;border:1px solid rgba(255,255,255,.65);background:linear-gradient(180deg,#fdfdff,#cbccd3);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -10px 18px rgba(0,0,0,.07),0 12px 30px -10px rgba(0,0,0,.7);">Try Zen Studio App for FREE</a>
     </div>
 
     <!-- hero video banner -->
@@ -607,7 +429,7 @@
               <div class="heroPosterGlow"></div>
               <img src="assets/logo-wordmark.png" alt="" width="820" height="280">
             </div>
-            <iframe id="heroVimeo" data-hero-vimeo src="https://player.vimeo.com/video/1205333517?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;autoplay=1&amp;loop=0&amp;playsinline=1&amp;background=1" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Feroz Zens hero video" loading="eager" style="position:absolute;inset:0;display:block;width:100%;height:100%;border:0;pointer-events:none;opacity:0;transition:opacity .32s ease;"></iframe>
+            <iframe id="heroVimeo" data-hero-vimeo src="https://player.vimeo.com/video/1205333517?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;autoplay=1&amp;autoplay=1&amp;loop=1&amp;playsinline=1&amp;background=1" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Feroz Zens hero video" loading="eager" style="position:absolute;inset:0;display:block;width:100%;height:100%;border:0;pointer-events:none;opacity:0;transition:opacity .32s ease;"></iframe>
           </div></div>
     </div>
   </section>
@@ -629,8 +451,8 @@
           </div>
           <div class="prodMeta" style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:26px 12px 0;">
             <h3 style="margin:0;font-size:21px;font-weight:800;letter-spacing:-.02em;color:var(--tx);">Apex v1.0</h3><div style="margin-top:-6px;font-size:13px;color:var(--dim);font-weight:500;">Fortnite Cronus Zen Script</div><div style="display:flex;align-items:baseline;gap:9px;">
-              <span style="font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--red-bright);">€49.99</span><span style="font-size:14px;color:var(--dim);text-decoration:line-through;">€99.99</span></div>
-            <button onclick="startDirectCheckout('apex', this)" class="fz-lift" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:322px;margin-top:10px;padding:16px 20px;border-radius:11px;font-size:15px;font-weight:800;letter-spacing:.01em;cursor:pointer;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -12px var(--glow);">
+              <span data-price="49.99" style="font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--red-bright);">$49.99</span><span data-price="99.99" style="font-size:14px;color:var(--dim);text-decoration:line-through;">$99.99</span></div>
+            <button type="button" onclick="startDirectCheckout('apex', this)" class="fz-lift fz-cta-modern" style="width:100%;max-width:322px;margin-top:10px;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -12px var(--glow);">
               Get Access
             </button>
           </div>
@@ -643,8 +465,8 @@
           </div>
           <div class="prodMeta" style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:26px 12px 0;">
             <h3 style="margin:0;font-size:21px;font-weight:800;letter-spacing:-.02em;color:var(--tx);">Viper v1.0</h3><div style="margin-top:-6px;font-size:13px;color:var(--dim);font-weight:500;">Call of Duty & Warzone Zen Script</div><div style="display:flex;align-items:baseline;gap:9px;">
-              <span style="font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--red-bright);">€49.99</span><span style="font-size:14px;color:var(--dim);text-decoration:line-through;">€99.99</span></div>
-            <button onclick="startDirectCheckout('viper', this)" class="fz-lift" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:322px;margin-top:10px;padding:16px 20px;border-radius:11px;font-size:15px;font-weight:800;letter-spacing:.01em;cursor:pointer;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -12px var(--glow);">
+              <span data-price="49.99" style="font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--red-bright);">$49.99</span><span data-price="99.99" style="font-size:14px;color:var(--dim);text-decoration:line-through;">$99.99</span></div>
+            <button type="button" onclick="startDirectCheckout('viper', this)" class="fz-lift fz-cta-modern" style="width:100%;max-width:322px;margin-top:10px;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -12px var(--glow);">
               Get Access
             </button>
           </div>
@@ -657,8 +479,8 @@
           </div>
           <div class="prodMeta" style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:26px 12px 0;">
             <h3 style="margin:0;font-size:21px;font-weight:800;letter-spacing:-.02em;color:var(--tx);">Mamba v1.0</h3><div style="margin-top:-6px;font-size:13px;color:var(--dim);font-weight:500;">NBA 2K26 Cronus Zen Script</div><div style="display:flex;align-items:baseline;gap:9px;">
-              <span style="font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--red-bright);">€49.99</span><span style="font-size:14px;color:var(--dim);text-decoration:line-through;">€99.99</span></div>
-            <button onclick="startDirectCheckout('mamba', this)" class="fz-lift" style="display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:322px;margin-top:10px;padding:16px 20px;border-radius:11px;font-size:15px;font-weight:800;letter-spacing:.01em;cursor:pointer;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -12px var(--glow);">
+              <span data-price="49.99" style="font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--red-bright);">$49.99</span><span data-price="99.99" style="font-size:14px;color:var(--dim);text-decoration:line-through;">$99.99</span></div>
+            <button type="button" onclick="startDirectCheckout('mamba', this)" class="fz-lift fz-cta-modern" style="width:100%;max-width:322px;margin-top:10px;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -12px var(--glow);">
               Get Access
             </button>
           </div>
@@ -676,7 +498,7 @@
         <span style="display:inline-flex;align-items:center;gap:8px;padding:5px 13px 5px 6px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:-.01em;color:#fff;border:1px solid color-mix(in srgb,var(--red) 42%,transparent);background:color-mix(in srgb,var(--red) 12%,transparent);"><img src="assets/optimizer-badge.png" alt="" width="22" height="22" style="width:22px;height:22px;border-radius:6px;object-fit:cover;flex:none;">Zen Studio App <span style="padding:2px 7px;border-radius:999px;background:linear-gradient(135deg,#ff4757,#e11526);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em;margin-left:4px;box-shadow:0 0 12px rgba(225,21,38,.55);">NEW</span></span>
         <h2 style="margin:22px 0 0;font-size:45px;line-height:1.04;font-weight:800;letter-spacing:-.035em;max-width:480px;text-wrap:balance;">Optimize every script with the best values for your setup</h2>
         <p style="margin:18px 0 0;max-width:430px;font-size:15px;line-height:1.6;color:var(--mut);">Experience Zen Studio App - the most optimized values baked straight into your Cronus Zen, free to download with free access to every free script.</p>
-        <a href="#opt-download" class="fz-lift" style="display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:14px 26px;border-radius:11px;font-size:14.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 14px 30px -10px var(--glow);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>Download Zen Studio (.exe)</a>
+        <a href="/download" class="fz-lift fz-cta-modern" style="margin-top:28px;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 14px 30px -10px var(--glow);">Download Zen Studio</a>
       </div>
       <div class="optHeroRight" style="position:relative;z-index:1;align-self:stretch;min-height:432px;overflow:hidden;">
         <div style="position:absolute;left:52%;top:50%;transform:translate(-50%,-50%);width:120%;height:80%;background:radial-gradient(closest-side,var(--glow),transparent 72%);pointer-events:none;"></div>
@@ -714,7 +536,7 @@
             <div style="margin-top:5px;font-size:13px;color:var(--mut);">Zen Studio App - always the latest build, updates itself automatically.</div>
             <div style="margin-top:20px;display:flex;align-items:baseline;gap:6px;"><span style="font-size:34px;font-weight:800;letter-spacing:-.03em;color:#fff;">Free</span><span style="font-size:13px;color:var(--mut);"></span></div>
             <ul style="list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:11px;"><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>3 free scripts access: Edge, Rapid, Court</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>Core optimizer and mod menu functions</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>PC, PS5, PS4, and Xbox compatible</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>Zen Studio Live warning-clean export update</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:var(--dim);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;opacity:.7;"><path d="M6 6l12 12M18 6L6 18"></path></svg>No premium scripts</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:var(--dim);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;opacity:.7;"><path d="M6 6l12 12M18 6L6 18"></path></svg>No advanced features for new patches</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:var(--dim);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;opacity:.7;"><path d="M6 6l12 12M18 6L6 18"></path></svg>No priority 24/7 ticket support</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:var(--dim);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;opacity:.7;"><path d="M6 6l12 12M18 6L6 18"></path></svg>No early access updates</li></ul>
-            <a id="optimizer-download-button" href="assets/feroz-optimizer-installer.exe" download="Zen-Studio-Setup.exe" class="fz-lift" style="scroll-margin-top:120px;margin-top:24px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 18px;border-radius:999px;font-size:14.5px;font-weight:700;letter-spacing:-.01em;text-decoration:none;color:#15151a;border:1px solid rgba(255,255,255,.6);background:linear-gradient(180deg,#fdfdff,#cbccd3);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 28px -14px rgba(0,0,0,.7);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>Download Zen Studio (.exe)</a>
+            <a id="optimizer-download-button" href="assets/feroz-optimizer-installer.exe" download="Zen-Studio-Setup.exe" class="fz-lift fz-cta-modern" style="scroll-margin-top:120px;margin-top:24px;width:100%;color:#15151a;border:1px solid rgba(255,255,255,.6);background:linear-gradient(180deg,#fdfdff,#cbccd3);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 28px -14px rgba(0,0,0,.7);">Download Zen Studio</a>
           </div>
 
           <div class="gxTrace planCard" style="position:relative;overflow:hidden;border-radius:18px;border:1.5px solid transparent;background-image:linear-gradient(180deg,#130a0d,#0b0a0c),conic-gradient(from var(--bd),color-mix(in srgb,var(--red) 38%,transparent) 0deg,color-mix(in srgb,var(--red) 66%,transparent) 56deg,#ff8a55 92deg,#ffe7d8 118deg,#ff3a48 146deg,color-mix(in srgb,var(--red) 66%,transparent) 214deg,color-mix(in srgb,var(--red) 38%,transparent) 360deg);background-origin:padding-box,border-box;background-clip:padding-box,border-box;box-shadow:0 44px 100px -44px rgba(0,0,0,.92),0 0 70px -32px var(--glow);animation:bdSpin 15s linear infinite;text-align:left;">
@@ -723,9 +545,9 @@
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><h3 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-.02em;color:#fff;">Premium Access</h3><span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;color:#fff;background:linear-gradient(135deg,#ff4757,var(--red));box-shadow:0 6px 16px -6px var(--glow);">On sale</span></div>
               <div style="margin-top:5px;font-size:13px;color:var(--mut);">Every premium script - advanced features - priority support.</div>
               <div style="margin-top:20px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
-                <span style="font-size:34px;font-weight:800;letter-spacing:-.03em;color:#fff;">€99.67</span><span style="font-size:13px;color:var(--mut);">/ month</span><span style="font-size:13px;color:var(--dim);text-decoration:line-through;">€124.99</span><span style="font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:5px 10px;border-radius:999px;color:#78e3a5;background:rgba(18,83,51,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);">SAVE 20%</span></div>
+                <span data-price="89.99" style="font-size:34px;font-weight:800;letter-spacing:-.03em;color:#fff;">$89.99</span><span style="font-size:13px;color:var(--mut);">lifetime</span><span data-price="149.97" style="font-size:13px;color:var(--dim);text-decoration:line-through;">$149.97</span><span style="font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:5px 10px;border-radius:999px;color:#78e3a5;background:rgba(18,83,51,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);">SAVE 40%</span></div>
               <ul style="list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:11px;"><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>Everything in Free</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>All premium scripts - Apex, Viper, Mamba</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>Advanced features for the latest game patches</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>Advanced mod menu & anti-recoil</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>Priority 24/7 support</li><li style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;color:#c6c6ce;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;"><path d="M5 12l5 5L20 6"></path></svg>Early access profile updates</li></ul>
-              <button onclick="startDirectCheckout('bundle', this)" class="fz-lift" style="margin-top:24px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:999px;font-size:15px;font-weight:700;letter-spacing:-.01em;cursor:pointer;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -10px var(--glow);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.4L20 8l-4 4 1 6-5-2.8L7 18l1-6-4-4 5.6-.6z"></path></svg>Get Full Access</button>
+              <button type="button" onclick="startDirectCheckout('bundle', this)" class="fz-lift fz-cta-modern" style="margin-top:24px;width:100%;color:#fff;border:1px solid color-mix(in srgb,var(--red-bright) 70%,transparent);background:linear-gradient(180deg,#ff4757,var(--red) 46%,var(--red-deep));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(80,0,6,.4),0 16px 34px -10px var(--glow);">Get Full Access</button>
             </div>
           </div>
         </div>
@@ -742,8 +564,8 @@
     <p data-reveal style="margin:13px auto 0;max-width:460px;font-size:15.5px;color:var(--mut);">Real clips. Real results. Every single day.</p>
 
     <div data-reveal="fade" class="revGrid"><article data-reveal style="display:flex;flex-direction:column;text-align:center;" >
-          <div data-vidcard style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#000;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 60px -34px rgba(0,0,0,.9);"><iframe data-review-vimeo data-src="https://player.vimeo.com/video/1205333220?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;loop=0&amp;playsinline=1" src="about:blank" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Apex review" loading="lazy" style="position:absolute;top:0;left:50%;width:177.778%;height:100%;border:0;pointer-events:none;transform:translateX(-50%);"></iframe>
-              <button data-playbtn aria-label="Play clip" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(20,16,18,.28);backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);opacity:1;transition:transform .18s ease,background .18s ease,border-color .18s ease,opacity .3s ease;z-index:4;">
+          <div data-vidcard style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#000;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 60px -34px rgba(0,0,0,.9);"><iframe data-review-vimeo data-src="https://player.vimeo.com/video/1205333220?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;autoplay=1&amp;loop=1&amp;playsinline=1" src="about:blank" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Apex review" style="position:absolute;top:0;left:50%;width:177.778%;height:100%;border:0;pointer-events:none;transform:translateX(-50%);"></iframe>
+              <button data-playbtn aria-label="Play clip" style="position:absolute;inset:0;margin:auto;width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(20,16,18,.28);backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);opacity:1;transition:transform .18s ease,background .18s ease,border-color .18s ease,opacity .3s ease;z-index:4;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" style="margin-left:3px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45));"><path d="M8 5v14l11-7z"></path></svg>
               </button>
               <div data-seek style="position:absolute;bottom:0;left:0;right:0;height:18px;display:flex;align-items:flex-end;cursor:pointer;z-index:5;touch-action:none;">
@@ -760,8 +582,8 @@
             </div>
           </div>
         </article><article data-reveal style="display:flex;flex-direction:column;text-align:center;" >
-          <div data-vidcard style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#000;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 60px -34px rgba(0,0,0,.9);"><iframe data-review-vimeo data-src="https://player.vimeo.com/video/1205333219?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;loop=0&amp;playsinline=1" src="about:blank" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Viper review" loading="lazy" style="position:absolute;top:0;left:50%;width:177.778%;height:100%;border:0;pointer-events:none;transform:translateX(-50%);"></iframe>
-              <button data-playbtn aria-label="Play clip" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(20,16,18,.28);backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);opacity:1;transition:transform .18s ease,background .18s ease,border-color .18s ease,opacity .3s ease;z-index:4;">
+          <div data-vidcard style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#000;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 60px -34px rgba(0,0,0,.9);"><iframe data-review-vimeo data-src="https://player.vimeo.com/video/1205333219?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;autoplay=1&amp;loop=1&amp;playsinline=1" src="about:blank" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Viper review" style="position:absolute;top:0;left:50%;width:177.778%;height:100%;border:0;pointer-events:none;transform:translateX(-50%);"></iframe>
+              <button data-playbtn aria-label="Play clip" style="position:absolute;inset:0;margin:auto;width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(20,16,18,.28);backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);opacity:1;transition:transform .18s ease,background .18s ease,border-color .18s ease,opacity .3s ease;z-index:4;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" style="margin-left:3px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45));"><path d="M8 5v14l11-7z"></path></svg>
               </button>
               <div data-seek style="position:absolute;bottom:0;left:0;right:0;height:18px;display:flex;align-items:flex-end;cursor:pointer;z-index:5;touch-action:none;">
@@ -778,8 +600,8 @@
             </div>
           </div>
         </article><article data-reveal style="display:flex;flex-direction:column;text-align:center;" >
-          <div data-vidcard style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#000;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 60px -34px rgba(0,0,0,.9);"><iframe data-review-vimeo data-src="https://player.vimeo.com/video/1205333218?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;loop=0&amp;playsinline=1" src="about:blank" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Mamba review" loading="lazy" style="position:absolute;top:0;left:50%;width:177.778%;height:100%;border:0;pointer-events:none;transform:translateX(-50%);"></iframe>
-              <button data-playbtn aria-label="Play clip" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(20,16,18,.28);backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);opacity:1;transition:transform .18s ease,background .18s ease,border-color .18s ease,opacity .3s ease;z-index:4;">
+          <div data-vidcard style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#000;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 60px -34px rgba(0,0,0,.9);"><iframe data-review-vimeo data-src="https://player.vimeo.com/video/1205333218?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;controls=0&amp;muted=1&amp;autoplay=1&amp;loop=1&amp;playsinline=1" src="about:blank" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" title="Mamba review" style="position:absolute;top:0;left:50%;width:177.778%;height:100%;border:0;pointer-events:none;transform:translateX(-50%);"></iframe>
+              <button data-playbtn aria-label="Play clip" style="position:absolute;inset:0;margin:auto;width:62px;height:62px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(20,16,18,.28);backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);opacity:1;transition:transform .18s ease,background .18s ease,border-color .18s ease,opacity .3s ease;z-index:4;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" style="margin-left:3px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45));"><path d="M8 5v14l11-7z"></path></svg>
               </button>
               <div data-seek style="position:absolute;bottom:0;left:0;right:0;height:18px;display:flex;align-items:flex-end;cursor:pointer;z-index:5;touch-action:none;">
@@ -1022,7 +844,7 @@
 
   </main>
 
-  <footer style="position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);background:#050507;">
+  <footer style="position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);background:transparent;">
   <div class="footGrid" style="position:relative;z-index:2;max-width:1160px;margin:0 auto;padding:60px 24px 34px;display:grid;grid-template-columns:1.05fr .95fr;gap:44px;">
     <div style="max-width:340px;">
       <a href="/" style="display:inline-flex;align-items:center;text-decoration:none;"><img src="assets/logo-wordmark.png" alt="Feroz Zens" width="260" height="76" style="height:38px;width:auto;object-fit:contain;"></a>
@@ -1033,16 +855,16 @@
       </a>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;"><div >
-          <div style="font-size:12.5px;font-weight:600;color:#e2e2e7;margin-bottom:14px;">Navigation</div><a class="fz-footlink" href="#products"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Scripts</a><a class="fz-footlink" href="#expect"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Why Feroz</a><a class="fz-footlink" href="#reviews"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Reviews</a><a class="fz-footlink" href="#faq"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">FAQ</a></div><div >
+          <div style="font-size:12.5px;font-weight:600;color:#e2e2e7;margin-bottom:14px;">Navigation</div><a class="fz-footlink" href="/scripts"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Scripts</a><a class="fz-footlink" href="/why-feroz"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Why Feroz</a><a class="fz-footlink" href="/reviews"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Reviews</a><a class="fz-footlink" href="/faq"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">FAQ</a></div><div >
           <div style="font-size:12.5px;font-weight:600;color:#e2e2e7;margin-bottom:14px;">Socials</div><a class="fz-footlink" href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Discord</a><a class="fz-footlink" href="https://www.youtube.com/channel/UCizxPoTbmJmy9f0ST95JS1w" target="_blank" rel="noopener" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">YouTube</a><a class="fz-footlink" href="#"  style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">TikTok</a></div><div >
-          <div style="font-size:12.5px;font-weight:600;color:#e2e2e7;margin-bottom:14px;">Pages</div><a class="fz-footlink" href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Terms of service</a><a class="fz-footlink" href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Refund policy</a><a class="fz-footlink" href="portal.html" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Customer Portal</a></div></div>
+          <div style="font-size:12.5px;font-weight:600;color:#e2e2e7;margin-bottom:14px;">Pages</div><a class="fz-footlink" href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Terms of service</a><a class="fz-footlink" href="https://discord.gg/pZrkfnrqKJ" target="_blank" rel="noopener" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Refund policy</a><a class="fz-footlink" href="/dashboard" style="display:block;font-size:13px;color:var(--mut);text-decoration:none;margin-bottom:10px;">Customer Portal</a></div></div>
   </div>
   <div style="position:relative;height:clamp(120px,18vw,220px);margin-top:10px;overflow:hidden;pointer-events:none;">
     <div id="footStars" style="position:absolute;inset:0;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 60%);mask-image:linear-gradient(to bottom,transparent,#000 60%);"></div>
     <div style="position:absolute;inset:0;background:radial-gradient(90% 120% at 50% 145%,color-mix(in srgb,var(--red) 70%,transparent),color-mix(in srgb,var(--red) 22%,transparent) 42%,transparent 68%);"></div>
     <div style="position:absolute;inset:0;mix-blend-mode:overlay;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.5) .6px,transparent .7px);background-size:5px 5px;-webkit-mask-image:radial-gradient(120% 120% at 50% 150%,#000 35%,transparent 70%);mask-image:radial-gradient(120% 120% at 50% 150%,#000 35%,transparent 70%);"></div>
   </div>
-  <div style="position:relative;z-index:2;border-top:1px solid color-mix(in srgb,var(--red) 30%,transparent);background:color-mix(in srgb,var(--red) 12%,#060608);">
+  <div style="position:relative;z-index:2;border-top:1px solid color-mix(in srgb,var(--red) 30%,transparent);background:color-mix(in srgb,var(--red) 10%,transparent);">
     <div style="max-width:1160px;margin:0 auto;padding:18px 24px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:12.5px;color:#cdb6b6;">
       <span>Feroz Zens &copy; 2026</span>
       <span>All rights reserved.</span>
@@ -1060,272 +882,75 @@
 
   
 
-  <!-- Glassmorphic Modal: Transactions & Authorizations -->
+  
+  <!-- Minimalist Floating Modal: Transactions -->
   <div id="transactionsModal" class="fz-modal-overlay" onclick="closeModalOnBg(event, 'transactionsModal')">
-    <div class="fz-modal-box">
-      <div class="fz-modal-head">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div class="modal-icon-badge">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-          </div>
-          <div>
-            <h3 class="fz-modal-title">Purchases & Authorizations</h3>
-            <p class="fz-modal-sub">Verified orders linked to your Discord account</p>
-          </div>
-        </div>
-        <button type="button" class="fz-modal-close" onclick="closeModal('transactionsModal')">&times;</button>
+    <div class="fz-modal-card">
+      <div class="fz-modal-header">
+        <h3 class="fz-modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+          Transactions
+        </h3>
+        <button type="button" class="fz-modal-close" onclick="closeModal('transactionsModal')" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
       </div>
-
-      <div class="fz-modal-body" id="transModalBody">
-        <!-- Rendered dynamically -->
-      </div>
+      <div id="transModalBody" style="display:flex;flex-direction:column;gap:3px;"></div>
     </div>
   </div>
 
-  <!-- Glassmorphic Modal: Billing & Plans -->
+  <!-- Minimalist Floating Modal: Billing & Plans -->
   <div id="billingModal" class="fz-modal-overlay" onclick="closeModalOnBg(event, 'billingModal')">
-    <div class="fz-modal-box">
-      <div class="fz-modal-head">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div class="modal-icon-badge">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-          </div>
-          <div>
-            <h3 class="fz-modal-title">Billing & Subscription</h3>
-            <p class="fz-modal-sub">Payment models, renewal schedule & plans</p>
-          </div>
-        </div>
-        <button type="button" class="fz-modal-close" onclick="closeModal('billingModal')">&times;</button>
+    <div class="fz-modal-card">
+      <div class="fz-modal-header">
+        <h3 class="fz-modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          Billing &amp; Plans
+        </h3>
+        <button type="button" class="fz-modal-close" onclick="closeModal('billingModal')" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
       </div>
-
-      <div class="fz-modal-body">
-        <div class="billing-status-card">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
-            <div>
-              <span class="billing-badge-active">Lifetime Perpetual</span>
-              <h4 style="font-size: 17px; font-weight: 800; color: #fff; margin: 8px 0 3px;">Standard Script License</h4>
-              <p style="font-size: 12.5px; color: var(--mut); margin: 0;">One-time order model · No recurring fees</p>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div class="fz-modal-row" style="cursor:default;">
+          <div class="fz-modal-row-left">
+            <div class="fz-modal-row-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <div style="text-align: right;">
-              <span style="font-size: 22px; font-weight: 800; color: #fff;">€0.00</span>
-              <span style="display: block; font-size: 11px; color: var(--dim);">/ month</span>
-            </div>
+            <span class="fz-modal-row-title">Lifetime Access</span>
           </div>
-          <div style="height: 1px; background: rgba(255,255,255,0.06); margin: 14px 0;"></div>
-          <p style="font-size: 12.5px; color: #b5b5be; line-height: 1.5; margin: 0;">
-            All Feroz Zens scripts (Apex, Viper, Mamba) and Zen Studio App are perpetual one-time purchases with lifetime updates. You will never be charged a surprise recurring subscription.
-          </p>
+          <span class="fz-modal-row-action" style="color:#22c55e;">Active</span>
         </div>
-
-        <div class="billing-bundle-card">
-          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 13.5px; font-weight: 700; color: #fff;">All-Access Monthly Pass</span>
-              <span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--dim);">INACTIVE</span>
+        <div class="fz-modal-row" style="cursor:default;">
+          <div class="fz-modal-row-left">
+            <div class="fz-modal-row-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
             </div>
-            <span style="font-size: 12px; color: var(--dim);">Optional</span>
+            <span class="fz-modal-row-title">Recurring Fees</span>
           </div>
-          <p style="font-size: 12px; color: var(--mut); line-height: 1.45; margin: 0;">
-            If you ever subscribe to the All-Access Monthly Pass, your renewal days countdown, payment card, and instant 1-click cancellation will appear directly here.
-          </p>
+          <span data-price="0.00" class="fz-modal-row-action" style="color:#a1a1aa;">$0.00</span>
         </div>
-
-        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
-          <a href="portal.html" class="btn-modal-portal">
-            Go to Command Center &rarr;
-          </a>
+        <div class="fz-modal-row" style="cursor:default;">
+          <div class="fz-modal-row-left">
+            <div class="fz-modal-row-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            </div>
+            <span class="fz-modal-row-title">Cloud Updates</span>
+          </div>
+          <span class="fz-modal-row-action" style="color:#ffffff;">Included</span>
         </div>
       </div>
     </div>
   </div>
 
-  <style>
-    /* Modal Theme Glassmorphism */
-    .fz-modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 60;
-      background: rgba(0, 0, 0, 0.72);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    .fz-modal-overlay.active {
-      display: flex !important;
-    }
-    @keyframes modalFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .fz-modal-box {
-      width: 100%;
-      max-width: 520px;
-      background: rgba(12, 12, 16, 0.88);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      box-shadow: 0 32px 90px -20px rgba(0, 0, 0, 0.95), 0 0 45px -10px rgba(225, 21, 38, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      overflow: hidden;
-      animation: modalScaleIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    @keyframes modalScaleIn {
-      from { opacity: 0; transform: scale(0.95) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .fz-modal-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 20px 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      background: rgba(255, 255, 255, 0.02);
-    }
-    .modal-icon-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 11px;
-      background: rgba(225, 21, 38, 0.16);
-      border: 1px solid rgba(225, 21, 38, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ff4757;
-      box-shadow: 0 0 16px rgba(225, 21, 38, 0.3);
-      flex: none;
-    }
-    .fz-modal-title {
-      font-size: 16.5px;
-      font-weight: 800;
-      color: #fff;
-      margin: 0;
-      letter-spacing: -0.01em;
-    }
-    .fz-modal-sub {
-      font-size: 12px;
-      color: var(--mut);
-      margin: 2px 0 0;
-    }
-    .fz-modal-close {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #c6c6cd;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-      line-height: 1;
-      transition: all 0.14s ease;
-    }
-    .fz-modal-close:hover {
-      background: rgba(225, 21, 38, 0.2);
-      border-color: rgba(225, 21, 38, 0.4);
-      color: #ff4757;
-    }
-    .fz-modal-body {
-      padding: 22px 24px;
-      max-height: 70vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .billing-status-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 16px 18px;
-    }
-    .billing-badge-active {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(225, 21, 38, 0.16);
-      border: 1px solid rgba(225, 21, 38, 0.4);
-      color: #ff4757;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .billing-bundle-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px dashed rgba(255, 255, 255, 0.1);
-      border-radius: 14px;
-      padding: 14px 16px;
-    }
-    .btn-modal-portal {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(180deg, #ff4757, var(--red) 46%, var(--red-deep));
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      text-decoration: none;
-      box-shadow: 0 8px 20px -6px rgba(225, 21, 38, 0.4);
-      transition: all 0.15s ease;
-    }
-    .btn-modal-portal:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.08);
-    }
-    .btn-modal-dl {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(180deg, #ff4757, var(--red) 46%, var(--red-deep));
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(225, 21, 38, 0.35);
-      transition: all 0.14s ease;
-    }
-    .btn-modal-dl:hover {
-      filter: brightness(1.08);
-      transform: translateY(-1px);
-    }
-    .btn-modal-buy {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #e4e4ea;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      cursor: pointer;
-      transition: all 0.14s ease;
-    }
-    .btn-modal-buy:hover {
-      background: rgba(255, 255, 255, 0.14);
-      color: #fff;
-    }
-  </style>
 
   <!-- Stripe & Discord Integration Bridge -->
   <script>
-    const API_BASE = 'https://ferozzens.com';
-    window.CURRENT_USER = null;
+    const API_BASE = window.location.origin;
 
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    function escapeHtml(s) {
+      if (!s) return '';
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
 
     function toggleHomePopup(e) {
@@ -1344,23 +969,23 @@
     function closeAllPopups() {
       const wrap = document.getElementById('homeChipWrap');
       if (wrap) wrap.classList.remove('open');
-      document.querySelectorAll('.fz-modal-overlay').forEach(m => m.classList.remove('active'));
+      closeModal('transactionsModal');
+      closeModal('billingModal');
       document.body.classList.remove('blur-backdrop-active');
     }
 
     function closeModal(id) {
       const modal = document.getElementById(id);
       if (modal) modal.classList.remove('active');
+      const hasModal = document.querySelector('.fz-modal-overlay.active');
       const wrap = document.getElementById('homeChipWrap');
-      if (!wrap || !wrap.classList.contains('open')) {
+      if (!hasModal && (!wrap || !wrap.classList.contains('open'))) {
         document.body.classList.remove('blur-backdrop-active');
       }
     }
 
     function closeModalOnBg(e, id) {
-      if (e && e.target && e.target.id === id) {
-        closeModal(id);
-      }
+      if (e && e.target && e.target.id === id) closeModal(id);
     }
 
     function openTransactionsModal() {
@@ -1369,64 +994,41 @@
       const body = document.getElementById('transModalBody');
       if (!modal || !body) return;
 
-      const user = window.CURRENT_USER && window.CURRENT_USER.user ? window.CURRENT_USER.user : null;
-      const ent = window.CURRENT_USER && window.CURRENT_USER.entitlements ? window.CURRENT_USER.entitlements : null;
-      const isStaff = ent && (ent.staff || ent.admin);
-      const hasApex = isStaff || (ent && ent.scripts && ent.scripts.apex);
-      const hasViper = isStaff || (ent && ent.scripts && ent.scripts.viper);
-      const hasMamba = isStaff || (ent && ent.scripts && ent.scripts.mamba);
+      const ent = (window.CURRENT_USER && window.CURRENT_USER.entitlements) || {};
+      const user = (window.CURRENT_USER && window.CURRENT_USER.user) || {};
+      const isStaff = !!(ent.staff || ent.admin) || user.id === '1393248248663376055';
+      const hasApex = isStaff || !!(ent.scripts && ent.scripts.apex);
+      const hasViper = isStaff || !!(ent.scripts && ent.scripts.viper);
+      const hasMamba = isStaff || !!(ent.scripts && ent.scripts.mamba);
 
-      let html = `
-        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);">
-          <img src="${user && user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64` : 'assets/favicon.png'}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--red-bright);">
-          <div style="min-width:0;flex:1;">
-            <div style="font-size:14px;font-weight:700;color:#fff;">${user ? escapeHtml(user.username) : 'Customer'}</div>
-            <div style="font-size:11px;color:var(--dim);font-family:monospace;">ID: ${user ? user.id : 'N/A'} · Discord Linked</div>
-          </div>
-          <span style="font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;background:rgba(225,21,38,0.15);border:1px solid rgba(225,21,38,0.4);color:#ff4757;">
-            ${isStaff ? 'STAFF' : (hasApex || hasViper || hasMamba ? 'ACTIVE CUSTOMER' : 'FREE ACCESS')}
-          </span>
-        </div>
-
-        <div style="font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.05em;margin-top:4px;">Your Products & Authorizations</div>
-      `;
-
-      const products = [
-        { id: 'apex', name: 'Apex v1.0', game: 'Fortnite', price: '€49.99', unlocked: hasApex, file: 'Apex_v1.0.gpc' },
-        { id: 'viper', name: 'Viper v1.0', game: 'Call of Duty', price: '€49.99', unlocked: hasViper, file: 'Viper_v1.0.gpc' },
-        { id: 'mamba', name: 'Mamba v1.0', game: 'NBA 2K26', price: '€49.99', unlocked: hasMamba, file: 'Mamba_v1.0.gpc' }
+      const items = [
+        { id: 'apex', name: 'Apex', unlocked: hasApex, icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>' },
+        { id: 'viper', name: 'Viper', unlocked: hasViper, icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
+        { id: 'mamba', name: 'Mamba', unlocked: hasMamba, icon: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>' }
       ];
 
-      products.forEach(p => {
-        html += `
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:#fff;">${p.name}</div>
-              <div style="font-size:11.5px;color:var(--dim);">${p.game} · ${p.unlocked ? 'Lifetime Perpetual' : p.price}</div>
+      body.innerHTML = items.map(p => p.unlocked ? `
+        <a href="/dashboard" class="fz-modal-row unlocked">
+          <div class="fz-modal-row-left">
+            <div class="fz-modal-row-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${p.icon}</svg>
             </div>
-            ${p.unlocked 
-              ? `<a href="portal.html" class="btn-modal-dl">Download</a>`
-              : `<button onclick="closeModal('transactionsModal');startDirectCheckout('${p.id}')" class="btn-modal-buy">Get Access</button>`
-            }
+            <span class="fz-modal-row-title">${p.name}</span>
           </div>
-        `;
-      });
-
-      html += `
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);">
-          <div>
-            <div style="font-size:14px;font-weight:700;color:#fff;">Zen Studio App v3.9.5</div>
-            <div style="font-size:11.5px;color:var(--dim);">Windows Companion · Official Release</div>
+          <span class="fz-modal-row-action">Download</span>
+        </a>
+      ` : `
+        <button type="button" onclick="closeModal('transactionsModal');startDirectCheckout('${p.id}', this)" class="fz-modal-row">
+          <div class="fz-modal-row-left">
+            <div class="fz-modal-row-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${p.icon}</svg>
+            </div>
+            <span class="fz-modal-row-title">${p.name}</span>
           </div>
-          <a href="portal.html" class="btn-modal-dl">Download .exe</a>
-        </div>
+          <span class="fz-modal-row-action">Get Access</span>
+        </button>
+      `).join('');
 
-        <div style="margin-top:6px;display:flex;justify-content:flex-end;">
-          <a href="portal.html" class="btn-modal-portal">Open Command Center &rarr;</a>
-        </div>
-      `;
-
-      body.innerHTML = html;
       modal.classList.add('active');
       document.body.classList.add('blur-backdrop-active');
     }
@@ -1449,12 +1051,9 @@
       }
     });
 
-    // Reactive Scripts hover blur
     const fzScripts = document.querySelector('.fz-scripts');
     if (fzScripts) {
-      fzScripts.addEventListener('mouseenter', () => {
-        document.body.classList.add('blur-backdrop-active');
-      });
+      fzScripts.addEventListener('mouseenter', () => document.body.classList.add('blur-backdrop-active'));
       fzScripts.addEventListener('mouseleave', () => {
         const wrap = document.getElementById('homeChipWrap');
         const hasModal = document.querySelector('.fz-modal-overlay.active');
@@ -1464,96 +1063,204 @@
       });
     }
 
-    function homeLogout() {
-      localStorage.removeItem('fz_token');
-      localStorage.removeItem('feroz_token');
-      window.location.reload();
-    }
-
-    async function startDirectCheckout(tier, btn) {
-      if (btn) {
-        btn.disabled = true;
-        btn.style.opacity = '0.75';
-        btn.style.cursor = 'wait';
-      }
-      try {
-        const res = await fetch(`${API_BASE}/v1/checkout/create-session`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tier, return_url: window.location.origin })
-        });
-        const data = await res.json();
-        if (data.ok && data.url) {
-          window.location.href = data.url;
-        } else {
-          alert('Checkout unavailable: ' + (data.error || 'Server error'));
-          if (btn) {
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            btn.style.cursor = 'pointer';
-          }
-        }
-      } catch (err) {
-        alert('Network connection error.');
-        if (btn) {
-          btn.disabled = false;
-          btn.style.opacity = '1';
-          btn.style.cursor = 'pointer';
-        }
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // Check for token in URL fragment or search from Discord OAuth redirect
-      if (window.location.hash && window.location.hash.includes('token=')) {
-        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
-        const token = hashParams.get('token') || hashParams.get('access_token');
-        if (token) {
-          localStorage.setItem('fz_token', token);
-          localStorage.setItem('feroz_token', token);
-          window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
-        }
-      }
-
-      // Check live Discord login session
-      const token = localStorage.getItem('fz_token') || localStorage.getItem('feroz_token');
+    function hydrateHomeUserUI(data) {
+      if (!data || !data.user) return;
+      window.CURRENT_USER = data;
       const homeChipBtn = document.getElementById('homeChipBtn');
       const homeLoginBtn = document.getElementById('homeLoginBtn');
       const homeAvatar = document.getElementById('homeAvatar');
       const homeUsername = document.getElementById('homeUsername');
       const menuAvatar = document.getElementById('menuAvatar');
       const menuUsername = document.getElementById('menuUsername');
-      const menuRoleBadge = document.getElementById('menuRoleBadge');
 
-      if (token && homeChipBtn && homeLoginBtn) {
+      const avatarUrl = data.user.avatar
+        ? `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png?size=128`
+        : 'assets/favicon.png';
+
+      if (homeAvatar) homeAvatar.src = avatarUrl;
+      if (homeUsername) homeUsername.textContent = data.user.username || 'Member';
+      if (menuAvatar) menuAvatar.src = avatarUrl;
+      if (menuUsername) {
+        menuUsername.textContent = data.user.username || 'Member';
+        const ent = data.entitlements || {};
+        const isStaff = !!(ent.staff || ent.admin) || data.user.id === '1393248248663376055';
+        const hasApex = isStaff || !!(ent.scripts && ent.scripts.apex);
+        const hasViper = isStaff || !!(ent.scripts && ent.scripts.viper);
+        const hasMamba = isStaff || !!(ent.scripts && ent.scripts.mamba);
+        menuUsername.className = 'popup-username ' + (isStaff ? 'glow-staff' : ((hasApex || hasViper || hasMamba) ? 'glow-premium' : 'glow-member'));
+      }
+
+      if (homeLoginBtn) homeLoginBtn.style.display = 'none';
+      if (homeChipBtn) homeChipBtn.style.display = 'inline-flex';
+    }
+
+    async function syncRoles(btn) {
+      const token = localStorage.getItem('fz_token') || localStorage.getItem('feroz_token');
+      if (!token) return;
+      const titleSpan = btn ? btn.querySelector('.menu-item-title') : null;
+      const origText = titleSpan ? titleSpan.textContent : 'Sync Roles';
+      if (titleSpan) titleSpan.textContent = 'Syncing...';
+      try {
+        const res = await fetch(API_BASE + '/v1/me?refresh=true', {
+          headers: { Authorization: 'Bearer ' + token }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.user) {
+            localStorage.setItem('fz_user_cache', JSON.stringify(data));
+            hydrateHomeUserUI(data);
+            if (titleSpan) titleSpan.textContent = 'Synced';
+          }
+        }
+      } catch (e) {
+        if (titleSpan) titleSpan.textContent = 'Error';
+      }
+      setTimeout(() => { if (titleSpan) titleSpan.textContent = origText; }, 1400);
+    }
+
+    function homeLogout() {
+      localStorage.removeItem('fz_token');
+      localStorage.removeItem('feroz_token');
+      localStorage.removeItem('fz_user_cache');
+      localStorage.removeItem('fz_cached_user');
+      window.CURRENT_USER = null;
+      window.location.reload();
+    }
+
+    async function startDirectCheckout(tier, btn) {
+      const origHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.8';
+        btn.style.cursor = 'wait';
+        btn.textContent = 'Redirecting to Stripe...';
+      }
+      try {
+        const user = (window.CURRENT_USER && window.CURRENT_USER.user) || {};
+        const res = await fetch(`${API_BASE}/v1/checkout/create-session`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tier,
+            discord_id: user.id || '',
+            discord_username: user.username || '',
+            currency: window.FZ_CURRENCY || "",
+            return_url: window.location.origin
+          })
+        });
+        const data = await res.json();
+        if (data && data.ok && data.url) {
+          window.location.href = data.url;
+          return;
+        }
+        alert('Checkout unavailable: ' + ((data && data.error) || 'Please try again'));
+      } catch (err) {
+        alert('Network error connecting to Stripe checkout.');
+      }
+      if (btn) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        btn.innerHTML = origHtml;
+      }
+    }
+
+    
+    // Worldwide Currency Detection (USD, EUR, GBP, CAD, AUD)
+    window.FZ_CURRENCY = 'usd';
+    window.FZ_SYMBOL = '$';
+    (function initGeoCurrency() {
+      // Quick timezone heuristic for 0ms initial paint before /v1/geo edge response
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        if (tz.startsWith('Europe/London') || tz.startsWith('Europe/Belfast')) {
+          window.FZ_CURRENCY = 'gbp'; window.FZ_SYMBOL = '£';
+        } else if (tz.startsWith('Europe/')) {
+          window.FZ_CURRENCY = 'eur'; window.FZ_SYMBOL = '€';
+        }
+      } catch (e) {}
+
+      function applyCurrencySymbol(sym, cur) {
+        window.FZ_SYMBOL = sym;
+        window.FZ_CURRENCY = cur;
+        document.querySelectorAll('[data-price]').forEach(el => {
+          const val = el.getAttribute('data-price');
+          if (val) el.textContent = sym + val;
+        });
+      }
+      applyCurrencySymbol(window.FZ_SYMBOL, window.FZ_CURRENCY);
+
+      fetch(API_BASE + '/v1/geo')
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          if (d && d.symbol && d.currency) {
+            applyCurrencySymbol(d.symbol, d.currency);
+          }
+        })
+        .catch(() => {});
+    })();
+
+    // Immediate Session Hydration & Persistence
+    (function initSessionPersistence() {
+      // 1. Capture token from URL hash or query string if returning from Discord OAuth
+      if (window.location.hash && window.location.hash.includes('token=')) {
+        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+        const t = hashParams.get('token') || hashParams.get('access_token');
+        if (t) {
+          localStorage.setItem('fz_token', t);
+          localStorage.setItem('feroz_token', t);
+          window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+        }
+      }
+      if (window.location.search && window.location.search.includes('token=')) {
+        const searchParams = new URLSearchParams(window.location.search);
+        const t = searchParams.get('token') || searchParams.get('access_token');
+        if (t) {
+          localStorage.setItem('fz_token', t);
+          localStorage.setItem('feroz_token', t);
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }
+
+      const token = localStorage.getItem('fz_token') || localStorage.getItem('feroz_token');
+      const cachedRaw = localStorage.getItem('fz_user_cache') || localStorage.getItem('fz_cached_user');
+
+      // 2. Instant 0ms render from localStorage cache so user NEVER appears logged out on Home
+      if (cachedRaw) {
+        try {
+          const cachedData = JSON.parse(cachedRaw);
+          if (cachedData && cachedData.user) {
+            hydrateHomeUserUI(cachedData);
+          }
+        } catch (e) {}
+      }
+
+      // 3. Background verification & role sync with Cloudflare Worker
+      if (token) {
         fetch(API_BASE + '/v1/me', { headers: { Authorization: `Bearer ${token}` } })
-          .then(r => r.json())
+          .then(r => {
+            if (r.status === 401 || r.status === 403) {
+              localStorage.removeItem('fz_token');
+              localStorage.removeItem('feroz_token');
+              localStorage.removeItem('fz_user_cache');
+              localStorage.removeItem('fz_cached_user');
+              const homeLoginBtn = document.getElementById('homeLoginBtn');
+              const homeChipBtn = document.getElementById('homeChipBtn');
+              if (homeLoginBtn) homeLoginBtn.style.display = 'inline-flex';
+              if (homeChipBtn) homeChipBtn.style.display = 'none';
+              return null;
+            }
+            return r.ok ? r.json() : null;
+          })
           .then(data => {
-            if (data.user) {
-              window.CURRENT_USER = data;
-              const avatarUrl = data.user.avatar
-                ? `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png?size=64`
-                : 'assets/favicon.png';
-
-              if (homeAvatar) homeAvatar.src = avatarUrl;
-              if (homeUsername) homeUsername.textContent = data.user.username;
-              if (menuAvatar) menuAvatar.src = avatarUrl;
-              if (menuUsername) menuUsername.textContent = data.user.username;
-
-              const ent = data.entitlements || {};
-              if (menuRoleBadge) {
-                if (ent.staff || ent.admin) menuRoleBadge.textContent = 'Staff Access';
-                else if (ent.scripts && (ent.scripts.apex || ent.scripts.viper || ent.scripts.mamba)) menuRoleBadge.textContent = 'Lifetime Member';
-                else menuRoleBadge.textContent = 'Community Member';
-              }
-
-              homeLoginBtn.style.display = 'none';
-              homeChipBtn.style.display = 'inline-flex';
+            if (data && data.user) {
+              localStorage.setItem('fz_user_cache', JSON.stringify(data));
+              hydrateHomeUserUI(data);
             }
           })
           .catch(() => {});
       }
-    });
+    })();
   </script>
 
   <!-- 2.5D Eclipse Annular Ring Loader (Exclusive Conditional Modal) -->
